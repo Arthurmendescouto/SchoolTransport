@@ -1,9 +1,30 @@
+###############################
+# Maven / JavaFX Project
+###############################
+
+# Diretórios de build e compilação
 target/
-!.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### IntelliJ IDEA ###
+# Maven Wrapper
+!.mvn/wrapper/maven-wrapper.jar
+mvnw.cmd
+mvnw
+
+# Logs e temporários
+*.log
+*.tmp
+*.bak
+
+# Arquivos de backup do editor
+*~
+*.swp
+
+###############################
+# IntelliJ IDEA
+###############################
+.idea/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
@@ -11,17 +32,22 @@ target/
 *.iws
 *.iml
 *.ipr
+out/
 
-### Eclipse ###
+###############################
+# Eclipse
+###############################
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### NetBeans ###
+###############################
+# NetBeans
+###############################
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -31,8 +57,21 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+###############################
+# VS Code
+###############################
 .vscode/
 
-### Mac OS ###
+###############################
+# Sistema operacional
+###############################
+# macOS
 .DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
