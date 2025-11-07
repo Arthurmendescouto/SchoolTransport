@@ -22,7 +22,7 @@
                     <Insets right="5.0" />
                 </HBox.margin>
             </Label>
-         <Button mnemonicParsing="false" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
+         <Button mnemonicParsing="false" styleClass="bottom" stylesheets="@styles.css" text="← Voltar" />
         </HBox>
 
         <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">

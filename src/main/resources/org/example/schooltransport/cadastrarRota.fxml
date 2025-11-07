@@ -48,7 +48,7 @@
             <HBox alignment="CENTER_LEFT" spacing="10.0" />
 
             <HBox alignment="CENTER_LEFT" spacing="10.0" />
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Concluir">
+            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar">
                 <VBox.margin>
                     <Insets top="20.0" />
                 </VBox.margin>
