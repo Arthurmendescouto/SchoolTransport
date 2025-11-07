@@ -23,7 +23,8 @@
 }
 
 .label-campo {
-    -fx-font-size: 14.0;
+    -fx-font-size: 16.0;
+    -fx-text-fill: gray;
 }
 
 .form-field {
@@ -38,6 +39,6 @@
     -fx-background-color: #FF5722;
     -fx-text-fill: WHITE;
     -fx-font-size: 16px;
-    -fx-background-radius: 10;
+    -fx-background-radius: 20;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
