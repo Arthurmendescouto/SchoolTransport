@@ -42,3 +42,10 @@
     -fx-background-radius: 20;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
+
+.bottom_voltar{
+    -fx-background-color: #FF5722;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 17px;
+    -fx-background-radius: 20;
+}
