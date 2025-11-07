@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #FF5722;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegisterStopController">
+    <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="NEVER">
+            <padding>
+                <Insets left="20.0" top="20.0" />
+            </padding>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" >
+                <image>
+
+                </image>
+            </ImageView>
+            <Label text="Voltar" textFill="WHITE">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Label>
+        </HBox>
+
+        <Label text="Cadastrar parada:" textFill="WHITE" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+            <padding>
+                <Insets left="20.0" right="20.0" />
+            </padding>
+        </Label>
+
+        <VBox alignment="TOP_CENTER" spacing="15.0" style="-fx-background-color: WHITE; -fx-background-radius: 20;" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+            </padding>
+            <VBox.margin>
+                <Insets left="15.0" right="15.0" />
+            </VBox.margin>
+
+            <Label text="Parada:" alignment="CENTER_LEFT" maxWidth="Infinity">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
+            <TextField fx:id="campoNomeParada" promptText="Nome da Parada" styleClass="form-field" />
+
+            <TextField fx:id="campoCEP" promptText="CEP" styleClass="form-field" />
+            <TextField fx:id="campoLogradouro" promptText="Logradouro" styleClass="form-field" />
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <TextField fx:id="campoNumero" promptText="Número" styleClass="form-field" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="campoBairro" promptText="Bairro" styleClass="form-field" HBox.hgrow="ALWAYS" />
+            </HBox>
+
+            <TextField fx:id="campoComplemento" promptText="Complemento" styleClass="form-field" />
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <TextField fx:id="campoCidade" promptText="Cidade" styleClass="form-field" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="campoEstado" promptText="Estado" styleClass="form-field" HBox.hgrow="ALWAYS" />
+            </HBox>
+
+            <Label fx:id="mensagemStatus" text="" textFill="RED" /> <Button  text="Concluir" style="-fx-background-color: #FF5722; -fx-text-fill: WHITE; -fx-font-size: 16px; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);" maxWidth="Infinity" prefHeight="45.0">
+            <VBox.margin>
+                <Insets top="20.0" />
+            </VBox.margin>
+        </Button>
+        </VBox>
+    </VBox>
+    <stylesheets>
+    </stylesheets>
+</AnchorPane>
