@@ -16,11 +16,11 @@
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-            <Label text="&#x2190; Voltar" styleClass="label-voltar">
+            <Button text="&#x2190; Voltar" styleClass="voltar">
                 <HBox.margin>
                     <Insets right="5.0" />
                 </HBox.margin>
-            </Label>
+            </Button>
         </HBox>
 
         <Label alignment="CENTER_LEFT" text="Cadastrar parada:" styleClass="titulo-principal" HBox.hgrow="ALWAYS">
@@ -55,7 +55,7 @@
                 <TextField fx:id="campoEstado" promptText="Estado" styleClass="form-field" HBox.hgrow="ALWAYS" />
             </HBox>
 
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" text="Concluir">
+            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="button" text="Concluir">
                 <VBox.margin>
                     <Insets top="20.0" />
                 </VBox.margin>
