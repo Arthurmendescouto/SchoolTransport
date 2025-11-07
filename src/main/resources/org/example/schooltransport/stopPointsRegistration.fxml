@@ -7,35 +7,29 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #FF5722;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegisterStopController">
-    <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: WHITE;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegisterStopController">
+    <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: #FF5722;" VBox.vgrow="NEVER">
+        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-            <Label text="&#x2190; Voltar" textFill="WHITE">
-                <font>
-                    <Font size="16.0" />
-                </font>
+            <Label text="&#x2190; Voltar" styleClass="label-voltar">
                 <HBox.margin>
                     <Insets right="5.0" />
                 </HBox.margin>
             </Label>
         </HBox>
 
-        <Label alignment="CENTER_LEFT" text="Cadastrar parada:" textFill="#ff3b00" HBox.hgrow="ALWAYS">
-            <font>
-                <Font name="System Bold" size="24.0" />
-            </font>
+        <Label alignment="CENTER_LEFT" text="Cadastrar parada:" styleClass="titulo-principal" HBox.hgrow="ALWAYS">
             <padding>
                 <Insets left="20.0" right="20.0" />
             </padding>
         </Label>
 
-        <VBox alignment="TOP_CENTER" spacing="15.0" style="-fx-background-color: #FFFAF7; -fx-background-radius: 25;" VBox.vgrow="ALWAYS">
+        <VBox alignment="TOP_CENTER" spacing="15.0" styleClass="painel-formulario" VBox.vgrow="ALWAYS">
             <padding>
                 <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
             </padding>
@@ -43,29 +37,26 @@
                 <Insets left="15.0" right="15.0" />
             </VBox.margin>
 
-            <Label alignment="CENTER_LEFT" maxWidth="Infinity" text="Parada:">
-                <font>
-                    <Font size="14.0" />
-                </font>
-            </Label>
-            <TextField fx:id="campoNomeParada" promptText="Nome da Parada" style="-fx-border-color: #FFB08E; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-padding: 12px; -fx-border-width: 1.5px;"  styleClass="form-field" />
-            <TextField fx:id="campoCEP" promptText="CEP" style="-fx-border-color: #FFB08E; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-padding: 12px; -fx-border-width: 1.5px;"  styleClass="form-field" />
-            <TextField fx:id="campoLogradouro" promptText="Logradouro" style="-fx-border-color: #FFB08E; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-padding: 12px; -fx-border-width: 1.5px;" styleClass="form-field" />
+            <Label alignment="CENTER_LEFT" maxWidth="Infinity" text="Parada:" styleClass="label-campo" />
+
+            <TextField fx:id="campoNomeParada" promptText="Nome da Parada" styleClass="form-field" />
+            <TextField fx:id="campoCEP" promptText="CEP" styleClass="form-field" />
+            <TextField fx:id="campoLogradouro" promptText="Logradouro" styleClass="form-field" />
 
             <HBox alignment="CENTER_LEFT" spacing="10.0">
-                <TextField fx:id="campoNumero" promptText="Número" style="-fx-border-color: #FFB08E; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-padding: 12px; -fx-border-width: 1.5px;" styleClass="form-field" HBox.hgrow="ALWAYS" />
-                <TextField fx:id="campoBairro" promptText="Bairro" style="-fx-border-color: #FFB08E; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-padding: 12px; -fx-border-width: 1.5px;"  styleClass="form-field" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="campoNumero" promptText="Número" styleClass="form-field" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="campoBairro" promptText="Bairro" styleClass="form-field" HBox.hgrow="ALWAYS" />
             </HBox>
 
-            <TextField fx:id="campoComplemento" promptText="Complemento" style="-fx-border-color: #FFB08E; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-padding: 12px; -fx-border-width: 1.5px;" styleClass="form-field" />
+            <TextField fx:id="campoComplemento" promptText="Complemento" styleClass="form-field" />
 
             <HBox alignment="CENTER_LEFT" spacing="10.0">
-                <TextField fx:id="campoCidade" promptText="Cidade" style="-fx-border-color: #FFB08E; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-padding: 12px; -fx-border-width: 1.5px;" styleClass="form-field" HBox.hgrow="ALWAYS" />
-                <TextField fx:id="campoEstado" promptText="Estado" style="-fx-border-color: #FFB08E; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-padding: 12px; -fx-border-width: 1.5px;" styleClass="form-field" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="campoCidade" promptText="Cidade" styleClass="form-field" HBox.hgrow="ALWAYS" />
+                <TextField fx:id="campoEstado" promptText="Estado" styleClass="form-field" HBox.hgrow="ALWAYS" />
             </HBox>
 
-            <Label fx:id="mensagemStatus" text="" textFill="RED" />
-            <Button maxWidth="Infinity" prefHeight="45.0" style="-fx-background-color: #FF5722; -fx-text-fill: WHITE; -fx-font-size: 16px; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);" text="Concluir">
+            <Label fx:id="mensagemStatus" text="" styleClass="mensagem-status" />
+            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="botao-primario" text="Concluir">
                 <VBox.margin>
                     <Insets top="20.0" />
                 </VBox.margin>
@@ -73,5 +64,6 @@
         </VBox>
     </VBox>
     <stylesheets>
+        <URL value="@styles.css" />
     </stylesheets>
 </AnchorPane>
