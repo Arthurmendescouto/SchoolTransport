@@ -9,16 +9,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.CadastrarParadaController">
     <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <HBox alignment="CENTER_LEFT" prefHeight="71.0" prefWidth="400.0" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-         <children>
-            <Button mnemonicParsing="false" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
-         </children>
+            <children>
+                <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#voltar" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
+            </children>
         </HBox>
 
         <Label alignment="CENTER_LEFT" styleClass="titulo-principal" text="Cadastrar parada:" HBox.hgrow="ALWAYS">
@@ -53,7 +53,7 @@
                 <TextField fx:id="campoEstado" promptText="Estado" styleClass="form-field" HBox.hgrow="ALWAYS" />
             </HBox>
 
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" text="Concluir">
+            <Button fx:id="btnConcluir" maxWidth="Infinity" onAction="#concluirCadastro" prefHeight="45.0" styleClass="bottom" text="Concluir">
                 <VBox.margin>
                     <Insets top="20.0" />
                 </VBox.margin>
