@@ -22,6 +22,10 @@ public class Cadastro {
         listaDeParadas.add(parada);
     }
 
+    public void removerParada(Parada parada){
+        listaDeParadas.remove(parada);
+    }
+
     public ObservableList<Parada> getListaDeParadas() {
         return listaDeParadas;
     }

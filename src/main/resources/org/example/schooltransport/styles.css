@@ -49,3 +49,25 @@
     -fx-font-size: 17px;
     -fx-background-radius: 20;
 }
+.parada-item {
+    -fx-background-color: #FFFAF7;
+    -fx-border-color: #FFB08E;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+}
+
+.parada-nome-texto {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.btn-entregue-status {
+    -fx-background-color: #FF5722;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 10px;
+    -fx-background-radius: 5px;
+}
