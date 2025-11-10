@@ -12,59 +12,91 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.CadastrarParadaController">
-    <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.schooltransport.controllers.CadastrarVeiculoController">
 
+    <VBox alignment="TOP_CENTER" spacing="20.0"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <!-- Cabeçalho -->
         <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
             <padding>
-                <Insets bottom="20.0" left="20.0" top="20.0" />
+                <Insets bottom="20.0" left="20.0" top="20.0"/>
             </padding>
-         <Button mnemonicParsing="false" styleClass="bottom" stylesheets="@styles.css" text="← Voltar" />
+            <Button mnemonicParsing="false" styleClass="bottom" stylesheets="@styles.css" text="← Voltar"
+                    fx:id="botaoVoltar"/>
         </HBox>
 
+        <!-- Formulário -->
         <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
             <padding>
-                <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
+                <Insets bottom="30.0" left="20.0" right="20.0" top="30.0"/>
             </padding>
-            <VBox.margin>
-                <Insets left="15.0" right="15.0" />
-            </VBox.margin>
-   
-           <Label alignment="CENTER_LEFT" styleClass="titulo-principal" text="Cadastrar veiculo:">
-               <padding>
-                   <Insets bottom="20.0" left="20.0" right="20.0" />
-               </padding>
-            <font>
-               <Font name="Quicksand Bold" size="12.0" />
-            </font>
-           </Label>
-         <HBox prefHeight="25.0" prefWidth="330.0">
-            <children>
-               <ImageView fitHeight="23.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/busIcon.png" />
-                  </image>
-               </ImageView>
-      
-                  <Label alignment="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="140.0" styleClass="label-campo" text="Modelo do ônibus:" />
-            </children>
-         </HBox>
 
-            <TextField fx:id="campoNomeParada" styleClass="form-field" />
+            <Label alignment="CENTER_LEFT" styleClass="titulo-principal" text="Cadastrar veículo:">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0"/>
+                </padding>
+                <font>
+                    <Font name="Quicksand Bold" size="12.0"/>
+                </font>
+            </Label>
 
-            <HBox alignment="CENTER_LEFT" spacing="10.0" />
+            <!-- Modelo -->
+            <HBox prefHeight="25.0" prefWidth="330.0">
+                <children>
+                    <ImageView fitHeight="23.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/busIcon.png"/>
+                        </image>
+                    </ImageView>
+                    <Label alignment="CENTER_LEFT" maxWidth="Infinity" styleClass="label-campo"
+                           text="Modelo do ônibus:"/>
+                </children>
+            </HBox>
+            <TextField fx:id="campoModeloOnibus" styleClass="form-field"/>
 
-            <HBox alignment="CENTER_LEFT" spacing="10.0" />
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar">
+            <!-- Placa -->
+            <HBox prefHeight="25.0" prefWidth="330.0">
+                <children>
+                    <ImageView fitHeight="23.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/plateIcon.png"/>
+                        </image>
+                    </ImageView>
+                    <Label alignment="CENTER_LEFT" maxWidth="Infinity" styleClass="label-campo" text="Placa:"/>
+                </children>
+            </HBox>
+            <TextField fx:id="campoPlaca" styleClass="form-field"/>
+
+            <!-- Capacidade -->
+            <HBox prefHeight="25.0" prefWidth="330.0">
+                <children>
+                    <ImageView fitHeight="23.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/seatIcon.png"/>
+                        </image>
+                    </ImageView>
+                    <Label alignment="CENTER_LEFT" maxWidth="Infinity" styleClass="label-campo" text="Capacidade:"/>
+                </children>
+            </HBox>
+            <TextField fx:id="campoCapacidade" styleClass="form-field"/>
+
+            <!-- Botão cadastrar -->
+            <Button fx:id="botaoCadastrar" maxWidth="Infinity" prefHeight="45.0" styleClass="bottom"
+                    stylesheets="@styles.css" text="Cadastrar">
                 <VBox.margin>
-                    <Insets top="20.0" />
+                    <Insets top="20.0"/>
                 </VBox.margin>
             </Button>
 
-            <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
+            <Label fx:id="mensagemStatus" styleClass="mensagem-status" text=""/>
         </VBox>
     </VBox>
+
     <stylesheets>
-        <URL value="@styles.css" />
+        <URL value="@styles.css"/>
     </stylesheets>
 </AnchorPane>

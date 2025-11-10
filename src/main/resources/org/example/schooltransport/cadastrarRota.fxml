@@ -12,17 +12,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="790.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
+<AnchorPane prefHeight="790.0" prefWidth="400.0" styleClass="root"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.schooltransport.controllers.CadastrarRotaController">
 
-    <VBox alignment="TOP_CENTER" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <VBox alignment="TOP_CENTER" spacing="20.0"
+          AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="0.0">
 
+        <!-- Cabeçalho -->
         <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-            <Button mnemonicParsing="false" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
+            <Button fx:id="botaoVoltar" mnemonicParsing="false" styleClass="bottom_voltar"
+                    stylesheets="@styles.css" text="← Voltar" />
         </HBox>
 
+        <!-- Corpo -->
         <VBox alignment="TOP_CENTER" prefHeight="648.0" prefWidth="370.0" spacing="15.0">
             <padding>
                 <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
@@ -75,28 +85,31 @@
                 </children>
             </HBox>
             <TextField fx:id="campoTurno" styleClass="form-field" />
-         <HBox prefHeight="0.0" prefWidth="360.0">
-            <children>
-               <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/localIcon.png" />
-                  </image>
-               </ImageView>
-      
-                  <!-- LISTA DINÂMICA DE PARADAS -->
-                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="133.0" styleClass="label-campo" text="Paradas da Rota:" />
-            </children>
-         </HBox>
 
-            <Button onAction="#adicionarParada" prefHeight="49.0" prefWidth="352.0" styleClass="form-field" stylesheets="@styles.css" text="+ Adicionar parada" />
+            <!-- PARADAS -->
+            <HBox prefHeight="0.0" prefWidth="360.0">
+                <children>
+                    <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/localIcon.png" />
+                        </image>
+                    </ImageView>
+                    <Label alignment="CENTER_LEFT" styleClass="label-campo" text="Paradas da Rota:" />
+                </children>
+            </HBox>
 
-            <VBox fx:id="listaParadasContainer" spacing="10.0">
-                <!-- Aqui os TextFields serão adicionados dinamicamente -->
-            </VBox>
+            <Button fx:id="botaoAdicionarParada" onAction="#adicionarParada"
+                    prefHeight="49.0" prefWidth="352.0"
+                    styleClass="form-field"
+                    stylesheets="@styles.css" text="+ Adicionar parada" />
+
+            <VBox fx:id="listaParadasContainer" spacing="10.0" />
 
             <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
 
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Salvar" />
+            <Button fx:id="botaoSalvar" maxWidth="Infinity" prefHeight="45.0"
+                    styleClass="bottom" stylesheets="@styles.css" text="Salvar"
+                    onAction="#salvarRota" />
 
         </VBox>
     </VBox>
@@ -104,5 +117,4 @@
     <stylesheets>
         <URL value="@styles.css" />
     </stylesheets>
-
 </AnchorPane>
