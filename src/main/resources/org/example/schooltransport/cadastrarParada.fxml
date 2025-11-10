@@ -18,6 +18,8 @@
             </padding>
             <children>
                 <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#voltar" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
+
+                <Button fx:id="btnMotorista" mnemonicParsing="false" onAction="#abrirTelaMotorista" styleClass="bottom_voltar" text="Motorista" />
             </children>
         </HBox>
 

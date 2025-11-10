@@ -20,29 +20,45 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class TelaMotoristaController implements Initializable {
 
     // Componentes FXML injetados
     @FXML private Button btnVoltar;
-    @FXML private Label labelNomeParada; // Label "Próxima parada:"
-    @FXML private HBox containerProximaParada; // O HBox do cartão
-    @FXML private Label labelInfoParada; // O Label que mostra o nome da parada (Ex: 1 (3))
-    @FXML private Button btnEntregue; // Botão do cartão
+    @FXML private Label labelNomeParada;
+    @FXML private HBox containerProximaParada;
+    @FXML private Label labelInfoParada;
+    @FXML private Button btnEntregue;
 
-    private Parada proximaParada; // Referência à parada atual
+    // ✅ NOVOS COMPONENTES DO PROGRESSO
+    @FXML private Label labelContagemTotal;
+    @FXML private Label labelEntregues;
+    @FXML private Label labelPendentes;
+    @FXML private Pane barraProgressoPreenchida;
+    @FXML private VBox containerProgresso; // Container principal do progresso
+
+    private Parada proximaParada;
+    private int totalParadasIniciais = 0; // Armazena o total inicial para o cálculo percentual
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<Parada> dados = Cadastro.getInstance().getListaDeParadas();
 
-        // Listener para atualizar a UI quando a lista de paradas muda
+        // 1. Inicializa o total de paradas (deve ser feito apenas uma vez)
+        totalParadasIniciais = dados.size();
+
+        // 2. Listener para atualizar a UI quando a lista de paradas muda
         dados.addListener((ListChangeListener<Parada>) change -> {
             exibirProximaParada();
+            atualizarProgresso();
         });
 
+        // 3. Chamadas iniciais
         exibirProximaParada();
+        atualizarProgresso();
     }
 
     /**
@@ -59,13 +75,49 @@ public class TelaMotoristaController implements Initializable {
 
             containerProximaParada.setVisible(true);
             btnEntregue.setDisable(false);
+            containerProximaParada.setDisable(false); // Garante que o clique funcione
         } else {
             proximaParada = null;
             labelInfoParada.setText("Nenhuma parada pendente.");
             btnEntregue.setDisable(true);
-            // Opcional: Desabilitar o clique no container vazio
-            containerProximaParada.setDisable(true);
+            // Manter o container habilitado para permitir o clique (navegar para lista vazia)
+            containerProximaParada.setDisable(false);
         }
+    }
+
+    /**
+     * Calcula e atualiza a barra de progresso, contadores (ativos/pendentes) e o texto de contagem (2/7).
+     */
+    private void atualizarProgresso() {
+        ObservableList<Parada> dados = Cadastro.getInstance().getListaDeParadas();
+
+        if (totalParadasIniciais == 0) {
+            labelContagemTotal.setText("0/0");
+            labelEntregues.setText("0");
+            labelPendentes.setText("0");
+            barraProgressoPreenchida.setPrefWidth(0);
+            return;
+        }
+
+        int pendentes = dados.size();
+        int entregues = totalParadasIniciais - pendentes;
+
+        // 1. Atualiza Labels de contagem (ex: 2/7)
+        labelContagemTotal.setText(entregues + "/" + totalParadasIniciais);
+        labelEntregues.setText(String.valueOf(entregues));
+        labelPendentes.setText(String.valueOf(pendentes));
+
+        // 2. Atualiza a barra percentual
+        double progressoPercentual = (double) entregues / totalParadasIniciais;
+
+        // Usa Platform.runLater para garantir que o cálculo de largura ocorra após o layout
+        javafx.application.Platform.runLater(() -> {
+            // Pega a largura do StackPane pai da barra preenchida
+            double larguraBase = barraProgressoPreenchida.getParent().getBoundsInLocal().getWidth();
+            double novaLargura = larguraBase * progressoPercentual;
+
+            barraProgressoPreenchida.setPrefWidth(novaLargura);
+        });
     }
 
     // =========================================================
@@ -73,13 +125,12 @@ public class TelaMotoristaController implements Initializable {
     // =========================================================
 
     /**
-     * ✅ Ação do HBox: Redireciona para a lista completa ao clicar no corpo do cartão.
+     * Ação do HBox: Redireciona para a lista completa ao clicar no corpo do cartão.
      */
     @FXML
     private void handleAbrirListaParadas(MouseEvent event) {
-        // Ignora cliques que vieram do botão "Entregue" para evitar ação dupla/indevida
         if (event.getTarget() instanceof Button) {
-            return;
+            return; // Ignora o clique se veio do botão "Entregue"
         }
         navegarDeTela((Node)event.getSource(), "listaParadas.fxml");
     }
@@ -90,9 +141,8 @@ public class TelaMotoristaController implements Initializable {
     @FXML
     private void handleRemoverProximaParada(ActionEvent event) {
         if (proximaParada != null) {
-            // Remove a parada atual da lista
             Cadastro.getInstance().removerParada(proximaParada);
-            // O listener já cuidará da atualização da UI.
+            // O listener irá atualizar o progresso e a próxima parada
         }
     }
 
@@ -103,7 +153,6 @@ public class TelaMotoristaController implements Initializable {
     private void voltar(ActionEvent event) {
         // Lógica para voltar à tela principal ou menu
         System.out.println("Voltando da Tela Motorista");
-        // Exemplo: navegarDeTela(event, "menuPrincipal.fxml");
     }
 
     // Método auxiliar de navegação
@@ -123,7 +172,7 @@ public class TelaMotoristaController implements Initializable {
         }
     }
 
-    // Sobrecarga do método de navegação para aceitar ActionEvent (para o botão voltar)
+    // Sobrecarga do método de navegação para aceitar ActionEvent
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         navegarDeTela((Node) event.getSource(), fxmlFile);
     }

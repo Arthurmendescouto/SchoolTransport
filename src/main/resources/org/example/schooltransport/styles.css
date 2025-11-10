@@ -83,3 +83,61 @@
     -fx-border-color: #cccccc;
     -fx-border-radius: 5px;
 }
+
+.painel-progresso {
+    -fx-background-color: #FFFAF7; /* Fundo claro (quase branco) */
+    -fx-border-color: #FFB08E;     /* Borda laranja clara (como na imagem) */
+    -fx-border-radius: 15px;       /* Cantos arredondados */
+    -fx-background-radius: 15px;
+    -fx-border-width: 1px;
+}
+
+/* Estilo do título "Progresso da rota" */
+.progresso-titulo {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* Estilo da contagem total (ex: 1/1, 2/7) */
+.progresso-contagem-total {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* --- BARRA DE PROGRESSO SIMULADA --- */
+
+/* Barra de Progresso - Fundo (o branco/laranja claro dentro do StackPane) */
+.barra-fundo {
+    -fx-background-color: #f7f7f7; /* Fundo claro da barra (imita o branco/cinza) */
+    -fx-border-color: #FFB08E;     /* Borda laranja clara (linha que contorna) */
+    -fx-border-width: 1px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+/* Barra de Progresso - Preenchimento (a parte que "carrega", cor Laranja Forte) */
+.barra-preenchida {
+    -fx-background-color: #FF5722; /* Laranja forte */
+    -fx-background-radius: 5px;
+}
+
+.progresso-subtitulo {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+    -fx-padding: 0 0 5px 0;
+}
+
+
+.progresso-valor-entregue {
+    -fx-font-size: 20px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #28A745;
+}
+
+.progresso-valor-pendente {
+    -fx-font-size: 20px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #DC3545;
+}

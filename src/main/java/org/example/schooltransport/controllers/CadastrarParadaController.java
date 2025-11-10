@@ -75,5 +75,33 @@ public class CadastrarParadaController {
     private void voltar(ActionEvent event) {
         // Implemente a lógica para voltar à tela anterior (ex: Tela Principal)
     }
+    @FXML
+    private void abrirTelaMotorista(ActionEvent event) {
+        navegarDeTela(event, "TelaMotorista.fxml");
+    }
 
+    /**
+     * ✅ MÉTODO AUXILIAR DE NAVEGAÇÃO COMPLETO
+     * Centraliza a lógica de troca de tela.
+     */
+    private void navegarDeTela(ActionEvent event, String fxmlFile) {
+        try {
+            // Usa o Node que disparou o evento (o botão) para obter o Stage atual
+            Node sourceNode = (Node) event.getSource();
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+
+            // Carrega o novo FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+
+            // Define a nova cena e exibe
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Erro ao carregar o arquivo FXML: " + fxmlFile);
+        }
+    }
 }
