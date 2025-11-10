@@ -12,32 +12,43 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
-    <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="857.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
+    <VBox alignment="TOP_CENTER" layoutY="21.0" prefHeight="777.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
+        <HBox alignment="CENTER_LEFT" prefHeight="254.0" prefWidth="400.0" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-         <Button mnemonicParsing="false" styleClass="bottom" stylesheets="@styles.css" text="← Voltar" />
+         <VBox prefHeight="143.0" prefWidth="361.0">
+            <children>
+               <HBox alignment="BOTTOM_LEFT" prefHeight="68.0" prefWidth="361.0">
+                  <children>
+                     <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" styleClass="bottom" stylesheets="@styles.css" text="←">
+                        <font>
+                           <Font size="13.0" />
+                        </font>
+                     </Button>
+                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="53.0" prefWidth="281.0" styleClass="bottom_voltar" stylesheets="@styles.css" text="Painel do administrador" textAlignment="CENTER" />
+                  </children>
+               </HBox>
+               <HBox nodeOrientation="LEFT_TO_RIGHT" prefHeight="108.0" prefWidth="361.0">
+                  <children>
+                     <VBox prefHeight="200.0" prefWidth="100.0" styleClass="blocos_cabecalho" stylesheets="@styles.css" />
+                     <VBox prefHeight="200.0" prefWidth="100.0" styleClass="blocos_cabecalho" stylesheets="@styles.css" />
+                     <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-width: 10;" styleClass="blocos_cabecalho" stylesheets="@styles.css" />
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
         </HBox>
 
-        <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
+        <VBox alignment="TOP_CENTER" prefHeight="320.0" prefWidth="370.0" spacing="15.0" VBox.vgrow="ALWAYS">
             <padding>
                 <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
             </padding>
             <VBox.margin>
                 <Insets left="15.0" right="15.0" />
             </VBox.margin>
-   
-           <Label alignment="CENTER_LEFT" styleClass="titulo-principal" text="Cadastrar aluno:">
-               <padding>
-                   <Insets bottom="20.0" left="20.0" right="20.0" />
-               </padding>
-            <font>
-               <Font name="Quicksand Bold" size="12.0" />
-            </font>
-           </Label>
          <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
                <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -101,11 +112,6 @@
             <TextField fx:id="campoComplemento" styleClass="form-field" />
 
             <HBox alignment="CENTER_LEFT" spacing="10.0" />
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Concluir">
-                <VBox.margin>
-                    <Insets top="20.0" />
-                </VBox.margin>
-            </Button>
 
             <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
         </VBox>

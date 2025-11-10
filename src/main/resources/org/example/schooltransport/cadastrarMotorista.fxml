@@ -5,12 +5,14 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
+<AnchorPane prefHeight="751.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
     <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
@@ -20,7 +22,7 @@
          <Button mnemonicParsing="false" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
         </HBox>
 
-        <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
+        <VBox alignment="TOP_CENTER" prefHeight="661.0" prefWidth="370.0" spacing="15.0" VBox.vgrow="ALWAYS">
             <padding>
                 <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
             </padding>
@@ -36,13 +38,40 @@
                <Font name="Quicksand Bold" size="12.0" />
             </font>
            </Label>
-
-            <Label alignment="CENTER_LEFT" maxWidth="Infinity" styleClass="label-campo" text="Nome do motorista:" />
+         <HBox prefHeight="27.0" prefWidth="330.0">
+            <children>
+               <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons/driverIcon.png" />
+                  </image>
+               </ImageView>
+      
+                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="160.0" styleClass="label-campo" text="Nome do motorista:" />
+            </children>
+         </HBox>
 
             <TextField fx:id="campoNomeParada" styleClass="form-field" />
-         <Label prefHeight="17.0" prefWidth="408.0" styleClass="label-campo" stylesheets="@styles.css" text="CPF:" />
+         <HBox prefHeight="27.0" prefWidth="330.0">
+            <children>
+               <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons/cpfIcon.png" />
+                  </image>
+               </ImageView>
+               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="45.0" styleClass="label-campo" text="CPF:" />
+            </children>
+         </HBox>
             <TextField fx:id="campoCEP" styleClass="form-field" />
-         <Label prefHeight="17.0" prefWidth="378.0" styleClass="label-campo" stylesheets="@styles.css" text="Contato:" />
+         <HBox prefHeight="27.0" prefWidth="330.0">
+            <children>
+               <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@icons/ContactIcon.png" />
+                  </image>
+               </ImageView>
+               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="72.0" styleClass="label-campo" text="Contato:" />
+            </children>
+         </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10.0">
                 <TextField fx:id="campoBairro" styleClass="form-field" HBox.hgrow="ALWAYS" />
