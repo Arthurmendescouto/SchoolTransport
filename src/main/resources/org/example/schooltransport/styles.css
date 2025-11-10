@@ -3,7 +3,13 @@
 }
 
 .cabecalho-topo {
-    -fx-background-color: #FF5722;
+    -fx-background-color: #E23C00;
+}
+
+.blocos_cabecalho{
+    -fx-background-color: #F19D80;
+    -fx-background-radius: 25;
+    -fx-padding: 30;
 }
 
 .titulo-principal {
@@ -36,7 +42,6 @@
     -fx-text-fill: WHITE;
     -fx-font-size: 17px;
     -fx-background-radius: 20;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 .bottom_voltar{
