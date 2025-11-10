@@ -95,14 +95,14 @@
 /* Estilo do título "Progresso da rota" */
 .progresso-titulo {
     -fx-font-size: 16px;
-    -fx-font-weight: normal; /* A fonte na imagem não parece ser bold */
+    -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
 
 /* Estilo da contagem total (ex: 1/1, 2/7) */
 .progresso-contagem-total {
     -fx-font-size: 16px;
-    -fx-font-weight: normal;
+    -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
 
