@@ -12,78 +12,80 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="751.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
-    <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="751.0" prefWidth="400.0" styleClass="root"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.schooltransport.controllers.RegistrarResponsavelController">
 
+    <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <!-- Cabeçalho -->
         <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-            <Label styleClass="label-voltar">
-                <HBox.margin>
-                    <Insets right="5.0" />
-                </HBox.margin>
-            </Label>
-         <Button mnemonicParsing="false" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
+            <Button fx:id="btnVoltar" mnemonicParsing="false" styleClass="bottom_voltar"
+                    stylesheets="@styles.css" text="← Voltar" />
         </HBox>
 
+        <!-- Conteúdo principal -->
         <VBox alignment="TOP_CENTER" prefHeight="661.0" prefWidth="370.0" spacing="15.0" VBox.vgrow="ALWAYS">
             <padding>
                 <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
             </padding>
-            <VBox.margin>
-                <Insets left="15.0" right="15.0" />
-            </VBox.margin>
-   
-           <Label alignment="CENTER_LEFT" styleClass="titulo-principal" text="Cadastrar responsável:">
-               <padding>
-                   <Insets bottom="20.0" left="20.0" right="20.0" />
-               </padding>
-            <font>
-               <Font name="Quicksand Bold" size="12.0" />
-            </font>
-           </Label>
-         <HBox prefHeight="27.0" prefWidth="330.0">
-            <children>
-               <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/userResponsibleIcon.png" />
-                  </image>
-               </ImageView>
-      
-                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="170.0" styleClass="label-campo" text="Nome do responsável:" />
-            </children>
-         </HBox>
 
-            <TextField fx:id="campoNomeParada" styleClass="form-field" />
-         <HBox prefHeight="27.0" prefWidth="330.0">
-            <children>
-               <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/cpfIcon.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="45.0" styleClass="label-campo" text="CPF:" />
-            </children>
-         </HBox>
-            <TextField fx:id="campoCEP" styleClass="form-field" />
-         <HBox prefHeight="27.0" prefWidth="330.0">
-            <children>
-               <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/ContactIcon.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="72.0" styleClass="label-campo" text="Contato:" />
-            </children>
-         </HBox>
+            <Label alignment="CENTER_LEFT" styleClass="titulo-principal" text="Cadastrar responsável:">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" />
+                </padding>
+                <font>
+                    <Font name="Quicksand Bold" size="12.0" />
+                </font>
+            </Label>
 
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-                <TextField fx:id="campoBairro" styleClass="form-field" HBox.hgrow="ALWAYS" />
+            <!-- Nome do responsável -->
+            <HBox prefHeight="27.0" prefWidth="330.0">
+                <children>
+                    <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/userResponsibleIcon.png" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="label-campo" text="Nome do responsável:" />
+                </children>
             </HBox>
+            <TextField fx:id="campoNomeResponsavel" styleClass="form-field" />
 
-            <HBox alignment="CENTER_LEFT" spacing="10.0" />
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar">
+            <!-- CPF -->
+            <HBox prefHeight="27.0" prefWidth="330.0">
+                <children>
+                    <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/cpfIcon.png" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="label-campo" text="CPF:" />
+                </children>
+            </HBox>
+            <TextField fx:id="campoCPF" styleClass="form-field" />
+
+            <!-- Contato -->
+            <HBox prefHeight="27.0" prefWidth="330.0">
+                <children>
+                    <ImageView fitHeight="33.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/ContactIcon.png" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="label-campo" text="Contato:" />
+                </children>
+            </HBox>
+            <TextField fx:id="campoContato" styleClass="form-field" />
+
+            <!-- Botão -->
+            <Button fx:id="btnCadastrar" maxWidth="Infinity" prefHeight="45.0"
+                    styleClass="bottom" stylesheets="@styles.css" text="Cadastrar">
                 <VBox.margin>
                     <Insets top="20.0" />
                 </VBox.margin>
@@ -92,6 +94,7 @@
             <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
         </VBox>
     </VBox>
+
     <stylesheets>
         <URL value="@styles.css" />
     </stylesheets>

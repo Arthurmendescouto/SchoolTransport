@@ -1,4 +1,9 @@
-package org.example.schooltransport;
+package org.example.schooltransport.controllers;
+
+import java.io.IOException;
+
+import org.example.schooltransport.Cadastro;
+import org.example.schooltransport.Parada;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,8 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class CadastrarParadaController {
 

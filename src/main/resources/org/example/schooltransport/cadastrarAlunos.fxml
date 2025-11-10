@@ -12,9 +12,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.CadastrarParadaController">
-    <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.schooltransport.controllers.CadastrarAlunoController">
 
+    <VBox alignment="TOP_CENTER" spacing="20.0"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <!-- Cabeçalho -->
         <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />

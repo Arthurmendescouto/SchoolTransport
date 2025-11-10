@@ -1,4 +1,11 @@
-package org.example.schooltransport;
+package org.example.schooltransport.controllers;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import org.example.schooltransport.Cadastro;
+import org.example.schooltransport.Parada;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -15,10 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ListaParadaController implements Initializable {
 
