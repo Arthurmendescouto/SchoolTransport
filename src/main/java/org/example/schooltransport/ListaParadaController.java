@@ -22,14 +22,8 @@ import java.util.ResourceBundle;
 
 public class ListaParadaController implements Initializable {
 
-    // Componentes FXML atualizados:
     @FXML private VBox listaParadasContainer; // O novo contêiner para os itens dinâmicos
     @FXML private Button btnVoltar;
-
-    // REMOVIDOS: Não precisamos mais de TableView e TableColumn
-    // @FXML private TableView<Parada> tabelaParadas;
-    // @FXML private TableColumn<Parada, String> colunaParada;
-    // @FXML private TableColumn<Parada, Parada> colunaStatus;
 
     private ObservableList<Parada> dados;
 
@@ -37,12 +31,10 @@ public class ListaParadaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         dados = Cadastro.getInstance().getListaDeParadas();
 
-        // Escutar mudanças na lista para atualizar a UI
         dados.addListener((ListChangeListener<Parada>) change -> {
             construirListaItens();
         });
 
-        // Constrói a lista inicial
         construirListaItens();
     }
 
@@ -89,7 +81,7 @@ public class ListaParadaController implements Initializable {
         HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS); // Isso faz o espaçador crescer
 
         // Botão de remoção (Entregue)
-        Button entregueBtn = new Button("Entregue");
+        Button entregueBtn = new Button("Remover");
         entregueBtn.getStyleClass().add("btn-entregue-status");
 
         // Lógica de remoção ao clicar
