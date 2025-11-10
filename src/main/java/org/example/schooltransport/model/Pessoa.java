@@ -1,13 +1,13 @@
 package org.example.schooltransport.model;
 
 public class Pessoa {
-    String nome;
-    String cpf;
-    String contato;
-    String email;
-    String senha;
-    int nivel;
-    
+    protected String nome;
+    protected String cpf;
+    protected String contato;
+    protected String email;
+    protected String senha;
+    protected int nivel;
+
     public Pessoa(String nome, String cpf, String contato, String email, String senha, int nivel) {
         this.nome = nome;
         this.cpf = cpf;
@@ -17,55 +17,22 @@ public class Pessoa {
         this.nivel = nivel;
     }
 
-    public String getNome() {
-        return nome;
-    }
+    // Getters e Setters
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getCpf() { return cpf; }
+    public void setCpf(String cpf) { this.cpf = cpf; }
 
-    public String getCpf() {
-        return cpf;
-    }
+    public String getContato() { return contato; }
+    public void setContato(String contato) { this.contato = contato; }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getContato() {
-        return contato;
-    }
+    public String getSenha() { return senha; }
+    public void setSenha(String senha) { this.senha = senha; }
 
-    public void setContato(String contato) {
-        this.contato = contato;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public int getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
-    }
-
-    
-    
-
+    public int getNivel() { return nivel; }
+    public void setNivel(int nivel) { this.nivel = nivel; }
 }
