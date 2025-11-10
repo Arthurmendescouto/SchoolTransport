@@ -6,9 +6,12 @@ public class Aluno extends  Pessoa {
     String responsavel;
     String contato;
     String parada;
+    String email;
+    String senha;
+    int nivel;
 
-    public Aluno (String nome, String cpf, String responsavel, String contato, String parada){
-        super(nome, cpf, contato);
+    public Aluno (String nome, String cpf, String responsavel, String contato, String parada, String email, String senha, int nivel){
+        super(nome, cpf, contato, email, senha, nivel);
         this.responsavel=responsavel;
         this.parada=parada;
     }
@@ -52,5 +55,31 @@ public class Aluno extends  Pessoa {
     public void setParada(String parada) {
         this.parada = parada;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(int nivel) {
+        this.nivel = nivel;
+    }
+
+    
     
 }
