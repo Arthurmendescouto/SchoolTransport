@@ -12,81 +12,97 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="770.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
+<AnchorPane prefHeight="790.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
+
     <VBox alignment="TOP_CENTER" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
+        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-         <Button mnemonicParsing="false" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
+            <Button mnemonicParsing="false" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
         </HBox>
 
-        <VBox alignment="TOP_CENTER" prefHeight="648.0" prefWidth="370.0" spacing="15.0" VBox.vgrow="ALWAYS">
+        <VBox alignment="TOP_CENTER" prefHeight="648.0" prefWidth="370.0" spacing="15.0">
             <padding>
                 <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
             </padding>
-            <VBox.margin>
-                <Insets left="15.0" right="15.0" />
-            </VBox.margin>
-   
-           <Label alignment="CENTER_LEFT" styleClass="titulo-principal" text="Cadastrar Rota:">
-               <padding>
-                   <Insets bottom="20.0" left="20.0" right="20.0" />
-               </padding>
-            <font>
-               <Font name="Quicksand Bold" size="12.0" />
-            </font>
-           </Label>
-         <HBox prefHeight="28.0" prefWidth="330.0">
+
+            <Label styleClass="titulo-principal" text="Cadastrar Rota:">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" />
+                </padding>
+                <font>
+                    <Font name="Quicksand Bold" size="12.0" />
+                </font>
+            </Label>
+
+            <!-- MOTORISTA -->
+            <HBox spacing="10.0">
+                <children>
+                    <ImageView fitHeight="25.0" fitWidth="26.0" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/driverIcon.png" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="label-campo" text="Motorista:" />
+                </children>
+            </HBox>
+            <TextField fx:id="campoMotorista" styleClass="form-field" />
+
+            <!-- ÔNIBUS -->
+            <HBox spacing="10.0">
+                <children>
+                    <ImageView fitHeight="25.0" fitWidth="26.0" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/busIcon.png" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="label-campo" text="Ônibus:" />
+                </children>
+            </HBox>
+            <TextField fx:id="campoOnibus" styleClass="form-field" />
+
+            <!-- TURNO -->
+            <HBox spacing="10.0">
+                <children>
+                    <ImageView fitHeight="25.0" fitWidth="26.0" preserveRatio="true">
+                        <image>
+                            <Image url="@icons/routineIcon.png" />
+                        </image>
+                    </ImageView>
+                    <Label styleClass="label-campo" text="Turno:" />
+                </children>
+            </HBox>
+            <TextField fx:id="campoTurno" styleClass="form-field" />
+         <HBox prefHeight="0.0" prefWidth="360.0">
             <children>
-               <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                     <Image url="@icons/driverIcon.png" />
+                     <Image url="@icons/localIcon.png" />
                   </image>
                </ImageView>
       
-                  <Label alignment="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="85.0" styleClass="label-campo" text="Motorista:" />
+                  <!-- LISTA DINÂMICA DE PARADAS -->
+                  <Label alignment="CENTER" prefHeight="25.0" prefWidth="133.0" styleClass="label-campo" text="Paradas da Rota:" />
             </children>
          </HBox>
 
-            <TextField fx:id="campoNomeParada" styleClass="form-field" />
-         <HBox prefHeight="28.0" prefWidth="330.0">
-            <children>
-               <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/busIcon.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="60.0" styleClass="label-campo" text="Ônibus" />
-            </children>
-         </HBox>
-            <TextField fx:id="campoCEP" styleClass="form-field" />
-         <HBox prefHeight="28.0" prefWidth="330.0">
-            <children>
-               <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/routineIcon.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="58.0" styleClass="label-campo" text="Turno:" />
-            </children>
-         </HBox>
-            <TextField fx:id="campoLogradouro" styleClass="form-field" />
+            <Button onAction="#adicionarParada" prefHeight="49.0" prefWidth="352.0" styleClass="form-field" stylesheets="@styles.css" text="+ Adicionar parada" />
 
-            <HBox alignment="CENTER_LEFT" spacing="10.0" />
-
-            <HBox alignment="CENTER_LEFT" spacing="10.0" />
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar">
-                <VBox.margin>
-                    <Insets top="20.0" />
-                </VBox.margin>
-            </Button>
+            <VBox fx:id="listaParadasContainer" spacing="10.0">
+                <!-- Aqui os TextFields serão adicionados dinamicamente -->
+            </VBox>
 
             <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
+
+            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Salvar" />
+
         </VBox>
     </VBox>
+
     <stylesheets>
         <URL value="@styles.css" />
     </stylesheets>
+
 </AnchorPane>

@@ -33,7 +33,4 @@ public class Responsavel extends Pessoa{
         this.contato = contato;
     }
 
-    
-    
-    
 }
