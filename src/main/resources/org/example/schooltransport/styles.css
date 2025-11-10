@@ -71,3 +71,14 @@
     -fx-padding: 5px 10px;
     -fx-background-radius: 5px;
 }
+
+.label-proxima-parada {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+.painel-proxima-parada {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+}

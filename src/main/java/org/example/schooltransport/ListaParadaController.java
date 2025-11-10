@@ -107,7 +107,6 @@ public class ListaParadaController implements Initializable {
         navegarDeTela(event, "cadastrarParada.fxml");
     }
 
-    // ... (Método navegarDeTela permanece aqui)
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));

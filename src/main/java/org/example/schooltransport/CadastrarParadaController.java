@@ -72,4 +72,5 @@ public class CadastrarParadaController {
     private void voltar(ActionEvent event) {
         // Implemente a lógica para voltar à tela anterior (ex: Tela Principal)
     }
+
 }
