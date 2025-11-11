@@ -15,6 +15,4 @@ public class Onibus {
         this.id = id;
     }
 
-    
-    
 }

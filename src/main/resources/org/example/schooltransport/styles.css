@@ -43,6 +43,10 @@
     -fx-font-size: 17px;
     -fx-background-radius: 20;
 }
+.bottom:hover{
+    -fx-background-color: #C73200;
+    -fx-cursor: hand;
+}
 
 .bottom_voltar{
     -fx-background-color: #E23C00;
