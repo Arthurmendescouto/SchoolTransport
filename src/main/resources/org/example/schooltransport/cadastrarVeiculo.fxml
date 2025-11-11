@@ -25,8 +25,7 @@
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0"/>
             </padding>
-            <Button mnemonicParsing="false" styleClass="bottom" stylesheets="@styles.css" text="← Voltar"
-                    fx:id="botaoVoltar"/>
+            <Button mnemonicParsing="false" styleClass="bottom" onAction="#voltarTelaAnterior" stylesheets="@styles.css" text="← Voltar" fx:id="botaoVoltar"/>
         </HBox>
 
         <!-- Formulário -->
@@ -52,8 +51,7 @@
                             <Image url="@icons/busIcon.png"/>
                         </image>
                     </ImageView>
-                    <Label alignment="CENTER_LEFT" maxWidth="Infinity" styleClass="label-campo"
-                           text="Modelo do ônibus:"/>
+                    <Label alignment="CENTER_LEFT" maxWidth="Infinity" styleClass="label-campo" text="Modelo do ônibus:"/>
                 </children>
             </HBox>
             <TextField fx:id="campoModeloOnibus" styleClass="form-field"/>
@@ -85,8 +83,7 @@
             <TextField fx:id="campoCapacidade" styleClass="form-field"/>
 
             <!-- Botão cadastrar -->
-            <Button fx:id="botaoCadastrar" maxWidth="Infinity" prefHeight="45.0" styleClass="bottom"
-                    stylesheets="@styles.css" text="Cadastrar">
+            <Button fx:id="botaoCadastrar" maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" onAction="#CadastrarVeiculo" stylesheets="@styles.css" text="Cadastrar">
                 <VBox.margin>
                     <Insets top="20.0"/>
                 </VBox.margin>
