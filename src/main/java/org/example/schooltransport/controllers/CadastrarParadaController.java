@@ -1,6 +1,7 @@
 package org.example.schooltransport.controllers;
 
 import java.io.IOException;
+import java.net.URL; // IMPORTANTE
 
 import org.example.schooltransport.Cadastro;
 import org.example.schooltransport.Parada;
@@ -16,7 +17,6 @@ import javafx.stage.Stage;
 
 public class CadastrarParadaController {
 
-    // Campos FXML injetados (fx:id)
     @FXML private TextField campoNomeParada;
     @FXML private TextField campoCEP;
     @FXML private TextField campoLogradouro;
@@ -28,80 +28,78 @@ public class CadastrarParadaController {
 
     @FXML
     private void concluirCadastro(ActionEvent event) {
-        // 1. Coletar e Validar Dados
         String nomeParada = campoNomeParada.getText();
         String logradouro = campoLogradouro.getText();
-        String numero = campoNumero.getText();
-        String bairro = campoBairro.getText();
         String cidade = campoCidade.getText();
-        String estado = campoEstado.getText();
 
-        // Simples validação para campos essenciais
         if (nomeParada.isEmpty() || logradouro.isEmpty() || cidade.isEmpty()) {
-            // Em uma aplicação real, você mostraria um Alerta/Label de erro
             System.err.println("Erro: Preencha os campos obrigatórios (Nome, Logradouro, Cidade).");
             return;
         }
 
-        // 2. Criar o objeto Parada
-        Parada novaParada = new Parada(nomeParada, logradouro, numero, bairro, cidade, estado);
-
-        // 3. Adicionar a Parada à lista global (Classe Cadastro)
+        Parada novaParada = new Parada(nomeParada, logradouro, campoNumero.getText(), campoBairro.getText(), cidade, campoEstado.getText());
         Cadastro.getInstance().adicionarParada(novaParada);
         System.out.println("Parada cadastrada com sucesso: " + nomeParada);
 
-        // 4. Redirecionar para listaParadas.fxml
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("listaParadas.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            // Opcional: manter o mesmo tamanho da janela
-            // stage.setWidth(stage.getWidth());
-            // stage.setHeight(stage.getHeight());
-
-            stage.setScene(scene);
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Erro ao carregar listaParadas.fxml");
-        }
+        // 4. Navegar para a lista de paradas
+        navegarDeTela(event, "listaParadas.fxml");
     }
 
     @FXML
     private void voltar(ActionEvent event) {
-        // Implemente a lógica para voltar à tela anterior (ex: Tela Principal)
+        // Navega para o painel de administrador
+        navegarDeTela(event, "painelAdministrador.fxml");
     }
+
     @FXML
     private void abrirTelaMotorista(ActionEvent event) {
-        navegarDeTela(event, "TelaMotorista.fxml");
+        // Navega para a tela do motorista
+        navegarDeTela(event, "telaMotorista.fxml");
     }
 
     /**
-     * ✅ MÉTODO AUXILIAR DE NAVEGAÇÃO COMPLETO
-     * Centraliza a lógica de troca de tela.
+     * ✅ MÉTODO DE NAVEGAÇÃO CORRIGIDO (Versão 3: Caminho Absoluto)
+     *
+     * Esta é a forma mais robusta. Ele procura o FXML a partir da
+     * raiz do seu 'resources' (classpath).
+     *
+     * Com base nos seus prints, o caminho completo para seus FXMLs é:
+     * /org/example/schooltransport/ [nome-do-arquivo.fxml]
+     *
      */
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
-            // Usa o Node que disparou o evento (o botão) para obter o Stage atual
+            // **A CORREÇÃO ESTÁ AQUI:**
+            // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
+            String caminhoAbsoluto = "/org/example/schooltransport/" + fxmlFile;
+
+            // Obtém o URL do recurso a partir do caminho absoluto
+            URL resourceUrl = getClass().getResource(caminhoAbsoluto);
+
+            if (resourceUrl == null) {
+                // Se isso falhar agora, o nome do arquivo em 'fxmlFile' está errado
+                System.err.println("FATAL: Não foi possível encontrar o FXML em: " + caminhoAbsoluto);
+                System.err.println("Verifique se o nome do arquivo '" + fxmlFile + "' está digitado corretamente.");
+                return;
+            }
+
+            // Carrega o FXML
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
+            Parent root = loader.load(); // O erro ClassNotFoundException ainda pode acontecer aqui
+
+            // Obtém o Stage (janela)
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
-            // Carrega o novo FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Parent root = loader.load();
-
-            // Define a nova cena e exibe
+            // Define a nova cena
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
 
-        } catch (IOException e) {
+        } catch (IOException e) { // IOException "pega" o LoadException
             e.printStackTrace();
-            System.err.println("Erro ao carregar o arquivo FXML: " + fxmlFile);
+            System.err.println("Erro ao carregar o FXML: " + fxmlFile);
+            System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', VOCÊ NÃO CORRIGIU O 'fx:controller' DENTRO DO FXML! <<<");
         }
     }
 }

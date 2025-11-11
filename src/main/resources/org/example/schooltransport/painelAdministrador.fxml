@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="857.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
+<AnchorPane prefHeight="857.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.controllers.PainelAdministradorController">
     <VBox alignment="TOP_CENTER" layoutY="21.0" prefHeight="777.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <HBox alignment="CENTER_LEFT" prefHeight="254.0" prefWidth="400.0" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
@@ -23,7 +23,7 @@
             <children>
                <HBox alignment="BOTTOM_LEFT" prefHeight="68.0" prefWidth="361.0">
                   <children>
-                     <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="43.0" styleClass="bottom" stylesheets="@styles.css" text="←">
+                     <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#voltar" prefHeight="45.0" prefWidth="43.0" styleClass="bottom" stylesheets="@styles.css" text="←">
                         <font>
                            <Font size="13.0" />
                         </font>

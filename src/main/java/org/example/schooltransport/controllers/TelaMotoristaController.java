@@ -158,17 +158,35 @@ public class TelaMotoristaController implements Initializable {
     // Método auxiliar de navegação
     private void navegarDeTela(Node sourceNode, String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
+            String caminhoAbsoluto = "/org/example/schooltransport/" + fxmlFile;
+
+            // Obtém o URL do recurso a partir do caminho absoluto
+            URL resourceUrl = getClass().getResource(caminhoAbsoluto);
+
+            if (resourceUrl == null) {
+                // Se isso falhar agora, o nome do arquivo em 'fxmlFile' está errado
+                System.err.println("FATAL: Não foi possível encontrar o FXML em: " + caminhoAbsoluto);
+                System.err.println("Verifique se o nome do arquivo '" + fxmlFile + "' está digitado corretamente.");
+                return;
+            }
+
+            // Carrega o FXML
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
 
+            // Obtém o Stage (janela)
             Stage stage = (Stage) sourceNode.getScene().getWindow();
-            Scene scene = new Scene(root);
 
+            // Define a nova cena
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Erro ao carregar o arquivo FXML: " + fxmlFile);
+            System.err.println("Erro ao carregar o FXML: " + fxmlFile);
+            System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', VOCÊ NÃO CORRIGIU O 'fx:controller' DENTRO DO FXML! <<<");
         }
     }
 

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.TelaMotoristaController">
+<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.controllers.TelaMotoristaController">
     <VBox alignment="TOP_CENTER" layoutY="-14.0" spacing="20.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
 
         <HBox alignment="CENTER_LEFT" prefHeight="71.0" prefWidth="400.0" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">

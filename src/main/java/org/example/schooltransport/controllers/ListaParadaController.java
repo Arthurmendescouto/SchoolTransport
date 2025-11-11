@@ -104,17 +104,36 @@ public class ListaParadaController implements Initializable {
 
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
+            String caminhoAbsoluto = "/org/example/schooltransport/" + fxmlFile;
+
+            // Obtém o URL do recurso a partir do caminho absoluto
+            URL resourceUrl = getClass().getResource(caminhoAbsoluto);
+
+            if (resourceUrl == null) {
+                // Se isso falhar agora, o nome do arquivo em 'fxmlFile' está errado
+                System.err.println("FATAL: Não foi possível encontrar o FXML em: " + caminhoAbsoluto);
+                System.err.println("Verifique se o nome do arquivo '" + fxmlFile + "' está digitado corretamente.");
+                return;
+            }
+
+            // Carrega o FXML
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
 
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
+            // Obtém o Stage (janela)
+            Node sourceNode = (Node) event.getSource();
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
 
+            // Define a nova cena
+            Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Erro ao carregar o arquivo FXML: " + fxmlFile);
+            System.err.println("Erro ao carregar o FXML: " + fxmlFile);
+            System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', VOCÊ NÃO CORRIGIU O 'fx:controller' DENTRO DO FXML! <<<");
         }
     }
 }

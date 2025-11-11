@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="751.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.RegistrarParadaController">
+<AnchorPane prefHeight="751.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.controllers.CadastrarMotoristaController">
     <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-         <Button mnemonicParsing="false" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
+         <Button mnemonicParsing="false" onAction="#voltar" styleClass="bottom_voltar" stylesheets="@styles.css" text="← Voltar" />
         </HBox>
 
         <VBox alignment="TOP_CENTER" prefHeight="661.0" prefWidth="370.0" spacing="15.0" VBox.vgrow="ALWAYS">
@@ -78,7 +78,7 @@
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10.0" />
-            <Button maxWidth="Infinity" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar">
+            <Button maxWidth="Infinity" onAction="#cadastrar" prefHeight="45.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar">
                 <VBox.margin>
                     <Insets top="20.0" />
                 </VBox.margin>
