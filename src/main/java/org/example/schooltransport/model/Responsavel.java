@@ -8,8 +8,8 @@ public class Responsavel extends Pessoa{
     String senha;
     int nivel;
 
-    public Responsavel (String nome, String cpf, String contato, String email, String senha, int nivel) {
-        super(nome, cpf, contato, email, senha, nivel);
+    public Responsavel (String nome, String cpf, String contato, String email, String senha) {
+        super(nome, cpf, contato, email, senha);
     }
 
     public String getNome() {
@@ -52,12 +52,5 @@ public class Responsavel extends Pessoa{
         this.senha = senha;
     }
 
-    public int getNivel() {
-        return nivel;
-    }
-
-    public void setNivel(int nivel) {
-        this.nivel = nivel;
-    }
 
 }

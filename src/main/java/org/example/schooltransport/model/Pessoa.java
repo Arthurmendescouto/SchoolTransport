@@ -6,15 +6,13 @@ public class Pessoa {
     protected String contato;
     protected String email;
     protected String senha;
-    protected int nivel;
 
-    public Pessoa(String nome, String cpf, String contato, String email, String senha, int nivel) {
+    public Pessoa(String nome, String cpf, String contato, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.contato = contato;
         this.email = email;
         this.senha = senha;
-        this.nivel = nivel;
     }
 
     // Getters e Setters
@@ -33,6 +31,5 @@ public class Pessoa {
     public String getSenha() { return senha; }
     public void setSenha(String senha) { this.senha = senha; }
 
-    public int getNivel() { return nivel; }
-    public void setNivel(int nivel) { this.nivel = nivel; }
+
 }

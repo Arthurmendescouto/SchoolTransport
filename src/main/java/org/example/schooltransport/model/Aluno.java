@@ -5,7 +5,7 @@ public class Aluno extends Pessoa {
     private String parada;
 
     public Aluno(String nome, String cpf, String responsavel, String contato, String parada, String email, String senha) {
-        super(nome, cpf, contato, email, senha, 4);
+        super(nome, cpf, contato, email, senha);
         this.responsavel = responsavel;
         this.parada = parada;
     }
