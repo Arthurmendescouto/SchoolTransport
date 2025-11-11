@@ -47,6 +47,7 @@ public class CadastrarAlunoController {
             Repositorio.getListaAluno().add(novoAluno);
             mensagemStatus.setText("Aluno cadastrado com sucesso!");
             limparCampos();
+            System.out.println("Aluno cadastrado: " + novoAluno.getNome());
 
         //inseri também tratamento para excessões
         } catch (Exception e) {
@@ -55,7 +56,7 @@ public class CadastrarAlunoController {
     }
 
     @FXML
-    private void voltarListaAlunos() {
+    private void voltarTelaAnterior() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/consultarAlunos.fxml"));
             Scene cena = new Scene(loader.load());
@@ -68,7 +69,6 @@ public class CadastrarAlunoController {
         }
     }
 
-    // estou usando para limpar os campos depois do cadastro
     private void limparCampos() {
         campoNome.clear();
         campoCpf.clear();
