@@ -145,3 +145,16 @@
     -fx-font-weight: normal;
     -fx-text-fill: #DC3545;
 }
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/*Botão para a tela de rota, que deve ter um tamanho de fonte menor */
+.bottom-route {
+    -fx-background-color: #E23C00;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 10px;
+    -fx-background-radius: 5;
+}
