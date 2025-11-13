@@ -2,22 +2,57 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="651.0" prefWidth="296.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.controllers.ConsutarRotaController">
-   <children>
-      <VBox layoutY="-7.0" prefHeight="684.0" prefWidth="302.0">
-            <HBox alignment="CENTER_LEFT" prefHeight="163.0" prefWidth="302.0" styleClass="cabecalho-topo" stylesheets="@styles.css">
+    <children>
+        <VBox layoutX="38.0" layoutY="180.0" prefHeight="439.0" prefWidth="226.0" styleClass="form-field" stylesheets="@styles.css">
             <children>
-               <Button mnemonicParsing="false" styleClass="bottom" text="← Voltar">
-                  <HBox.margin>
-                     <Insets top="-50.0" />
-                  </HBox.margin>
-               </Button>
-            </children></HBox>
-      </VBox>
-   </children>
+                <HBox alignment="TOP_CENTER" prefHeight="35.0" prefWidth="198.0">
+                    <children>
+                        <Label alignment="TOP_LEFT" styleClass="bottom-route" text="Aluno">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+                        <Region prefHeight="35.0" prefWidth="10.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="bottom-route" text="Ponto de parada" textAlignment="CENTER">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+                        <Region prefHeight="35.0" prefWidth="10.0" />
+                        <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" styleClass="bottom-route" text="Status" textAlignment="RIGHT">
+                            <font>
+                                <Font size="10.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <ScrollPane prefHeight="373.0" prefWidth="198.0">
+                    <content>
+                        <HBox prefHeight="45.0" prefWidth="194.0" styleClass="form-field" />
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="163.0" prefWidth="302.0" styleClass="cabecalho-topo" stylesheets="@styles.css">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="39.0" prefWidth="92.0" styleClass="bottom" text="← Voltar">
+                    <HBox.margin>
+                        <Insets top="-50.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+        <ScrollBar layoutX="273.0" layoutY="189.0" orientation="VERTICAL" prefHeight="439.0" prefWidth="15.0" />
+    </children>
 
 </AnchorPane>

@@ -1,39 +1,72 @@
 package org.example.schooltransport.controllers;
 
-import java.io.IOException;
-import java.net.URL;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import org.example.schooltransport.data.Repositorio;
+import org.example.schooltransport.model.Responsavel;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class LoginController {
 
     @FXML
-    private TextField campoNomeParada; // Email
-    @FXML
-    private TextField campoCEP; // Senha
+    private TextField emailDigitado; // Campo de e-mail
 
     @FXML
-    private void entrar(ActionEvent event) {
-        String email = campoNomeParada.getText();
-        String senha = campoCEP.getText();
+    private TextField senhaDigitada; // Campo de senha
 
-        if (email.isEmpty() || senha.isEmpty()) {
-            System.err.println("Preencha email e senha!");
-            return;
-        }
+    @FXML
+    private Button btnEntrar;
 
-        // TODO: Implementar validação de login
-        // Por enquanto, navega para o painel de administrador
-        navegarDeTela(event, "painelAdministrador.fxml");
+    @FXML
+    private void initialize() {
+        // Chamado automaticamente quando o FXML é carregado
+
     }
 
+    // R = Responsável, A = Aluno, M = Motorista
+    char tipoDeUsuario = 'X';
+
+    @FXML
+    private void realizarLogin(ActionEvent event) {
+        String email = emailDigitado.getText().trim();
+        String senha = senhaDigitada.getText().trim();
+
+        Responsavel responsavel = new Responsavel("baby", "alo", "oi nego", "responsavel", "responsavel");
+        Repositorio.getListaResponsavel().add(responsavel);
+
+        if (email.isEmpty() || senha.isEmpty()) {
+            mostrarAlerta("Campos obrigatórios", "Por favor, preencha todos os campos.");
+            return;
+        }
+        // Aqui você pode implementar a lógica real de autenticação (ex: consulta ao banco)
+        if (email.equals("admin@email.com") && senha.equals("1234")) {
+            mostrarAlerta("Login realizado", "Bem-vindo, administrador!");
+            // TODO: Redirecionar para próxima tela
+            navegarDeTela(event, "painelAdministrador.fxml");
+        }
+        if (verificaValidadeDosDadosDeLogin(email, senha)) {
+            if (tipoDeUsuario == 'R')
+                navegarDeTela(event, "painelAdministrador.fxml");
+            if (tipoDeUsuario == 'A')
+                navegarDeTela(event, "consultarRota.fxml");
+            if (tipoDeUsuario == 'M')
+                navegarDeTela(event, "telaMotorista.fxml");
+
+        } else {
+            mostrarAlerta("Erro", "E-mail ou senha inválidos.");
+        }
+    }
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
@@ -68,5 +101,34 @@ public class LoginController {
             System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', VOCÊ NÃO CORRIGIU O 'fx:controller' DENTRO DO FXML! <<<");
         }
     }
-}
 
+    private void mostrarAlerta(String titulo, String mensagem) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    private boolean verificaValidadeDosDadosDeLogin(String email, String senha) {
+        boolean isValid = false;
+        for (int i = 0; i < Repositorio.getListaAluno().size(); i++) {
+            if (email.equals(Repositorio.getListaAluno().get(i).getEmail())
+                    && senha.equals(Repositorio.getListaAluno().get(i).getSenha())) {
+                isValid = true;
+                tipoDeUsuario = 'A';
+                break;
+            }
+        }
+        for (int i = 0; i < Repositorio.getListaResponsavel().size(); i++) {
+            if (email.equals(Repositorio.getListaResponsavel().get(i).getEmail())
+                    && senha.equals(Repositorio.getListaResponsavel().get(i).getSenha())) {
+                isValid = true;
+                tipoDeUsuario = 'R';
+                break;
+            }
+        }
+
+        return isValid;
+    }
+}
