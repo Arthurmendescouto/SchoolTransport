@@ -43,7 +43,7 @@
             </children>
          </HBox>
 
-            <TextField fx:id="campoNomeParada" styleClass="form-field" />
+            <TextField fx:id="emailDigitado" styleClass="form-field" />
          <HBox prefHeight="30.0" prefWidth="314.0">
             <children>
                <ImageView fitHeight="28.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
@@ -54,10 +54,10 @@
                <Label alignment="CENTER" prefHeight="25.0" prefWidth="64.0" styleClass="label-campo" stylesheets="@styles.css" text="Senha:" />
             </children>
          </HBox>
-            <TextField fx:id="campoCEP" styleClass="form-field" />
+            <TextField fx:id="senhaDigitada" styleClass="form-field" />
         </VBox>
     </VBox>
-      <Button layoutX="105.0" layoutY="646.0" maxWidth="Infinity" onAction="#entrar" prefHeight="45.0" prefWidth="193.0" styleClass="bottom" stylesheets="@styles.css" text="Entrar" />
+      <Button layoutX="105.0" layoutY="646.0" maxWidth="Infinity" onAction="#realizarLogin" prefHeight="45.0" prefWidth="193.0" styleClass="bottom" stylesheets="@styles.css" text="Entrar" />
    <Label layoutX="127.0" layoutY="802.0" text="2025 grupo2 ed projects © " />
     <stylesheets>
         <URL value="@styles.css" />
