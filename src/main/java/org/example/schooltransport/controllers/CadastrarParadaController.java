@@ -1,7 +1,9 @@
 package org.example.schooltransport.controllers;
 
 import java.io.IOException;
-import java.net.URL; // IMPORTANTE
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.example.schooltransport.Cadastro;
 import org.example.schooltransport.Parada;
@@ -12,9 +14,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de cadastro de paradas.
+ * Gerencia a validação de campos e o cadastro de novas paradas no sistema.
+ * 
+ * @author Sistema de Transporte Escolar
+ * @version 1.0
+ */
 public class CadastrarParadaController {
 
     @FXML private TextField campoNomeParada;
@@ -25,24 +35,148 @@ public class CadastrarParadaController {
     @FXML private TextField campoComplemento;
     @FXML private TextField campoCidade;
     @FXML private TextField campoEstado;
+    @FXML private Label labelErro;
 
+    /**
+     * Inicializa o controller e configura o label de erro como invisível.
+     */
+    @FXML
+    private void initialize() {
+        if (labelErro != null) {
+            labelErro.setVisible(false);
+            labelErro.setText("");
+        }
+    }
+
+    /**
+     * Processa o cadastro de uma nova parada após validação dos campos.
+     * Exibe mensagens de erro caso algum campo esteja inválido.
+     * 
+     * @param event Evento de ação do botão
+     */
     @FXML
     private void concluirCadastro(ActionEvent event) {
-        String nomeParada = campoNomeParada.getText();
-        String logradouro = campoLogradouro.getText();
-        String cidade = campoCidade.getText();
-
-        if (nomeParada.isEmpty() || logradouro.isEmpty() || cidade.isEmpty()) {
-            System.err.println("Erro: Preencha os campos obrigatórios (Nome, Logradouro, Cidade).");
-            return;
+        // Limpa mensagens de erro anteriores
+        if (labelErro != null) {
+            labelErro.setText("");
+            labelErro.setVisible(false);
         }
 
-        Parada novaParada = new Parada(nomeParada, logradouro, campoNumero.getText(), campoBairro.getText(), cidade, campoEstado.getText());
-        Cadastro.getInstance().adicionarParada(novaParada);
-        System.out.println("Parada cadastrada com sucesso: " + nomeParada);
+        try {
+            // Validação dos campos obrigatórios
+            List<String> erros = new ArrayList<>();
 
-        // 4. Navegar para a lista de paradas
-        navegarDeTela(event, "listaParadas.fxml");
+            // Validação do nome da parada
+            String nomeParada = campoNomeParada.getText().trim();
+            if (nomeParada.isEmpty()) {
+                erros.add("• Nome da Parada é obrigatório");
+            } else if (nomeParada.matches("^\\d+$")) {
+                erros.add("• Nome da Parada não pode conter apenas números");
+            }
+
+            // Validação do CEP
+            String cep = campoCEP.getText().trim();
+            if (cep.isEmpty()) {
+                erros.add("• CEP é obrigatório");
+            } else if (!validarCEP(cep)) {
+                erros.add("• CEP inválido. Deve conter 8 dígitos numéricos (ex: 12345678 ou 12345-678)");
+            }
+
+            // Validação do logradouro
+            String logradouro = campoLogradouro.getText().trim();
+            if (logradouro.isEmpty()) {
+                erros.add("• Logradouro é obrigatório");
+            }
+
+            // Validação do número
+            String numero = campoNumero.getText().trim();
+            if (numero.isEmpty()) {
+                erros.add("• Número é obrigatório");
+            } else if (!numero.matches("^\\d+[A-Za-z]?$")) {
+                erros.add("• Número inválido. Deve conter apenas números (ex: 123 ou 123A)");
+            }
+
+            // Validação do bairro
+            String bairro = campoBairro.getText().trim();
+            if (bairro.isEmpty()) {
+                erros.add("• Bairro é obrigatório");
+            }
+
+            // Validação da cidade
+            String cidade = campoCidade.getText().trim();
+            if (cidade.isEmpty()) {
+                erros.add("• Cidade é obrigatória");
+            } else if (cidade.matches("^\\d+$")) {
+                erros.add("• Cidade não pode conter apenas números");
+            }
+
+            // Validação do estado
+            String estado = campoEstado.getText().trim();
+            if (estado.isEmpty()) {
+                erros.add("• Estado é obrigatório");
+            } else if (!validarEstado(estado)) {
+                erros.add("• Estado inválido. Deve ser a sigla com 2 letras (ex: SP, RJ, MG)");
+            }
+
+            // Se houver erros, exibe e interrompe o cadastro
+            if (!erros.isEmpty()) {
+                String mensagemErro = "Por favor, corrija os seguintes erros:\n\n" + String.join("\n", erros);
+                mostrarErro(mensagemErro);
+                return;
+            }
+
+            // Cria a nova parada
+            String complemento = campoComplemento.getText().trim();
+            Parada novaParada = new Parada(nomeParada, logradouro, numero, bairro, cidade, estado.toUpperCase());
+            Cadastro.getInstance().adicionarParada(novaParada);
+            System.out.println("Parada cadastrada com sucesso: " + nomeParada);
+
+            // Navegar para a lista de paradas
+            navegarDeTela(event, "listaParadas.fxml");
+
+        } catch (Exception e) {
+            // Tratamento de exceções gerais
+            String mensagemErro = "Erro inesperado ao cadastrar parada: " + e.getMessage();
+            mostrarErro(mensagemErro);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Valida o formato do CEP (deve conter 8 dígitos numéricos).
+     * 
+     * @param cep CEP a ser validado
+     * @return true se o CEP está em formato válido, false caso contrário
+     */
+    private boolean validarCEP(String cep) {
+        // Remove caracteres não numéricos
+        String cepLimpo = cep.replaceAll("[^0-9]", "");
+        // CEP deve ter exatamente 8 dígitos
+        return cepLimpo.length() == 8 && cepLimpo.matches("^\\d{8}$");
+    }
+
+    /**
+     * Valida o formato do Estado (deve ser uma sigla de 2 letras).
+     * 
+     * @param estado Estado a ser validado
+     * @return true se o estado está em formato válido, false caso contrário
+     */
+    private boolean validarEstado(String estado) {
+        // Estado deve ter exatamente 2 letras
+        return estado.length() == 2 && estado.matches("^[A-Za-z]{2}$");
+    }
+
+    /**
+     * Exibe mensagem de erro na interface do usuário.
+     * 
+     * @param mensagem Mensagem de erro a ser exibida
+     */
+    private void mostrarErro(String mensagem) {
+        if (labelErro != null) {
+            labelErro.setText(mensagem);
+            labelErro.setVisible(true);
+        }
+        System.err.println("Erro de validação: " + mensagem);
     }
 
     @FXML
