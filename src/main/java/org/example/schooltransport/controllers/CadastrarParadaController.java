@@ -71,7 +71,7 @@ public class CadastrarParadaController {
             if (nomeParada.isEmpty()) {
                 erros.add("• Nome da Parada é obrigatório");
             } else if (nomeParada.matches("^\\d+$")) {
-                erros.add("• Nome da Parada não pode conter apenas números");
+                erros.add("• Nome não pode ser apenas números");
             }
 
             // Validação do CEP
@@ -79,7 +79,7 @@ public class CadastrarParadaController {
             if (cep.isEmpty()) {
                 erros.add("• CEP é obrigatório");
             } else if (!validarCEP(cep)) {
-                erros.add("• CEP inválido. Deve conter 8 dígitos numéricos (ex: 12345678 ou 12345-678)");
+                erros.add("• CEP inválido (8 dígitos)");
             }
 
             // Validação do logradouro
@@ -93,7 +93,7 @@ public class CadastrarParadaController {
             if (numero.isEmpty()) {
                 erros.add("• Número é obrigatório");
             } else if (!numero.matches("^\\d+[A-Za-z]?$")) {
-                erros.add("• Número inválido. Deve conter apenas números (ex: 123 ou 123A)");
+                erros.add("• Número inválido (apenas números)");
             }
 
             // Validação do bairro
@@ -107,7 +107,7 @@ public class CadastrarParadaController {
             if (cidade.isEmpty()) {
                 erros.add("• Cidade é obrigatória");
             } else if (cidade.matches("^\\d+$")) {
-                erros.add("• Cidade não pode conter apenas números");
+                erros.add("• Cidade não pode ser apenas números");
             }
 
             // Validação do estado
@@ -115,12 +115,12 @@ public class CadastrarParadaController {
             if (estado.isEmpty()) {
                 erros.add("• Estado é obrigatório");
             } else if (!validarEstado(estado)) {
-                erros.add("• Estado inválido. Deve ser a sigla com 2 letras (ex: SP, RJ, MG)");
+                erros.add("• Estado inválido (2 letras)");
             }
 
             // Se houver erros, exibe e interrompe o cadastro
             if (!erros.isEmpty()) {
-                String mensagemErro = "Por favor, corrija os seguintes erros:\n\n" + String.join("\n", erros);
+                String mensagemErro = String.join("\n", erros);
                 mostrarErro(mensagemErro);
                 return;
             }
