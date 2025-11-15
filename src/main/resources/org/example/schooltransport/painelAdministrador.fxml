@@ -23,7 +23,7 @@
             <children>
                <HBox alignment="BOTTOM_LEFT" prefHeight="68.0" prefWidth="361.0">
                   <children>
-                     <Button alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#voltar" prefHeight="45.0" prefWidth="43.0" styleClass="bottom" stylesheets="@styles.css" text="←">
+                     <Button fx:id="botaoVoltarTopo" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#voltar" prefHeight="45.0" prefWidth="43.0" styleClass="bottom" stylesheets="@styles.css" text="←">
                         <font>
                            <Font size="13.0" />
                         </font>
@@ -113,7 +113,16 @@
 
             <HBox alignment="CENTER_LEFT" spacing="10.0" />
 
-            <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
+         <!-- Botão para abrir a tela de cadastro de rota -->
+       <VBox spacing="10.0">
+          <children>
+             <Button mnemonicParsing="false" onAction="#abrirCadastrarRota" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Rota" />
+             <!-- Botão posicionado abaixo, com mesma estilização -->
+             <Button mnemonicParsing="false" onAction="#abrirListarRotas" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Listar Rotas" />
+          </children>
+       </VBox>
+
+         <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
         </VBox>
     </VBox>
     <stylesheets>
