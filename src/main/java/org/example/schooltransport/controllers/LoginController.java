@@ -42,7 +42,7 @@ public class LoginController {
         String email = emailDigitado.getText().trim();
         String senha = senhaDigitada.getText().trim();
 
-        Responsavel responsavel = new Responsavel("baby", "alo", "oi nego", "responsavel", "responsavel");
+        Responsavel responsavel = new Responsavel("", "", "", "responsavel", "responsavel");
         Repositorio.getListaResponsavel().add(responsavel);
 
         if (email.isEmpty() || senha.isEmpty()) {
@@ -50,21 +50,27 @@ public class LoginController {
             return;
         }
         // Aqui você pode implementar a lógica real de autenticação (ex: consulta ao banco)
-        if (email.equals("admin@email.com") && senha.equals("1234")) {
+        if ((email.equals("admin@email.com") && senha.equals("1234"))
+        || ((email.equals("administrador") && senha.equals("administrador")))) {
             mostrarAlerta("Login realizado", "Bem-vindo, administrador!");
-            // TODO: Redirecionar para próxima tela
             navegarDeTela(event, "painelAdministrador.fxml");
         }
+        /* Essa parte ainda não pode ser feita
+        else {
+            mostrarAlerta("Erro", "E-mail ou senha inválidos.");
+        }
+        */
+        if (email.equals("motorista") && senha.equals("motorista"))
+            navegarDeTela(event, "telaMotorista.fxml");
+
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
             if (tipoDeUsuario == 'R')
                 navegarDeTela(event, "painelAdministrador.fxml");
             if (tipoDeUsuario == 'A')
-                navegarDeTela(event, "consultarRota.fxml");
+                navegarDeTela(event, "consultarRotaMotorista.fxml");
+            //Ainda redundante, enquanto o cadastro de motorista não estiver completo
             if (tipoDeUsuario == 'M')
                 navegarDeTela(event, "telaMotorista.fxml");
-
-        } else {
-            mostrarAlerta("Erro", "E-mail ou senha inválidos.");
         }
     }
     private void navegarDeTela(ActionEvent event, String fxmlFile) {

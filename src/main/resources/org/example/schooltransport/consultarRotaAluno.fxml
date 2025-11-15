@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="900.0" prefWidth="400.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.controllers.ConsultarRotaAlunoController">
+   <children>
+      <VBox prefHeight="222.0" prefWidth="400.0" styleClass="cabecalho-topo" stylesheets="@styles.css">
+         <children>
+            <Region prefHeight="51.0" prefWidth="302.0" />
+            <Button fx:id="botaoVoltar" onAction="#voltar" mnemonicParsing="false" prefHeight="39.0" prefWidth="92.0" styleClass="bottom" text="← Voltar" />
+            <HBox alignment="CENTER" prefHeight="114.0" prefWidth="404.0">
+               <children>
+                  <StackPane prefHeight="120.0" prefWidth="120.0">
+                     <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/nAlunos.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" translateY="22.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </StackPane>
+                  <StackPane prefHeight="120.0" prefWidth="120.0">
+                     <children>
+                        <ImageView fitHeight="94.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/nParadas.png" />
+                           </image>
+                        </ImageView>
+                        <Label translateY="22.0" />
+                     </children>
+                  </StackPane>
+                  <StackPane prefHeight="120.0" prefWidth="120.0">
+                     <children>
+                        <ImageView fitHeight="95.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/Rota.png" />
+                           </image>
+                        </ImageView>
+                        <Label translateY="22.0" fx:id="proximaParada"/>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="35.0" layoutY="253.0" prefHeight="51.0" prefWidth="330.0" styleClass="parada-item" stylesheets="@styles.css">
+         <children>
+            <Label text="Proxima parada">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <HBox alignment="CENTER" layoutX="4.0" layoutY="305.0" prefHeight="51.0" prefWidth="393.0">
+         <children>
+            <Label text="Avenida Manoel Messias">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+
+</AnchorPane>

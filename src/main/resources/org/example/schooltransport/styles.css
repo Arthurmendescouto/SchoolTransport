@@ -150,6 +150,9 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
 
 /*Botão para a tela de rota, que deve ter um tamanho de fonte menor */
 .bottom-route {
@@ -157,6 +160,7 @@
     -fx-text-fill: WHITE;
     -fx-font-size: 10px;
     -fx-background-radius: 5;
+    -fx-padding: 5px 10px;
 }
 
 /* Estilo para mensagens de erro */
