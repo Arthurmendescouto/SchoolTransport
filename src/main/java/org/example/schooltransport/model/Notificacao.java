@@ -1,27 +1,35 @@
 package org.example.schooltransport.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Notificacao {
-    private Pessoa pessoa;
-    private String conteudo;
 
-    public Notificacao(Pessoa pessoa, String conteudo) {
-        this.pessoa = pessoa;
-        this.conteudo = conteudo;
+    private long pessoaId;
+    private List<String> notificacoes = new ArrayList<>();
+
+    public Notificacao(long pessoaId) {
+        this.pessoaId = pessoaId;
+        this.notificacoes = new ArrayList<>();
     }
 
-    public Pessoa getPessoa() {
-        return pessoa;
+    public long getPessoaId() {
+        return pessoaId;
     }
 
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public void setPessoaId(long pessoaId) {
+        this.pessoaId = pessoaId;
     }
 
-    public String getConteudo() {
-        return conteudo;
+    public List<String> getNotificacoes() {
+        return notificacoes;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public void setNotificacoes(List<String> notificacoes) {
+        this.notificacoes = notificacoes;
+    }
+
+    public void adicionarNotificacao(String conteudo) {
+        this.notificacoes.add(conteudo);
     }
 }
