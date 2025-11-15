@@ -5,17 +5,26 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="790.0" prefWidth="400.0" styleClass="root"
-            xmlns="http://javafx.com/javafx/25"
+            xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.example.schooltransport.controllers.CadastrarRotaController">
+
+    <fx:define>
+        <ToggleGroup fx:id="turnoGroup" />
+    </fx:define>
 
     <VBox alignment="TOP_CENTER" spacing="20.0"
           AnchorPane.bottomAnchor="0.0"
@@ -24,16 +33,19 @@
           AnchorPane.topAnchor="0.0">
 
         <!-- Cabeçalho -->
-        <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo">
+            <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-            <Button fx:id="botaoVoltar" mnemonicParsing="false" styleClass="bottom_voltar"
-                    stylesheets="@styles.css" text="← Voltar" />
+        <Button fx:id="botaoVoltar" mnemonicParsing="false" onAction="#voltarTela" styleClass="bottom_voltar"
+            stylesheets="@styles.css" text="← Voltar" />
         </HBox>
 
-        <!-- Corpo -->
-        <VBox alignment="TOP_CENTER" prefHeight="648.0" prefWidth="370.0" spacing="15.0">
+        <!-- Corpo (agora dentro de ScrollPane para permitir rolagem) -->
+    <!-- use the stylesheet's .scroll-pane class so viewport styles apply -->
+    <ScrollPane fitToWidth="true" prefViewportHeight="648.0" prefViewportWidth="370.0" styleClass="scroll-pane">
+            <content>
+                <VBox alignment="TOP_CENTER" prefHeight="648.0" prefWidth="370.0" spacing="15.0">
             <padding>
                 <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
             </padding>
@@ -58,7 +70,7 @@
                     <Label styleClass="label-campo" text="Motorista:" />
                 </children>
             </HBox>
-            <TextField fx:id="campoMotorista" styleClass="form-field" />
+            <ComboBox fx:id="comboMotorista" styleClass="form-field" />
 
             <!-- ÔNIBUS -->
             <HBox spacing="10.0">
@@ -71,7 +83,7 @@
                     <Label styleClass="label-campo" text="Ônibus:" />
                 </children>
             </HBox>
-            <TextField fx:id="campoOnibus" styleClass="form-field" />
+            <ComboBox fx:id="comboVeiculo" styleClass="form-field" />
 
             <!-- TURNO -->
             <HBox spacing="10.0">
@@ -84,10 +96,16 @@
                     <Label styleClass="label-campo" text="Turno:" />
                 </children>
             </HBox>
-            <TextField fx:id="campoTurno" styleClass="form-field" />
+            <HBox spacing="10.0">
+                <children>
+                    <RadioButton fx:id="radioMatutino" mnemonicParsing="false" text="Matutino" toggleGroup="$turnoGroup" />
+                    <RadioButton fx:id="radioVespertino" mnemonicParsing="false" text="Vespertino" toggleGroup="$turnoGroup" />
+                    <RadioButton fx:id="radioNoturno" mnemonicParsing="false" text="Noturno" toggleGroup="$turnoGroup" />
+                </children>
+            </HBox>
 
-            <!-- PARADAS -->
-            <HBox prefHeight="0.0" prefWidth="360.0">
+            <!-- PARADAS: selecionar e adicionar à lista -->
+            <HBox spacing="10.0">
                 <children>
                     <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -98,12 +116,20 @@
                 </children>
             </HBox>
 
+            <ComboBox fx:id="comboParada" styleClass="form-field" />
             <Button fx:id="botaoAdicionarParada" onAction="#adicionarParada"
-                    prefHeight="49.0" prefWidth="352.0"
-                    styleClass="form-field"
-                    stylesheets="@styles.css" text="+ Adicionar parada" />
+                    prefHeight="36.0" prefWidth="160.0"
+                    styleClass="bottom" text="Adicionar parada" />
 
-            <VBox fx:id="listaParadasContainer" spacing="10.0" />
+            <!-- Área com Scroll vertical dedicado para as paradas adicionadas -->
+            <!-- Área fixa de paradas com altura exata de 200px -->
+            <ScrollPane fx:id="paradasScrollPane" fitToWidth="true" prefViewportHeight="200.0" minHeight="200.0" maxHeight="200.0" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" styleClass="parada-scroll">
+                <content>
+                    <ListView fx:id="listaParadasListView" prefHeight="200.0" minHeight="200.0" maxHeight="200.0" VBox.vgrow="NEVER" styleClass="parada-list" style="-fx-border-color: gray; -fx-border-width: 1; -fx-min-height:200; -fx-pref-height:200; -fx-max-height:200;" />
+                </content>
+            </ScrollPane>
+
+            <Label fx:id="labelParadasCount" text="Paradas: 0" style="-fx-font-weight: bold;" />
 
             <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
 
@@ -111,7 +137,9 @@
                     styleClass="bottom" stylesheets="@styles.css" text="Salvar"
                     onAction="#salvarRota" />
 
-        </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
     </VBox>
 
     <stylesheets>
