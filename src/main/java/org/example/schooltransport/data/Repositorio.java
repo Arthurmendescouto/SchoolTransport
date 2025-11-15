@@ -1,9 +1,11 @@
 package org.example.schooltransport.data;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import org.example.schooltransport.Parada;
 import org.example.schooltransport.model.Aluno;
+import org.example.schooltransport.model.Motorista;
 import org.example.schooltransport.model.Veiculo;
 import org.example.schooltransport.model.Responsavel;
 import org.example.schooltransport.model.Rota;
@@ -15,7 +17,8 @@ public class Repositorio {
     private static ArrayList<Aluno> listaAluno = new ArrayList<>();
     private static ArrayList<Responsavel> listaResponsavel = new ArrayList<>();
     private static ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
-    private static ArrayList<Rota> listaRota = new ArrayList<>();
+    private static ArrayList<Motorista> listaMotorista = new ArrayList<>();
+    private static LinkedList<Rota> listaRota = new LinkedList<>();
     private static ObservableList<Parada> listaParada = FXCollections.observableArrayList();
     
     public static ArrayList<Aluno> getListaAluno() {
@@ -36,10 +39,16 @@ public class Repositorio {
     public static void setListaVeiculo(ArrayList<Veiculo> listaVeiculo) {
         Repositorio.listaVeiculo = listaVeiculo;
     }
-    public static ArrayList<Rota> getListaRota() {
+    public static ArrayList<org.example.schooltransport.model.Motorista> getListaMotorista() {
+        return listaMotorista;
+    }
+    public static void setListaMotorista(ArrayList<org.example.schooltransport.model.Motorista> listaMotorista) {
+        Repositorio.listaMotorista = listaMotorista;
+    }
+    public static LinkedList<Rota> getListaRota() {
         return listaRota;
     }
-    public static void setListaRota(ArrayList<Rota> listaRota) {
+    public static void setListaRota(LinkedList<Rota> listaRota) {
         Repositorio.listaRota = listaRota;
     }
     
