@@ -115,7 +115,7 @@ public class CadastrarParadaController {
             if (estado.isEmpty()) {
                 erros.add("• Estado é obrigatório");
             } else if (!validarEstado(estado)) {
-                erros.add("• Estado inválido (2 letras)");
+                erros.add("• Estado inválido");
             }
 
             // Se houver erros, exibe e interrompe o cadastro

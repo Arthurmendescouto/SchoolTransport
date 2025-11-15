@@ -95,7 +95,10 @@ public class TelaMotoristaController implements Initializable {
             labelContagemTotal.setText("0/0");
             labelEntregues.setText("0");
             labelPendentes.setText("0");
-            barraProgressoPreenchida.setPrefWidth(0);
+            // Verifica se barraProgressoPreenchida existe antes de usar
+            if (barraProgressoPreenchida != null) {
+                barraProgressoPreenchida.setPrefWidth(0);
+            }
             return;
         }
 
@@ -107,17 +110,22 @@ public class TelaMotoristaController implements Initializable {
         labelEntregues.setText(String.valueOf(entregues));
         labelPendentes.setText(String.valueOf(pendentes));
 
-        // 2. Atualiza a barra percentual
-        double progressoPercentual = (double) entregues / totalParadasIniciais;
+        // 2. Atualiza a barra percentual (se existir no FXML)
+        if (barraProgressoPreenchida != null) {
+            double progressoPercentual = (double) entregues / totalParadasIniciais;
 
-        // Usa Platform.runLater para garantir que o cálculo de largura ocorra após o layout
-        javafx.application.Platform.runLater(() -> {
-            // Pega a largura do StackPane pai da barra preenchida
-            double larguraBase = barraProgressoPreenchida.getParent().getBoundsInLocal().getWidth();
-            double novaLargura = larguraBase * progressoPercentual;
+            // Usa Platform.runLater para garantir que o cálculo de largura ocorra após o layout
+            javafx.application.Platform.runLater(() -> {
+                // Verifica novamente se ainda existe e se tem um pai
+                if (barraProgressoPreenchida != null && barraProgressoPreenchida.getParent() != null) {
+                    // Pega a largura do StackPane pai da barra preenchida
+                    double larguraBase = barraProgressoPreenchida.getParent().getBoundsInLocal().getWidth();
+                    double novaLargura = larguraBase * progressoPercentual;
 
-            barraProgressoPreenchida.setPrefWidth(novaLargura);
-        });
+                    barraProgressoPreenchida.setPrefWidth(novaLargura);
+                }
+            });
+        }
     }
 
     // =========================================================
