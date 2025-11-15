@@ -1,11 +1,10 @@
 package org.example.schooltransport;
 
-import javafx.collections.FXCollections;
+import org.example.schooltransport.data.Repositorio;
+
 import javafx.collections.ObservableList;
 
 public class Cadastro {
-
-    private static final ObservableList<Parada> listaDeParadas = FXCollections.observableArrayList();
 
     private static Cadastro instance;
 
@@ -19,14 +18,14 @@ public class Cadastro {
     }
 
     public void adicionarParada(Parada parada) {
-        listaDeParadas.add(parada);
+        Repositorio.adicionarParada(parada);
     }
 
     public void removerParada(Parada parada){
-        listaDeParadas.remove(parada);
+        Repositorio.removerParada(parada);
     }
 
     public ObservableList<Parada> getListaDeParadas() {
-        return listaDeParadas;
+        return Repositorio.getListaParada();
     }
 }
