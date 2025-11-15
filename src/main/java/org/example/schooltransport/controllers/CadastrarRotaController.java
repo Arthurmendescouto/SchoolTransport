@@ -1,67 +1,187 @@
 package org.example.schooltransport.controllers;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
+import org.example.schooltransport.Parada;
+import org.example.schooltransport.data.Repositorio;
+import org.example.schooltransport.model.Motorista;
+import org.example.schooltransport.model.Rota;
+import org.example.schooltransport.model.Veiculo;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
-public class CadastrarRotaController {
+public class CadastrarRotaController implements Initializable {
 
-    @FXML
-    private TextField campoMotorista;
+    @FXML private ComboBox<Motorista> comboMotorista;
+    @FXML private ComboBox<Veiculo> comboVeiculo;
+    @FXML private ComboBox<Parada> comboParada;
+    @FXML private ListView<Parada> listaParadasListView;
+    @FXML private javafx.scene.control.Label labelParadasCount;
+    @FXML private ToggleGroup turnoGroup;
+    @FXML private RadioButton radioMatutino;
+    @FXML private RadioButton radioVespertino;
+    @FXML private RadioButton radioNoturno;
+    @FXML private Button botaoAdicionarParada;
+    @FXML private Button botaoSalvar;
+    @FXML private Button botaoVoltar;
+    @FXML private Label mensagemStatus;
 
-    @FXML
-    private TextField campoOnibus;
+    private ObservableList<Parada> selectedParadas = FXCollections.observableArrayList();
 
-    @FXML
-    private TextField campoTurno;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Popular combos a partir do repositório
+        comboMotorista.getItems().clear();
+        comboMotorista.getItems().addAll(Repositorio.getListaMotorista());
 
-    @FXML
-    private VBox listaParadasContainer;
+        comboVeiculo.getItems().clear();
+        comboVeiculo.getItems().addAll(Repositorio.getListaVeiculo());
 
-    @FXML
-    private Button botaoAdicionarParada;
+        // Paradas do repositório (observável)
+        comboParada.setItems(Repositorio.getListaParada());
 
-    @FXML
-    private Button botaoSalvar;
+        listaParadasListView.setItems(selectedParadas);
 
-    @FXML
-    private Button botaoVoltar;
+        // Cell factory para mostrar cada parada com um botão 'Remover'
+        listaParadasListView.setCellFactory(lv -> new javafx.scene.control.ListCell<Parada>() {
+            private final javafx.scene.layout.HBox container = new javafx.scene.layout.HBox(8);
+            private final javafx.scene.control.Label label = new javafx.scene.control.Label();
+            private final javafx.scene.control.Button removeBtn = new javafx.scene.control.Button("Remover");
 
-    @FXML
-    private Label mensagemStatus;
+            {
+                container.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+                //adiciona estilização
+                container.getStyleClass().add("parada-item");
+                label.getStyleClass().add("parada-nome-texto");
+                removeBtn.getStyleClass().add("btn-entregue-status");
+                javafx.scene.layout.HBox.setHgrow(label, javafx.scene.layout.Priority.ALWAYS);
+                label.setMaxWidth(Double.MAX_VALUE);
 
-    @FXML
-    private void initialize() {
+                removeBtn.setMinWidth(80);
+
+                container.getChildren().addAll(label, removeBtn);
+                removeBtn.setOnAction(e -> {
+                    Parada item = getItem();
+                    if (item != null) {
+                        selectedParadas.remove(item);
+                    }
+                });
+            }
+
+            @Override
+            protected void updateItem(Parada item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    label.setText(item.toString());
+                    setGraphic(container);
+                }
+            }
+        });
+
+        // mantém o label de contagem atualizado
+        labelParadasCount.setText("Paradas: " + selectedParadas.size());
+        selectedParadas.addListener((javafx.collections.ListChangeListener<Parada>) c -> {
+            labelParadasCount.setText("Paradas: " + selectedParadas.size());
+        });
+
         mensagemStatus.setText("");
     }
 
     @FXML
-    private void adicionarParada() {
-        TextField novaParada = new TextField();
-        novaParada.setPromptText("Nome da parada");
-        novaParada.getStyleClass().add("form-field");
-        listaParadasContainer.getChildren().add(novaParada);
+    private void adicionarParada(ActionEvent event) {
+        Parada p = comboParada.getSelectionModel().getSelectedItem();
+        if (p == null) {
+            mensagemStatus.setText("Escolha uma parada para adicionar.");
+            return;
+        }
+        if (!selectedParadas.contains(p)) {
+            selectedParadas.add(p);
+            mensagemStatus.setText("");
+            // Limpa seleção do combo para permitir adicionar novamente outra parada
+            comboParada.getSelectionModel().clearSelection();
+        } else {
+            mensagemStatus.setText("Parada já adicionada.");
+        }
     }
 
     @FXML
-    private void salvarRota() {
-        String motorista = campoMotorista.getText();
-        String onibus = campoOnibus.getText();
-        String turno = campoTurno.getText();
+    private void salvarRota(ActionEvent event) {
+        Motorista motorista = comboMotorista.getSelectionModel().getSelectedItem();
+        Veiculo veiculo = comboVeiculo.getSelectionModel().getSelectedItem();
+        String turno = getSelectedTurno();
 
-        if (motorista.isEmpty() || onibus.isEmpty() || turno.isEmpty()) {
-            mensagemStatus.setText("⚠️ Preencha todos os campos principais!");
+        if (motorista == null || veiculo == null || turno == null || turno.trim().isEmpty()) {
+            mensagemStatus.setText("⚠️ Selecione motorista, veículo e o turno.");
             return;
         }
 
-        int qtdParadas = listaParadasContainer.getChildren().size();
-        mensagemStatus.setText("✅ Rota cadastrada com sucesso! Paradas: " + qtdParadas);
+        ArrayList<Parada> paradas = new ArrayList<>(selectedParadas);
+        Rota rota = new Rota(motorista, veiculo, turno, paradas);
+
+        // Adiciona ao repositório
+        Repositorio.getListaRota().add(rota);
+
+        mensagemStatus.setText("✅ Rota cadastrada com sucesso! Paradas: " + paradas.size());
+        // Limpar seleção
+        comboMotorista.getSelectionModel().clearSelection();
+        comboVeiculo.getSelectionModel().clearSelection();
+        comboParada.getSelectionModel().clearSelection();
+        // limpar seleção dos radio buttons
+        turnoGroup.selectToggle(null);
+        selectedParadas.clear();
+    }
+
+    private String getSelectedTurno() {
+        if (radioMatutino.isSelected()) return "Matutino";
+        if (radioVespertino.isSelected()) return "Vespertino";
+        if (radioNoturno.isSelected()) return "Noturno";
+        return "";
     }
 
     @FXML
-    private void voltarTela() {
-        System.out.println("Voltando à tela anterior...");
+    private void voltarTela(ActionEvent event) {
+        navegarDeTela(event, "painelAdministrador.fxml");
+    }
+
+    private void navegarDeTela(ActionEvent event, String fxmlFile) {
+        try {
+            String caminhoAbsoluto = "/org/example/schooltransport/" + fxmlFile;
+            URL resourceUrl = getClass().getResource(caminhoAbsoluto);
+            if (resourceUrl == null) {
+                System.err.println("FATAL: Não foi possível encontrar o FXML em: " + caminhoAbsoluto);
+                return;
+            }
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
+            Parent root = loader.load();
+
+            Node sourceNode = (Node) event.getSource();
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Erro ao carregar o FXML: " + fxmlFile);
+        }
     }
 }
