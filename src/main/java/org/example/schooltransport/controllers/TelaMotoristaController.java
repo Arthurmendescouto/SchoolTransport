@@ -39,6 +39,7 @@ public class TelaMotoristaController implements Initializable {
     @FXML private Label labelPendentes;
     @FXML private Pane barraProgressoPreenchida;
     @FXML private VBox containerProgresso; // Container principal do progresso
+    private String telaDeOrigem;
 
     private Parada proximaParada;
     private int totalParadasIniciais = 0; // Armazena o total inicial para o cálculo percentual
@@ -161,6 +162,7 @@ public class TelaMotoristaController implements Initializable {
     private void voltar(ActionEvent event) {
         // Lógica para voltar à tela principal ou menu
         System.out.println("Voltando da Tela Motorista");
+        navegarDeTela(event, "login.fxml");
     }
 
     // Método auxiliar de navegação
@@ -201,5 +203,9 @@ public class TelaMotoristaController implements Initializable {
     // Sobrecarga do método de navegação para aceitar ActionEvent
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         navegarDeTela((Node) event.getSource(), fxmlFile);
+    }
+
+    private void setTelaDeOrigem(String telaDeOrigem) {
+        this.telaDeOrigem = telaDeOrigem;
     }
 }
