@@ -1,33 +1,33 @@
 package org.example.schooltransport.model;
-
 import java.util.ArrayList;
+import org.example.schooltransport.Parada;
 
 public class Rota {
-    String motorista;
-    String onibus;
-    String turno;
-    ArrayList<String> paradas = new ArrayList<>();
+    private Motorista motorista;
+    private Veiculo onibus;
+    private String turno;
+    private ArrayList<Parada> paradas = new ArrayList<>();
 
-    public Rota(String motorista, String onibus, String turno, ArrayList<String> paradas) {
+    public Rota(Motorista motorista, Veiculo onibus, String turno, ArrayList<Parada> paradas) {
         this.motorista = motorista;
         this.onibus = onibus;
         this.turno = turno;
         this.paradas = paradas;
     }
 
-    public String getMotorista() {
+    public Motorista getMotorista() {
         return motorista;
     }
 
-    public void setMotorista(String motorista) {
+    public void setMotorista(Motorista motorista) {
         this.motorista = motorista;
     }
 
-    public String getOnibus() {
+    public Veiculo getOnibus() {
         return onibus;
     }
 
-    public void setOnibus(String onibus) {
+    public void setOnibus(Veiculo onibus) {
         this.onibus = onibus;
     }
 
@@ -39,14 +39,11 @@ public class Rota {
         this.turno = turno;
     }
 
-    public ArrayList<String> getParadas() {
+    public ArrayList<Parada> getParadas() {
         return paradas;
     }
 
-    public void setParadas(ArrayList<String> paradas) {
+    public void setParadas(ArrayList<Parada> paradas) {
         this.paradas = paradas;
     }
-
-    
-    
 }
