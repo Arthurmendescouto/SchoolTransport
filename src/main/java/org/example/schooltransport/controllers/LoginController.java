@@ -47,8 +47,6 @@ public class LoginController {
         Responsavel responsavelPadrao = new Responsavel("Responsável padrão", "", "", "responsavel", "responsavel");
         Repositorio.getListaResponsavel().add(responsavelPadrao);
 
-        Aluno alunoPadrao = new Aluno("Aluno padrão", "", "", "", "", "aluno", "aluno");
-        Repositorio.getListaAluno().add(alunoPadrao);
 
         if (email.isEmpty() || senha.isEmpty()) {
             mostrarAlerta("Campos obrigatórios", "Por favor, preencha todos os campos.");

@@ -26,7 +26,6 @@
 .label-campo {
     -fx-font-size: 16.0;
     -fx-text-fill: rgb(95, 95, 95);
-    
 }
 
 .form-field {
@@ -54,6 +53,7 @@
     -fx-font-size: 17px;
     -fx-background-radius: 20;
 }
+
 .parada-item {
     -fx-background-color: #FFFAF7;
     -fx-border-color: #FFB08E;
@@ -82,6 +82,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
+
 .painel-proxima-parada {
     -fx-background-color: #f0f0f0;
     -fx-border-color: #cccccc;
@@ -89,41 +90,35 @@
 }
 
 .painel-progresso {
-    -fx-background-color: #FFFAF7; /* Fundo claro (quase branco) */
-    -fx-border-color: #FFB08E;     /* Borda laranja clara (como na imagem) */
-    -fx-border-radius: 15px;       /* Cantos arredondados */
+    -fx-background-color: #FFFAF7;
+    -fx-border-color: #FFB08E;
+    -fx-border-radius: 15px;
     -fx-background-radius: 15px;
     -fx-border-width: 1px;
 }
 
-/* Estilo do título "Progresso da rota" */
 .progresso-titulo {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
 
-/* Estilo da contagem total (ex: 1/1, 2/7) */
 .progresso-contagem-total {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
 }
 
-/* --- BARRA DE PROGRESSO SIMULADA --- */
-
-/* Barra de Progresso - Fundo (o branco/laranja claro dentro do StackPane) */
 .barra-fundo {
-    -fx-background-color: #f7f7f7; /* Fundo claro da barra (imita o branco/cinza) */
-    -fx-border-color: #FFB08E;     /* Borda laranja clara (linha que contorna) */
+    -fx-background-color: #f7f7f7;
+    -fx-border-color: #FFB08E;
     -fx-border-width: 1px;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
 }
 
-/* Barra de Progresso - Preenchimento (a parte que "carrega", cor Laranja Forte) */
 .barra-preenchida {
-    -fx-background-color: #FF5722; /* Laranja forte */
+    -fx-background-color: #FF5722;
     -fx-background-radius: 5px;
 }
 
@@ -132,7 +127,6 @@
     -fx-text-fill: #666666;
     -fx-padding: 0 0 5px 0;
 }
-
 
 .progresso-valor-entregue {
     -fx-font-size: 20px;
@@ -154,7 +148,6 @@
     -fx-background-color: transparent;
 }
 
-/*Botão para a tela de rota, que deve ter um tamanho de fonte menor */
 .bottom-route {
     -fx-background-color: #E23C00;
     -fx-text-fill: WHITE;
@@ -163,7 +156,6 @@
     -fx-padding: 5px 10px;
 }
 
-/* Estilo para mensagens de erro */
 .label-erro {
     -fx-font-size: 14px;
     -fx-text-fill: #d32f2f;
@@ -177,4 +169,106 @@
     -fx-effect: dropshadow(gaussian, rgba(211, 47, 47, 0.3), 8, 0, 0, 2);
     -fx-alignment: center-left;
     -fx-line-spacing: 5px;
+}
+
+.label-secao-alunos {
+    -fx-font-size: 1.3em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+.scroll-pane-alunos {
+    -fx-border-color: transparent;
+    -fx-background-color: #f4f4f4;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}
+
+.scroll-pane-alunos .content {
+    -fx-background-color: transparent;
+}
+
+.item-aluno {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -fx-border-width: 1px;
+    -fx-border-color: #e0e0e0;
+}
+
+.nome-aluno-item {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: 500;
+    -fx-text-fill: #222222;
+}
+
+/* ========== SWITCH (TOGGLE) — SEM QUADRADO NO CÍRCULO ========== */
+
+.check-presenca {
+    -fx-background-color: #d0d0d0;
+    -fx-background-radius: 20;
+    -fx-pref-width: 48px;
+    -fx-pref-height: 26px;
+    -fx-padding: 2px;
+    -fx-cursor: hand;
+    -fx-text-fill: transparent;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+.check-presenca:selected {
+    -fx-background-color: #25a125;
+}
+
+/* Círculo do botão */
+.check-presenca .box {
+    -fx-background-color: white;
+    -fx-background-radius: 50;
+    -fx-pref-width: 22px;
+    -fx-pref-height: 22px;
+    -fx-padding: 0;
+    -fx-translate-x: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 2, 0, 0, 1);
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+/* Movimento do círculo */
+.check-presenca:selected .box {
+    -fx-translate-x: 22px;
+}
+
+/* Remove check interno */
+.check-presenca .mark,
+.check-presenca:selected .mark {
+    -fx-background-color: transparent;
+    -fx-shape: "";
+}
+
+/* Remove totalmente o foco */
+.check-presenca:focused,
+.check-presenca:armed,
+.check-presenca:hover,
+.check-presenca:focused .box,
+.check-presenca:hover .box,
+.check-presenca:armed .box {
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+/* Animação */
+.check-presenca,
+.check-presenca .box {
+    -fx-transition: -fx-background-color 0.25s ease, -fx-translate-x 0.22s ease;
+}
+
+/* ============================= */
+
+.label-lista-vazia {
+    -fx-font-size: 1.1em;
+    -fx-text-fill: #FFEFEC;
+    -fx-font-style: italic;
+    -fx-alignment: center;
+    -fx-wrap-text: true;
 }

@@ -17,7 +17,18 @@ public class Repositorio {
     private static ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
     private static ArrayList<Rota> listaRota = new ArrayList<>();
     private static ObservableList<Parada> listaParada = FXCollections.observableArrayList();
-    
+
+    //colocando elementos genéricos para testar  o regristro de presença do motorista
+    static {
+        // Alunos para a lista de presença (TelaMotorista)
+        listaAluno.add(new Aluno("Filipe Alves", "111", "Maria Alves", "999", "Parada A", "filipe@mail.com", "123"));
+        listaAluno.add(new Aluno("Ana Beatriz", "222", "Carlos Silva", "888", "Parada B", "ana@mail.com", "123"));
+        listaAluno.add(new Aluno("Julio Cesar", "333", "Marta Lima", "777", "Parada C", "julio@mail.com", "123"));
+
+        // 👇 Responsável para testar o LOGIN (responsavel/responsavel) 👇
+        listaResponsavel.add(new Responsavel("Responsável padrão", "", "", "responsavel", "responsavel"));
+    }
+
     public static ArrayList<Aluno> getListaAluno() {
         return listaAluno;
     }
