@@ -17,7 +17,7 @@
       <VBox prefHeight="222.0" prefWidth="400.0" styleClass="cabecalho-topo" stylesheets="@styles.css">
          <children>
             <Region prefHeight="51.0" prefWidth="302.0" />
-            <Button fx:id="botaoVoltar" onAction="#voltar" mnemonicParsing="false" prefHeight="39.0" prefWidth="92.0" styleClass="bottom" text="← Voltar" />
+            <Button fx:id="botaoVoltar" mnemonicParsing="false" onAction="#voltar" prefHeight="39.0" prefWidth="92.0" styleClass="bottom" text="← Voltar" />
             <HBox alignment="CENTER" prefHeight="114.0" prefWidth="404.0">
                <children>
                   <StackPane prefHeight="120.0" prefWidth="120.0">
@@ -27,7 +27,7 @@
                               <Image url="@icons/nAlunos.png" />
                            </image>
                         </ImageView>
-                        <Label alignment="CENTER" contentDisplay="CENTER" translateY="22.0" />
+                        <Label fx:id="quantidadeDeAlunos" alignment="CENTER" contentDisplay="CENTER" translateY="22.0" />
                      </children>
                      <HBox.margin>
                         <Insets />
@@ -40,7 +40,7 @@
                               <Image url="@icons/nParadas.png" />
                            </image>
                         </ImageView>
-                        <Label translateY="22.0" />
+                        <Label fx:id="quantidadeDeParadas" translateY="22.0" />
                      </children>
                   </StackPane>
                   <StackPane prefHeight="120.0" prefWidth="120.0">
@@ -50,7 +50,7 @@
                               <Image url="@icons/Rota.png" />
                            </image>
                         </ImageView>
-                        <Label translateY="22.0" fx:id="proximaParada"/>
+                        <Label fx:id="turnoDaRota" translateY="22.0" />
                      </children>
                   </StackPane>
                </children>
@@ -68,7 +68,7 @@
       </VBox>
       <HBox alignment="CENTER" layoutX="4.0" layoutY="305.0" prefHeight="51.0" prefWidth="393.0">
          <children>
-            <Label text="Avenida Manoel Messias">
+            <Label fx:id="proximaParada">
                <font>
                   <Font size="14.0" />
                </font>

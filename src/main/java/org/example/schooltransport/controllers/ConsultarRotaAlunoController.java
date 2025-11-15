@@ -1,5 +1,6 @@
 package org.example.schooltransport.controllers;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,21 +16,33 @@ import org.example.schooltransport.data.Repositorio;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 public class ConsultarRotaAlunoController {
+    private String turnoDaRotaValido = "";
     @FXML
     private Label proximaParada;
     @FXML
-    private Button botaoVoltar;
+    private Label quantidadeDeAlunos;
+    @FXML
+    private Label quantidadeDeParadas;
+    @FXML
+    private Label turnoDaRota;
     @FXML
     private void voltar(ActionEvent event) {navegarDeTela(event, "login.fxml");}
     @FXML
-    //Aguardando a listaDeParadas ser criada
-    public void initialize() {if ("" != null) proximaParada.setText("Ainda não há paradas por aqui...");}
+    public void initialize() {
+        if (consultarProximaParada(Repositorio.getListaParada()) != null) proximaParada.setText("Ainda não há paradas por aqui...");
+        quantidadeDeAlunos.setText(String.valueOf(Repositorio.getListaAluno().size()));
+        quantidadeDeParadas.setText(String.valueOf(Repositorio.getListaParada().size()));
+        if (turnoIsValid())
+            turnoDaRota.setText(turnoDaRotaValido);
+    }
 
 
 
-    private String consultarProximaParada(ArrayList<Parada> listaParadas) {
+
+    private String consultarProximaParada(ObservableList<Parada> listaParadas) {
         String auxVar = "";
         for (Parada parada : listaParadas) {
             if (!parada.isPassada())
@@ -70,6 +83,17 @@ public class ConsultarRotaAlunoController {
             System.err.println("Erro ao carregar o FXML: " + fxmlFile);
             System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', VOCÊ NÃO CORRIGIU O 'fx:controller' DENTRO DO FXML! <<<");
         }
+    }
+    private boolean turnoIsValid() {
+        try {
+            turnoDaRotaValido = String.valueOf(Repositorio.getListaRota().getFirst().getTurno());
+            return true;
+        } catch (NullPointerException e) {
+            turnoDaRotaValido = "-";
+        } catch (NoSuchElementException e) {
+            turnoDaRotaValido = "-";
+        }
+        return false;
     }
 
 }

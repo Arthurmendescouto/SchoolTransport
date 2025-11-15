@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import org.example.schooltransport.data.Repositorio;
+import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.Responsavel;
 
 import java.io.IOException;
@@ -42,8 +43,12 @@ public class LoginController {
         String email = emailDigitado.getText().trim();
         String senha = senhaDigitada.getText().trim();
 
-        Responsavel responsavel = new Responsavel("", "", "", "responsavel", "responsavel");
-        Repositorio.getListaResponsavel().add(responsavel);
+        //Criando um usuário padrão para cada tipo de usuário
+        Responsavel responsavelPadrao = new Responsavel("Responsável padrão", "", "", "responsavel", "responsavel");
+        Repositorio.getListaResponsavel().add(responsavelPadrao);
+
+        Aluno alunoPadrao = new Aluno("Aluno padrão", "", "", "", "", "aluno", "aluno");
+        Repositorio.getListaAluno().add(alunoPadrao);
 
         if (email.isEmpty() || senha.isEmpty()) {
             mostrarAlerta("Campos obrigatórios", "Por favor, preencha todos os campos.");
@@ -67,10 +72,11 @@ public class LoginController {
             if (tipoDeUsuario == 'R')
                 navegarDeTela(event, "painelAdministrador.fxml");
             if (tipoDeUsuario == 'A')
-                navegarDeTela(event, "consultarRotaMotorista.fxml");
+                navegarDeTela(event, "consultarRotaAluno.fxml");
             //Ainda redundante, enquanto o cadastro de motorista não estiver completo
-            if (tipoDeUsuario == 'M')
+            if (tipoDeUsuario == 'M') {
                 navegarDeTela(event, "telaMotorista.fxml");
+            }
         }
     }
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
