@@ -41,6 +41,7 @@
                 <HBox alignment="CENTER_LEFT">
                     <children>
                         <Label styleClass="progresso-titulo" text="Progresso da rota" HBox.hgrow="ALWAYS" />
+                        <Pane HBox.hgrow="ALWAYS" />
                         <Label fx:id="labelContagemTotal" styleClass="progresso-contagem-total" text="0/0" />
                     </children>
                 </HBox>
