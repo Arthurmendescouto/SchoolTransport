@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Notificacao {
 
-    private long pessoaId;
+    private String pessoaCPF;
     private List<String> notificacoes = new ArrayList<>();
 
     public Notificacao(long pessoaId) {
@@ -13,12 +13,12 @@ public class Notificacao {
         this.notificacoes = new ArrayList<>();
     }
 
-    public long getPessoaId() {
-        return pessoaId;
+    public String getPessoaId() {
+        return pessoaCPF;
     }
 
     public void setPessoaId(long pessoaId) {
-        this.pessoaId = pessoaId;
+        this.pessoaCPF = pessoaCPF;
     }
 
     public List<String> getNotificacoes() {
