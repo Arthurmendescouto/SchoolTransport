@@ -179,7 +179,7 @@
 
 .scroll-pane-alunos {
     -fx-border-color: transparent;
-    -fx-background-color: #f4f4f4;
+    -fx-background-color: #FFEFEC;
     -fx-background-radius: 8px;
     -fx-border-radius: 8px;
 }
@@ -203,10 +203,10 @@
     -fx-text-fill: #222222;
 }
 
-/* ========== SWITCH (TOGGLE) — SEM QUADRADO NO CÍRCULO ========== */
+/* ========== SWITCH (TOGGLE) — CORES DO PRINT ========== */
 
 .check-presenca {
-    -fx-background-color: #d0d0d0;
+    -fx-background-color: #D64512;   /* Laranja quando desligado */
     -fx-background-radius: 20;
     -fx-pref-width: 48px;
     -fx-pref-height: 26px;
@@ -214,14 +214,14 @@
     -fx-cursor: hand;
     -fx-text-fill: transparent;
     -fx-border-width: 0;
-    -fx-border-color: transparent;
 }
 
+/* Ligado — Verde */
 .check-presenca:selected {
-    -fx-background-color: #25a125;
+    -fx-background-color: #4CAF19;
 }
 
-/* Círculo do botão */
+/* Círculo */
 .check-presenca .box {
     -fx-background-color: white;
     -fx-background-radius: 50;
@@ -231,7 +231,6 @@
     -fx-translate-x: 0;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 2, 0, 0, 1);
     -fx-border-width: 0;
-    -fx-border-color: transparent;
 }
 
 /* Movimento do círculo */
@@ -239,14 +238,14 @@
     -fx-translate-x: 22px;
 }
 
-/* Remove check interno */
+/* Remove check */
 .check-presenca .mark,
 .check-presenca:selected .mark {
     -fx-background-color: transparent;
     -fx-shape: "";
 }
 
-/* Remove totalmente o foco */
+/* Remove foco / hover / border */
 .check-presenca:focused,
 .check-presenca:armed,
 .check-presenca:hover,
@@ -260,7 +259,7 @@
 /* Animação */
 .check-presenca,
 .check-presenca .box {
-    -fx-transition: -fx-background-color 0.25s ease, -fx-translate-x 0.22s ease;
+    -fx-transition: -fx-background-color 0.20s ease, -fx-translate-x 0.20s ease;
 }
 
 /* ============================= */
