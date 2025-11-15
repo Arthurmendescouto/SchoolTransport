@@ -1,8 +1,6 @@
 package org.example.schooltransport.controllers;
 
 import java.io.IOException;
-import java.net.URL;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +11,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class PainelAdministradorController {
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PainelAdministradorController implements Initializable {
 
     @FXML
     private TextField campoNomeParada;
@@ -29,9 +31,32 @@ public class PainelAdministradorController {
     private Label mensagemStatus;
 
     @FXML
+    private javafx.scene.control.Button botaoVoltarTopo;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // garante que o botão de topo tenha um handler se o onAction do FXML falhar por algum motivo
+        if (botaoVoltarTopo != null) {
+            botaoVoltarTopo.setOnAction(e -> voltar(e));
+        }
+    }
+
+    @FXML
     private void voltar(ActionEvent event) {
         // Navega para a tela de login ou outra tela apropriada
         navegarDeTela(event, "login.fxml");
+    }
+
+    @FXML
+    private void abrirCadastrarRota(ActionEvent event) {
+        // Navega para a tela de cadastrar rota
+        navegarDeTela(event, "cadastrarRota.fxml");
+    }
+
+    @FXML
+    private void abrirListarRotas(ActionEvent event) {
+        // Navega para a tela que lista rotas (para selecionar uma a editar)
+        navegarDeTela(event, "listarRotas.fxml");
     }
 
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
