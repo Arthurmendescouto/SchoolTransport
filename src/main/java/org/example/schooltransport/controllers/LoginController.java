@@ -12,9 +12,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import org.example.schooltransport.data.Repositorio;
-import org.example.schooltransport.model.Aluno;
-import org.example.schooltransport.model.Responsavel;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -25,9 +22,6 @@ public class LoginController {
 
     @FXML
     private TextField senhaDigitada; // Campo de senha
-
-    @FXML
-    private Button btnEntrar;
 
     @FXML
     private void initialize() {
@@ -53,12 +47,7 @@ public class LoginController {
         || ((email.equals("administrador") && senha.equals("administrador")))) {
             mostrarAlerta("Login realizado", "Bem-vindo, administrador!");
             navegarDeTela(event, "painelAdministrador.fxml");
-        }
-
-        if (email.equals("motorista") && senha.equals("motorista"))
-            navegarDeTela(event, "telaMotorista.fxml");
-
-        if (verificaValidadeDosDadosDeLogin(email, senha)) {
+        } else if (verificaValidadeDosDadosDeLogin(email, senha)) {
             if (tipoDeUsuario == 'R')
                 navegarDeTela(event, "painelResponsavel.fxml");
             if (tipoDeUsuario == 'A')
@@ -67,36 +56,31 @@ public class LoginController {
                 navegarDeTela(event, "telaMotorista.fxml");
             }
         }
+
     }
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
             String caminhoAbsoluto = "/org/example/schooltransport/" + fxmlFile;
-
             // Obtém o URL do recurso a partir do caminho absoluto
             URL resourceUrl = getClass().getResource(caminhoAbsoluto);
-
             if (resourceUrl == null) {
                 // Se isso falhar agora, o nome do arquivo em 'fxmlFile' está errado
                 System.err.println("FATAL: Não foi possível encontrar o FXML em: " + caminhoAbsoluto);
                 System.err.println("Verifique se o nome do arquivo '" + fxmlFile + "' está digitado corretamente.");
                 return;
             }
-
             // Carrega o FXML
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
-
             // Obtém o Stage (janela)
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
-
             // Define a nova cena
             Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Erro ao carregar o FXML: " + fxmlFile);
@@ -132,6 +116,17 @@ public class LoginController {
                 tipoDeUsuario = 'R';
                 // registra sessão para responsável
                 Repositorio.setCurrentUserType('R');
+                Repositorio.setCurrentUserCpf(Repositorio.getListaResponsavel().get(i).getCpf());
+                break;
+            }
+        }
+        for (int i = 0; i < Repositorio.getListaMotorista().size(); i++) {
+            if (email.equals(Repositorio.getListaMotorista().get(i).getEmail())
+                    && senha.equals(Repositorio.getListaMotorista().get(i).getSenha())) {
+                isValid = true;
+                tipoDeUsuario = 'M';
+                // registra sessão para motorista
+                Repositorio.setCurrentUserType('M');
                 Repositorio.setCurrentUserCpf(Repositorio.getListaResponsavel().get(i).getCpf());
                 break;
             }
