@@ -43,37 +43,26 @@ public class LoginController {
         String email = emailDigitado.getText().trim();
         String senha = senhaDigitada.getText().trim();
 
-        //Criando um usuário padrão para cada tipo de usuário
-        Responsavel responsavelPadrao = new Responsavel("Responsável padrão", "", "", "responsavel", "responsavel");
-        Repositorio.getListaResponsavel().add(responsavelPadrao);
-
-        Aluno alunoPadrao = new Aluno("Aluno padrão", "", "", "", "", "aluno", "aluno");
-        Repositorio.getListaAluno().add(alunoPadrao);
 
         if (email.isEmpty() || senha.isEmpty()) {
             mostrarAlerta("Campos obrigatórios", "Por favor, preencha todos os campos.");
             return;
         }
-        // Aqui você pode implementar a lógica real de autenticação (ex: consulta ao banco)
+
         if ((email.equals("admin@email.com") && senha.equals("1234"))
         || ((email.equals("administrador") && senha.equals("administrador")))) {
             mostrarAlerta("Login realizado", "Bem-vindo, administrador!");
             navegarDeTela(event, "painelAdministrador.fxml");
         }
-        /* Essa parte ainda não pode ser feita
-        else {
-            mostrarAlerta("Erro", "E-mail ou senha inválidos.");
-        }
-        */
+
         if (email.equals("motorista") && senha.equals("motorista"))
             navegarDeTela(event, "telaMotorista.fxml");
 
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
             if (tipoDeUsuario == 'R')
-                navegarDeTela(event, "painelAdministrador.fxml");
+                navegarDeTela(event, "painelResponsavel.fxml");
             if (tipoDeUsuario == 'A')
                 navegarDeTela(event, "consultarRotaAluno.fxml");
-            //Ainda redundante, enquanto o cadastro de motorista não estiver completo
             if (tipoDeUsuario == 'M') {
                 navegarDeTela(event, "telaMotorista.fxml");
             }
@@ -103,8 +92,9 @@ public class LoginController {
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
             // Define a nova cena
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -129,6 +119,9 @@ public class LoginController {
                     && senha.equals(Repositorio.getListaAluno().get(i).getSenha())) {
                 isValid = true;
                 tipoDeUsuario = 'A';
+                // registra sessão para aluno
+                Repositorio.setCurrentUserType('A');
+                Repositorio.setCurrentUserCpf(Repositorio.getListaAluno().get(i).getCpf());
                 break;
             }
         }
@@ -137,6 +130,9 @@ public class LoginController {
                     && senha.equals(Repositorio.getListaResponsavel().get(i).getSenha())) {
                 isValid = true;
                 tipoDeUsuario = 'R';
+                // registra sessão para responsável
+                Repositorio.setCurrentUserType('R');
+                Repositorio.setCurrentUserCpf(Repositorio.getListaResponsavel().get(i).getCpf());
                 break;
             }
         }

@@ -10,6 +10,7 @@ import org.example.schooltransport.model.Veiculo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -62,13 +63,15 @@ public class CadastrarVeiculoController {
     @FXML
     private void voltarTelaAnterior() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/consultarResponsavel.fxml"));
-            Scene cena = new Scene(loader.load());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/painelAdministrador.fxml"));
+            Parent root = loader.load();
+            Scene cena = new Scene(root, 390, 700);
             Stage stage = (Stage) campoModeloOnibus.getScene().getWindow();
             stage.setScene(cena);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
-            mensagemStatus.setText("Erro ao voltar para a tela anterior.");
+            mensagemStatus.setText("Erro ao voltar para o painel do administrador.");
             e.printStackTrace();
         }
     }

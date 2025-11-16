@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Duplicate of cadastrarRota.fxml but with title 'Editar Rota' and controller EditarRotaController -->
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -20,7 +21,7 @@
 <AnchorPane prefHeight="790.0" prefWidth="400.0" styleClass="root"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.schooltransport.controllers.CadastrarRotaController">
+            fx:controller="org.example.schooltransport.controllers.EditarRotaController">
 
     <fx:define>
         <ToggleGroup fx:id="turnoGroup" />
@@ -33,11 +34,11 @@
           AnchorPane.topAnchor="0.0">
 
         <!-- Cabeçalho -->
-            <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo">
+    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="cabecalho-topo">
             <padding>
                 <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-        <Button fx:id="botaoVoltar" mnemonicParsing="false" onAction="#voltarTela" styleClass="bottom_voltar"
+        <Button fx:id="botaoVoltar" mnemonicParsing="false" onAction="#voltar" styleClass="bottom_voltar"
             stylesheets="@styles.css" text="← Voltar" />
         </HBox>
 
@@ -50,7 +51,7 @@
                 <Insets bottom="30.0" left="20.0" right="20.0" top="30.0" />
             </padding>
 
-            <Label styleClass="titulo-principal" text="Cadastrar Rota:">
+            <Label styleClass="titulo-principal" text="Editar Rota:">
                 <padding>
                     <Insets bottom="20.0" left="20.0" right="20.0" />
                 </padding>
@@ -121,7 +122,6 @@
                     prefHeight="36.0" prefWidth="160.0"
                     styleClass="bottom" text="Adicionar parada" />
 
-            <!-- Área com Scroll vertical dedicado para as paradas adicionadas -->
             <!-- Área fixa de paradas com altura exata de 200px -->
             <ScrollPane fx:id="paradasScrollPane" fitToWidth="true" prefViewportHeight="200.0" minHeight="200.0" maxHeight="200.0" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER" styleClass="parada-scroll">
                 <content>

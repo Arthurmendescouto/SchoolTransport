@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.example.schooltransport.Cadastro;
-import org.example.schooltransport.Parada;
+import org.example.schooltransport.model.Parada;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -126,8 +126,9 @@ public class ListaParadaController implements Initializable {
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
             // Define a nova cena
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
