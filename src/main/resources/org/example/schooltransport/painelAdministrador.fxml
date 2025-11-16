@@ -53,6 +53,10 @@
          <!-- Botão para abrir a tela de cadastro de rota -->
        <VBox spacing="10.0">
           <children>
+             <Button mnemonicParsing="false" onAction="#abrirCadastrarAluno" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Aluno" />
+             <Button mnemonicParsing="false" onAction="#abrirCadastrarMotorista" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Motorista" />
+             <Button mnemonicParsing="false" onAction="#abrirCadastrarResponsavel" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Responsável" />
+             <Button mnemonicParsing="false" onAction="#abrirCadastrarVeiculo" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Veículo" />
              <Button mnemonicParsing="false" onAction="#abrirCadastrarParada" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Parada" />
              <Button mnemonicParsing="false" onAction="#abrirCadastrarRota" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Rota" />
              <!-- Botão posicionado abaixo, com mesma estilização -->
