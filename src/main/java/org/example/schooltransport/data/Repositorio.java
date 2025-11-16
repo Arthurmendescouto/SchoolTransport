@@ -153,4 +153,29 @@ public class Repositorio {
         return alunos;
     }
 
+    /**
+     * Retorna todas as faltas de todos os alunos (para administradores).
+     * 
+     * @return Lista de todos os registros de faltas
+     */
+    public static ArrayList<RegistroPresenca> getTodasFaltas() {
+        ArrayList<RegistroPresenca> faltas = new ArrayList<>();
+        for (RegistroPresenca registro : listaRegistroPresenca) {
+            if (registro == null) continue;
+            if (!registro.isPresente()) {
+                faltas.add(registro);
+            }
+        }
+        return faltas;
+    }
+
+    /**
+     * Retorna todos os alunos cadastrados no sistema.
+     * 
+     * @return Lista de todos os alunos
+     */
+    public static ArrayList<Aluno> getTodosAlunos() {
+        return new ArrayList<>(listaAluno);
+    }
+
 }

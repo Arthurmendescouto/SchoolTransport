@@ -34,6 +34,18 @@ public class PainelAdministradorController {
         navegarDeTela(event, "login.fxml");
     }
 
+    @FXML
+    private void consultarFaltas(ActionEvent event) {
+        try {
+            // Navega para a tela de consulta de faltas do administrador
+            System.out.println("DEBUG: Tentando navegar para consultarFaltasAdmin.fxml");
+            navegarDeTela(event, "consultarFaltasAdmin.fxml");
+        } catch (Exception e) {
+            System.err.println("Erro ao navegar para tela de faltas: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
@@ -50,8 +62,10 @@ public class PainelAdministradorController {
             }
 
             // Carrega o FXML
+            System.out.println("DEBUG: Carregando FXML de: " + resourceUrl);
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
+            System.out.println("DEBUG: FXML carregado com sucesso");
 
             // Obtém o Stage (janela)
             Node sourceNode = (Node) event.getSource();
@@ -62,10 +76,16 @@ public class PainelAdministradorController {
             stage.setScene(scene);
             stage.show();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Erro ao carregar o FXML: " + fxmlFile);
-            System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', VOCÊ NÃO CORRIGIU O 'fx:controller' DENTRO DO FXML! <<<");
+            System.err.println("Tipo do erro: " + e.getClass().getName());
+            System.err.println("Mensagem: " + e.getMessage());
+            if (e.getCause() != null) {
+                System.err.println("Causa: " + e.getCause().getClass().getName());
+                System.err.println("Mensagem da causa: " + e.getCause().getMessage());
+            }
+            System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', RECOMPILE O PROJETO! <<<");
         }
     }
 }
