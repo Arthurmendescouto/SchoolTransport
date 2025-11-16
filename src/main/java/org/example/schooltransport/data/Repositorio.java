@@ -5,13 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.example.schooltransport.model.Notificacao;
-
 import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.Motorista;
 import org.example.schooltransport.model.Veiculo;
 import org.example.schooltransport.model.Responsavel;
 import org.example.schooltransport.model.Rota;
+import org.example.schooltransport.model.RegistroPresenca; // 1. NOVA IMPORTAÇÃO
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,10 +24,14 @@ public class Repositorio {
     private static LinkedList<Rota> listaRota = new LinkedList<>();
     private static List<Notificacao> listaNotificacao = new ArrayList<>();
     private static ObservableList<Parada> listaParada = FXCollections.observableArrayList();
+
+    // 2. NOVA LISTA DE PRESENÇA
+    private static ArrayList<RegistroPresenca> listaDePresenca = new ArrayList<>();
+
     // pequeno armazenamento de sessão: CPF e tipo do usuário logado
     private static String currentUserCpf = null;
     private static char currentUserType = 'X';
-    
+
     public static ArrayList<Aluno> getListaAluno() {
         return listaAluno;
     }
@@ -59,6 +63,15 @@ public class Repositorio {
         Repositorio.listaRota = listaRota;
     }
 
+    public static void adicionarRegistroPresenca(RegistroPresenca registro) {
+        listaDePresenca.add(registro);
+    }
+
+    public static ArrayList<RegistroPresenca> getListaDePresenca() {
+        return listaDePresenca;
+    }
+    // =============================================
+
     // Notificações
     public static List<Notificacao> getListaNotificacao() {
         return listaNotificacao;
@@ -88,15 +101,15 @@ public class Repositorio {
             n.removerNotificacao(conteudo);
         }
     }
-    
+
     public static ObservableList<Parada> getListaParada() {
         return listaParada;
     }
-    
+
     public static void adicionarParada(Parada parada) {
         listaParada.add(parada);
     }
-    
+
     public static void removerParada(Parada parada) {
         listaParada.remove(parada);
     }
@@ -119,6 +132,7 @@ public class Repositorio {
     }
 
     public static void clearSession() {
+
         currentUserCpf = null;
         currentUserType = 'X';
     }

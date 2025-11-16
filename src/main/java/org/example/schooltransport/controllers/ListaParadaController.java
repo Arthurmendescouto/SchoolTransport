@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.example.schooltransport.Cadastro;
+import org.example.schooltransport.model.Cadastro;
 import org.example.schooltransport.model.Parada;
 
 import javafx.collections.ListChangeListener;

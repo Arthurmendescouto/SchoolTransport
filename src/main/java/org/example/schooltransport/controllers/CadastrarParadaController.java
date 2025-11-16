@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.example.schooltransport.Cadastro;
+import org.example.schooltransport.model.Cadastro;
 import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.data.Repositorio;
 import org.example.schooltransport.model.Aluno;
@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene; // A importação de 'Scene' não é mais necessária, mas pode ficar
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
