@@ -92,6 +92,20 @@
             </VBox.margin>
         </Label>
 
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <padding>
+                <Insets left="20.0" right="20.0" top="5.0" bottom="5.0"/>
+            </padding>
+            <children>
+                <Button fx:id="btnRegistrarFaltas"
+                        text="Registrar Faltas"
+                        onAction="#abrirRegistrarFaltas"
+                        styleClass="bottom_voltar"
+                        prefWidth="200.0"/>
+            </children>
+        </HBox>
+
+
         <StackPane fx:id="stackPaneAlunos" VBox.vgrow="ALWAYS">
             <VBox.margin>
                 <Insets bottom="15.0" left="15.0" right="15.0" />

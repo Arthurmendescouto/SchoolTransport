@@ -23,6 +23,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de listagem de paradas.
+ * Exibe paradas cadastradas com opção de remoção.
+ */
 public class ListaParadaController implements Initializable {
 
     @FXML private VBox listaParadasContainer; // O novo contêiner para os itens dinâmicos

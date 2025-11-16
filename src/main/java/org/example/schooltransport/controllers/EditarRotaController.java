@@ -28,6 +28,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de edição de rotas.
+ * Permite modificar motorista, veículo, turno e paradas de uma rota existente.
+ */
 public class EditarRotaController implements Initializable {
 
     @FXML private ComboBox<Motorista> comboMotorista;
@@ -102,6 +106,10 @@ public class EditarRotaController implements Initializable {
         mensagemStatus.setText("");
     }
 
+    /**
+     * Define a rota a ser editada e preenche os campos com seus valores.
+     * @param rota Rota a ser editada
+     */
     public void setRota(Rota rota) {
         this.rotaEmEdicao = rota;
         // preenche campos com valores da rota

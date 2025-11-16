@@ -16,6 +16,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de cadastro de veículos.
+ * Gerencia a validação e inserção de novos veículos no sistema.
+ */
 public class CadastrarVeiculoController {
 
     @FXML private TextField campoModeloOnibus;
@@ -23,6 +27,9 @@ public class CadastrarVeiculoController {
     @FXML private TextField campoCapacidade;
     @FXML private Label mensagemStatus;
 
+    /**
+     * Inicializa o controller configurando formatação do campo de capacidade.
+     */
     @FXML
     private void initialize() {
         campoCapacidade.setTextFormatter(new TextFormatter<String>(change -> {
@@ -33,6 +40,9 @@ public class CadastrarVeiculoController {
         }));
     }
 
+    /**
+     * Processa o cadastro de um novo veículo.
+     */
     @FXML
     private void CadastrarVeiculo() {
         String modelo = campoModeloOnibus.getText();
@@ -60,6 +70,9 @@ public class CadastrarVeiculoController {
         }
     }
 
+    /**
+     * Retorna ao painel do administrador.
+     */
     @FXML
     private void voltarTelaAnterior() {
         try {
@@ -76,6 +89,9 @@ public class CadastrarVeiculoController {
         }
     }
 
+    /**
+     * Limpa todos os campos do formulário.
+     */
     private void limparCampos() {
         campoModeloOnibus.clear();
         campoPlaca.clear();

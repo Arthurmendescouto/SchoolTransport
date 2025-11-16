@@ -4,6 +4,10 @@ package org.example.schooltransport.model;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * Representa um ponto de parada na rota, com endereço e aluno associado.
+ * Fornece propriedades observáveis para integração com JavaFX.
+ */
 public class Parada {
     private final SimpleStringProperty nomeParada;
     private final SimpleStringProperty logradouro;
@@ -14,6 +18,9 @@ public class Parada {
     private final SimpleBooleanProperty passada; // Para o visto (Status)
     private Aluno aluno; // Referência ao aluno associado a esta parada
 
+    /**
+     * Cria uma nova parada com endereço completo.
+     */
     public Parada(String nomeParada, String logradouro, String numero, String bairro, String cidade, String estado) {
         this.nomeParada = new SimpleStringProperty(nomeParada);
         this.logradouro = new SimpleStringProperty(logradouro);
@@ -25,39 +32,58 @@ public class Parada {
         this.aluno = null; // Sem aluno associado por padrão
     }
 
+    /** Nome amigável da parada. */
     public String getNomeParada() { return nomeParada.get(); }
+    /** Propriedade observável do nome da parada. */
     public SimpleStringProperty nomeParadaProperty() { return nomeParada; }
+    /** Atualiza o nome da parada. */
     public void setNomeParada(String nomeParada) { this.nomeParada.set(nomeParada); }
 
+    /** Logradouro do endereço. */
     public String getLogradouro() { return logradouro.get(); }
+    /** Propriedade observável do logradouro. */
     public SimpleStringProperty logradouroProperty() { return logradouro; }
 
+    /** Número do endereço. */
     public String getNumero() { return numero.get(); }
+    /** Propriedade observável do número. */
     public SimpleStringProperty numeroProperty() { return numero; }
 
+    /** Bairro do endereço. */
     public String getBairro() { return bairro.get(); }
+    /** Propriedade observável do bairro. */
     public SimpleStringProperty bairroProperty() { return bairro; }
 
+    /** Cidade do endereço. */
     public String getCidade() { return cidade.get(); }
+    /** Propriedade observável da cidade. */
     public SimpleStringProperty cidadeProperty() { return cidade; }
 
+    /** Estado (UF) do endereço. */
     public String getEstado() { return estado.get(); }
+    /** Propriedade observável do estado. */
     public SimpleStringProperty estadoProperty() { return estado; }
 
-    // Propriedade booleana para o visto (Status)
+    /** Indica se a parada já foi realizada (visto). */
     public boolean isPassada() { return passada.get(); }
+    /** Propriedade observável do status de passada. */
     public SimpleBooleanProperty passadaProperty() { return passada; }
+    /** Atualiza o status de passada. */
     public void setPassada(boolean passada) { this.passada.set(passada); }
 
-    // Getter e setter para Aluno
+    /** Retorna o aluno associado a esta parada. */
     public Aluno getAluno() {
         return aluno;
     }
 
+    /** Define o aluno associado a esta parada. */
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
 
+    /**
+     * Representação detalhada do endereço para exibição em telas.
+     */
     @Override
     public String toString() {
         // Formata o endereço completo para exibição em cadastrar e editar rota

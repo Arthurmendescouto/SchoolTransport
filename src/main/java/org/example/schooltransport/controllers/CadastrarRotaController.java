@@ -28,6 +28,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de cadastro de rotas.
+ * Permite associar motorista, veículo, turno e paradas para compor uma rota.
+ */
 public class CadastrarRotaController implements Initializable {
 
     @FXML private ComboBox<Motorista> comboMotorista;
@@ -46,6 +50,9 @@ public class CadastrarRotaController implements Initializable {
 
     private ObservableList<Parada> selectedParadas = FXCollections.observableArrayList();
 
+    /**
+     * Inicializa o controller configurando combos e lista de paradas.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Popular combos a partir do repositório
@@ -107,6 +114,10 @@ public class CadastrarRotaController implements Initializable {
         mensagemStatus.setText("");
     }
 
+    /**
+     * Adiciona uma parada selecionada à lista de paradas da rota.
+     * @param event Evento da ação
+     */
     @FXML
     private void adicionarParada(ActionEvent event) {
         Parada p = comboParada.getSelectionModel().getSelectedItem();
@@ -124,6 +135,10 @@ public class CadastrarRotaController implements Initializable {
         }
     }
 
+    /**
+     * Salva a rota configurada no repositório.
+     * @param event Evento da ação
+     */
     @FXML
     private void salvarRota(ActionEvent event) {
         Motorista motorista = comboMotorista.getSelectionModel().getSelectedItem();
@@ -151,6 +166,10 @@ public class CadastrarRotaController implements Initializable {
         selectedParadas.clear();
     }
 
+    /**
+     * Obtém o turno selecionado pelos radio buttons.
+     * @return Turno selecionado ou string vazia
+     */
     private String getSelectedTurno() {
         if (radioMatutino.isSelected()) return "Matutino";
         if (radioVespertino.isSelected()) return "Vespertino";
