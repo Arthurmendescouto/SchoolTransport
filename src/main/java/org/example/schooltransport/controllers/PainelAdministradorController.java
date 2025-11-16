@@ -55,6 +55,26 @@ public class PainelAdministradorController implements Initializable {
     }
 
     @FXML
+    private void abrirCadastrarAluno(ActionEvent event) {
+        navegarDeTela(event, "cadastrarAlunos.fxml");
+    }
+
+    @FXML
+    private void abrirCadastrarMotorista(ActionEvent event) {
+        navegarDeTela(event, "cadastrarMotorista.fxml");
+    }
+
+    @FXML
+    private void abrirCadastrarResponsavel(ActionEvent event) {
+        navegarDeTela(event, "cadastrarResponsavel.fxml");
+    }
+
+    @FXML
+    private void abrirCadastrarVeiculo(ActionEvent event) {
+        navegarDeTela(event, "cadastrarVeiculo.fxml");
+    }
+
+    @FXML
     private void abrirCadastrarParada(ActionEvent event) {
         // Navega para a tela de cadastrar parada
         navegarDeTela(event, "cadastrarParada.fxml");
