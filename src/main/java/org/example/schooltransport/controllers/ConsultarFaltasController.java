@@ -6,9 +6,17 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.example.schooltransport.data.Repositorio;
+<<<<<<< Updated upstream
 import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.RegistroPresenca;
 import org.example.schooltransport.model.Responsavel;
+=======
+import org.example.schooltransport.data.InMemoryFrequenciaRepositorio;
+import org.example.schooltransport.model.Aluno;
+import org.example.schooltransport.model.Responsavel;
+import org.example.schooltransport.model.Frequencia;
+import java.time.format.DateTimeFormatter;
+>>>>>>> Stashed changes
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,11 +59,23 @@ public class ConsultarFaltasController implements Initializable {
     private VBox vboxListaFaltas;
 
     private String emailResponsavelLogado;
+<<<<<<< Updated upstream
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Se o email ainda não foi definido pelo LoginController,
         // tenta usar o primeiro responsável como fallback
+=======
+    private InMemoryFrequenciaRepositorio frequenciaRepo;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Inicializa o repositório de frequências
+        frequenciaRepo = new InMemoryFrequenciaRepositorio();
+        
+        // Se o email ainda não foi definido pelo LoginController,
+        // tenta usar o CPF da sessão ou o primeiro responsável como fallback
+>>>>>>> Stashed changes
         if (emailResponsavelLogado == null || emailResponsavelLogado.isEmpty()) {
             identificarResponsavelLogado();
         }
@@ -67,6 +87,7 @@ public class ConsultarFaltasController implements Initializable {
 
     /**
      * Identifica qual responsável está logado.
+<<<<<<< Updated upstream
      * Por enquanto, usa o primeiro responsável da lista.
      * Em produção, isso deveria vir de uma sessão de autenticação.
      */
@@ -74,6 +95,26 @@ public class ConsultarFaltasController implements Initializable {
         ArrayList<Responsavel> responsaveis = Repositorio.getListaResponsavel();
         if (!responsaveis.isEmpty()) {
             // Por enquanto usa o primeiro responsável, mas aqui tem que mudar para o LoginController ou de uma sessão
+=======
+     * Tenta usar o CPF da sessão para encontrar o responsável.
+     * Se não encontrar, usa o primeiro responsável da lista como fallback.
+     */
+    private void identificarResponsavelLogado() {
+        String cpfLogado = Repositorio.getCurrentUserCpf();
+        if (cpfLogado != null && !cpfLogado.isEmpty()) {
+            // Busca responsável pelo CPF da sessão
+            for (Responsavel r : Repositorio.getListaResponsavel()) {
+                if (r != null && cpfLogado.equals(r.getCpf())) {
+                    emailResponsavelLogado = r.getEmail();
+                    return;
+                }
+            }
+        }
+        
+        // Fallback: usa o primeiro responsável da lista
+        ArrayList<Responsavel> responsaveis = Repositorio.getListaResponsavel();
+        if (!responsaveis.isEmpty()) {
+>>>>>>> Stashed changes
             emailResponsavelLogado = responsaveis.get(0).getEmail();
         }
     }
@@ -100,7 +141,11 @@ public class ConsultarFaltasController implements Initializable {
             System.out.println("DEBUG: Responsável encontrado: " + responsavel.getNome() + " (CPF: " + responsavel.getCpf() + ")");
 
             // Busca todos os alunos do responsável usando o CPF
+<<<<<<< Updated upstream
             ArrayList<Aluno> alunos = Repositorio.getAlunosPorResponsavel(responsavel.getCpf());
+=======
+            ArrayList<Aluno> alunos = getAlunosPorResponsavel(responsavel.getCpf());
+>>>>>>> Stashed changes
             System.out.println("DEBUG: Alunos encontrados: " + alunos.size());
             for (Aluno a : alunos) {
                 System.out.println("  - " + a.getNome() + " (Responsável CPF: " + a.getResponsavel() + ")");
@@ -115,7 +160,11 @@ public class ConsultarFaltasController implements Initializable {
             }
 
             // Busca todas as faltas dos alunos do responsável usando o CPF
+<<<<<<< Updated upstream
             ArrayList<RegistroPresenca> faltas = Repositorio.getFaltasPorResponsavel(responsavel.getCpf());
+=======
+            ArrayList<Frequencia> faltas = getFaltasPorResponsavel(responsavel.getCpf());
+>>>>>>> Stashed changes
             System.out.println("DEBUG: Total de faltas encontradas: " + faltas.size());
 
             // Conta total de faltas
@@ -135,7 +184,11 @@ public class ConsultarFaltasController implements Initializable {
 
             // Agrupa faltas por aluno para melhor visualização
             for (Aluno aluno : alunos) {
+<<<<<<< Updated upstream
                 ArrayList<RegistroPresenca> faltasAluno = Repositorio.getFaltasPorAluno(aluno);
+=======
+                ArrayList<Frequencia> faltasAluno = getFaltasPorAluno(aluno);
+>>>>>>> Stashed changes
                 System.out.println("DEBUG: Faltas do aluno " + aluno.getNome() + ": " + faltasAluno.size());
                 
                 if (!faltasAluno.isEmpty()) {
@@ -161,7 +214,11 @@ public class ConsultarFaltasController implements Initializable {
      * @param faltas Lista de faltas do aluno
      * @return VBox com o card do aluno
      */
+<<<<<<< Updated upstream
     private VBox criarCardAluno(Aluno aluno, ArrayList<RegistroPresenca> faltas) {
+=======
+    private VBox criarCardAluno(Aluno aluno, ArrayList<Frequencia> faltas) {
+>>>>>>> Stashed changes
         VBox card = new VBox(10);
         card.setAlignment(Pos.TOP_LEFT);
         card.getStyleClass().add("card-falta");
@@ -182,7 +239,11 @@ public class ConsultarFaltasController implements Initializable {
         VBox vboxDatas = new VBox(5);
         vboxDatas.setPadding(new Insets(5, 0, 0, 15));
         
+<<<<<<< Updated upstream
         for (RegistroPresenca falta : faltas) {
+=======
+        for (Frequencia falta : faltas) {
+>>>>>>> Stashed changes
             if (falta == null) continue;
             HBox itemData = new HBox(10);
             itemData.setAlignment(Pos.CENTER_LEFT);
@@ -190,7 +251,11 @@ public class ConsultarFaltasController implements Initializable {
             String dataFormatada = "Data não disponível";
             try {
                 if (falta.getData() != null) {
+<<<<<<< Updated upstream
                     dataFormatada = falta.getDataFormatada();
+=======
+                    dataFormatada = falta.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+>>>>>>> Stashed changes
                 }
             } catch (Exception e) {
                 System.err.println("Erro ao formatar data: " + e.getMessage());
@@ -218,7 +283,11 @@ public class ConsultarFaltasController implements Initializable {
         if (email == null) return null;
         
         for (Responsavel responsavel : Repositorio.getListaResponsavel()) {
+<<<<<<< Updated upstream
             if (responsavel.getEmail().equals(email)) {
+=======
+            if (responsavel != null && responsavel.getEmail() != null && responsavel.getEmail().equals(email)) {
+>>>>>>> Stashed changes
                 return responsavel;
             }
         }
@@ -226,6 +295,79 @@ public class ConsultarFaltasController implements Initializable {
     }
 
     /**
+<<<<<<< Updated upstream
+=======
+     * Busca alunos vinculados a um responsável pelo CPF.
+     * 
+     * @param cpfResponsavel CPF do responsável
+     * @return Lista de alunos vinculados ao responsável
+     */
+    private ArrayList<Aluno> getAlunosPorResponsavel(String cpfResponsavel) {
+        ArrayList<Aluno> alunos = new ArrayList<>();
+        if (cpfResponsavel == null || cpfResponsavel.isEmpty()) {
+            return alunos;
+        }
+
+        // Busca alunos pelo CPF do responsável
+        for (Aluno aluno : Repositorio.getListaAluno()) {
+            if (aluno != null && cpfResponsavel.equals(aluno.getResponsavel())) {
+                alunos.add(aluno);
+            }
+        }
+
+        return alunos;
+    }
+
+    /**
+     * Busca faltas de um aluno específico (frequências onde presente = false).
+     * 
+     * @param aluno O aluno
+     * @return Lista de faltas do aluno
+     */
+    private ArrayList<Frequencia> getFaltasPorAluno(Aluno aluno) {
+        ArrayList<Frequencia> faltas = new ArrayList<>();
+        if (aluno == null || frequenciaRepo == null) {
+            return faltas;
+        }
+
+        // Busca frequências do aluno pelo CPF
+        java.util.List<Frequencia> frequencias = frequenciaRepo.listarPorAlunoCpf(aluno.getCpf());
+        
+        // Filtra apenas as faltas (presente = false)
+        for (Frequencia freq : frequencias) {
+            if (freq != null && !freq.isPresente()) {
+                faltas.add(freq);
+            }
+        }
+
+        return faltas;
+    }
+
+    /**
+     * Busca faltas de todos os alunos vinculados a um responsável.
+     * 
+     * @param cpfResponsavel CPF do responsável
+     * @return Lista de faltas dos alunos do responsável
+     */
+    private ArrayList<Frequencia> getFaltasPorResponsavel(String cpfResponsavel) {
+        ArrayList<Frequencia> faltas = new ArrayList<>();
+        if (cpfResponsavel == null || cpfResponsavel.isEmpty()) {
+            return faltas;
+        }
+
+        // Busca os alunos do responsável
+        ArrayList<Aluno> alunos = getAlunosPorResponsavel(cpfResponsavel);
+        
+        // Para cada aluno, busca suas faltas
+        for (Aluno aluno : alunos) {
+            faltas.addAll(getFaltasPorAluno(aluno));
+        }
+
+        return faltas;
+    }
+
+    /**
+>>>>>>> Stashed changes
      * Define o email do responsável logado.
      * Este método pode ser chamado pelo LoginController para passar o responsável logado.
      * 
