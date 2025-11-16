@@ -12,6 +12,7 @@ import org.example.schooltransport.model.Motorista;
 import org.example.schooltransport.model.Veiculo;
 import org.example.schooltransport.model.Responsavel;
 import org.example.schooltransport.model.Rota;
+import org.example.schooltransport.model.RegistroPresenca; // 1. NOVA IMPORTAÇÃO
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,11 +29,14 @@ public class Repositorio {
     private static LinkedList<Rota> listaRota = new LinkedList<>();
     private static List<Notificacao> listaNotificacao = new ArrayList<>();
     private static ObservableList<Parada> listaParada = FXCollections.observableArrayList();
+
+    // 2. NOVA LISTA DE PRESENÇA
+    private static ArrayList<RegistroPresenca> listaDePresenca = new ArrayList<>();
+
     // pequeno armazenamento de sessão: CPF e tipo do usuário logado
     private static String currentUserCpf = null;
     private static char currentUserType = 'X';
     
-    /** Retorna a lista de alunos. */
     public static ArrayList<Aluno> getListaAluno() {
         return listaAluno;
     }
@@ -73,6 +77,15 @@ public class Repositorio {
         Repositorio.listaRota = listaRota;
     }
 
+    public static void adicionarRegistroPresenca(RegistroPresenca registro) {
+        listaDePresenca.add(registro);
+    }
+
+    public static ArrayList<RegistroPresenca> getListaDePresenca() {
+        return listaDePresenca;
+    }
+    // =============================================
+
     // Notificações
     /** Retorna a lista de notificações por CPF. */
     public static List<Notificacao> getListaNotificacao() {
@@ -112,18 +125,15 @@ public class Repositorio {
             n.removerNotificacao(conteudo);
         }
     }
-    
-    /** Retorna a lista observável de paradas. */
+
     public static ObservableList<Parada> getListaParada() {
         return listaParada;
     }
-    
-    /** Adiciona uma parada à lista observável. */
+
     public static void adicionarParada(Parada parada) {
         listaParada.add(parada);
     }
-    
-    /** Remove uma parada da lista observável. */
+
     public static void removerParada(Parada parada) {
         listaParada.remove(parada);
     }
@@ -151,6 +161,7 @@ public class Repositorio {
 
     /** Limpa informações de sessão atual. */
     public static void clearSession() {
+
         currentUserCpf = null;
         currentUserType = 'X';
     }

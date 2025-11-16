@@ -6,8 +6,9 @@ module org.example.schooltransport {
 
     opens org.example.schooltransport to javafx.fxml;
     opens org.example.schooltransport.controllers to javafx.fxml;
-    opens org.example.schooltransport.model to javafx.base;
     opens org.example.schooltransport.data to javafx.base;
 
     exports org.example.schooltransport;
+    exports org.example.schooltransport.model;
+    opens org.example.schooltransport.model to javafx.base, javafx.fxml;
 }
