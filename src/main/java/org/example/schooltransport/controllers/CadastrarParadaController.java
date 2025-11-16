@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.example.schooltransport.Cadastro;
 import org.example.schooltransport.Parada;
+import org.example.schooltransport.data.Repositorio;
+import org.example.schooltransport.model.Aluno;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -35,6 +38,7 @@ public class CadastrarParadaController {
     @FXML private TextField campoComplemento;
     @FXML private TextField campoCidade;
     @FXML private TextField campoEstado;
+    @FXML private ComboBox<Aluno> comboAluno; // Novo: ComboBox para selecionar aluno
     @FXML private Label labelErro;
 
     /**
@@ -45,6 +49,38 @@ public class CadastrarParadaController {
         if (labelErro != null) {
             labelErro.setVisible(false);
             labelErro.setText("");
+        }
+        
+        // Carregar alunos no ComboBox
+        if (comboAluno != null) {
+            comboAluno.getItems().clear();
+            comboAluno.getItems().addAll(Repositorio.getListaAluno());
+            
+            // Configurar a exibição: mostrar "Nome (CPF)"
+            comboAluno.setCellFactory(param -> new javafx.scene.control.ListCell<Aluno>() {
+                @Override
+                protected void updateItem(Aluno item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText(null);
+                    } else {
+                        setText(item.getNome() + " (" + item.getCpf() + ")");
+                    }
+                }
+            });
+            
+            // Configurar o botão selecionado também mostra "Nome (CPF)"
+            comboAluno.setButtonCell(new javafx.scene.control.ListCell<Aluno>() {
+                @Override
+                protected void updateItem(Aluno item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setText("Selecione um aluno...");
+                    } else {
+                        setText(item.getNome() + " (" + item.getCpf() + ")");
+                    }
+                }
+            });
         }
     }
 
@@ -65,6 +101,12 @@ public class CadastrarParadaController {
         try {
             // Validação dos campos obrigatórios
             List<String> erros = new ArrayList<>();
+
+            // Validação do aluno selecionado
+            Aluno alunoSelecionado = comboAluno.getSelectionModel().getSelectedItem();
+            if (alunoSelecionado == null) {
+                erros.add("• Selecione um aluno para associar à parada");
+            }
 
             // Validação do nome da parada
             String nomeParada = campoNomeParada.getText().trim();
@@ -126,10 +168,14 @@ public class CadastrarParadaController {
             }
 
             // Cria a nova parada
-            String complemento = campoComplemento.getText().trim();
             Parada novaParada = new Parada(nomeParada, logradouro, numero, bairro, cidade, estado.toUpperCase());
+            
+            // Associa o aluno selecionado à parada
+            novaParada.setAluno(alunoSelecionado);
+            
             Cadastro.getInstance().adicionarParada(novaParada);
             System.out.println("Parada cadastrada com sucesso: " + nomeParada);
+            System.out.println("Aluno associado: " + alunoSelecionado.getNome() + " (" + alunoSelecionado.getCpf() + ")");
 
             // Navegar para a lista de paradas
             navegarDeTela(event, "listaParadas.fxml");
