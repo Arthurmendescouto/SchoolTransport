@@ -1,6 +1,6 @@
 package org.example.schooltransport.model;
 import java.util.ArrayList;
-import org.example.schooltransport.Parada;
+import org.example.schooltransport.model.Parada;
 
 public class Rota {
     private Motorista motorista;

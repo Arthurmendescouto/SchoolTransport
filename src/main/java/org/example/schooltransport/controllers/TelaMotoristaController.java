@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.example.schooltransport.Cadastro;
-import org.example.schooltransport.Parada;
+import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.data.Repositorio;
 import org.example.schooltransport.model.Aluno;
 

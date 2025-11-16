@@ -1,9 +1,8 @@
-package org.example.schooltransport;
+package org.example.schooltransport.model;
 
 // Usando javafx.beans para que a listaParadas.fxml possa observar as propriedades
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
-import org.example.schooltransport.model.Aluno;
 
 public class Parada {
     private final SimpleStringProperty nomeParada;

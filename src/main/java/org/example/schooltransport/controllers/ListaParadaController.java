@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.example.schooltransport.Cadastro;
-import org.example.schooltransport.Parada;
+import org.example.schooltransport.model.Parada;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;

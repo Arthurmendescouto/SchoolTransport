@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import org.example.schooltransport.Parada;
+import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.data.Repositorio;
 
 import java.io.IOException;

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.example.schooltransport.model.Notificacao;
 
-import org.example.schooltransport.Parada;
+import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.Motorista;
 import org.example.schooltransport.model.Veiculo;
