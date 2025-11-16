@@ -89,6 +89,7 @@
 
             <Label fx:id="mensagemStatus" styleClass="mensagem-status" text="" />
         </VBox>
+    </VBox>
     </ScrollPane>
 
     <stylesheets>
