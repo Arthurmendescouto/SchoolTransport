@@ -3,21 +3,23 @@ package org.example.schooltransport.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Modelo simples de Notificação associado a um CPF (pessoaCPF).
+ */
 public class Notificacao {
-
     private String pessoaCPF;
     private List<String> notificacoes = new ArrayList<>();
 
-    public Notificacao(long pessoaId) {
-        this.pessoaId = pessoaId;
+    public Notificacao(String pessoaCPF) {
+        this.pessoaCPF = pessoaCPF;
         this.notificacoes = new ArrayList<>();
     }
 
-    public String getPessoaId() {
+    public String getPessoaCPF() {
         return pessoaCPF;
     }
 
-    public void setPessoaId(long pessoaId) {
+    public void setPessoaCPF(String pessoaCPF) {
         this.pessoaCPF = pessoaCPF;
     }
 
@@ -31,5 +33,9 @@ public class Notificacao {
 
     public void adicionarNotificacao(String conteudo) {
         this.notificacoes.add(conteudo);
+    }
+
+    public void removerNotificacao(String conteudo) {
+        this.notificacoes.remove(conteudo);
     }
 }
