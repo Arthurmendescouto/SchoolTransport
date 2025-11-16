@@ -10,6 +10,7 @@ import org.example.schooltransport.model.Responsavel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -49,9 +50,11 @@ public class CadastrarResponsavelController {
     private void voltarTelaAnterior() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/painelAdministrador.fxml"));
-            Scene cena = new Scene(loader.load());
+            Parent root = loader.load();
+            Scene cena = new Scene(root, 390, 700);
             Stage stage = (Stage) campoNomeResponsavel.getScene().getWindow();
             stage.setScene(cena);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             mensagemStatus.setText("Erro ao voltar para o painel do administrador.");
