@@ -1,9 +1,14 @@
 package org.example.schooltransport.data;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.example.schooltransport.model.Notificacao;
 
 import org.example.schooltransport.Parada;
 import org.example.schooltransport.model.Aluno;
+import org.example.schooltransport.model.Motorista;
 import org.example.schooltransport.model.Veiculo;
 import org.example.schooltransport.model.Responsavel;
 import org.example.schooltransport.model.Rota;
@@ -15,20 +20,14 @@ public class Repositorio {
     private static ArrayList<Aluno> listaAluno = new ArrayList<>();
     private static ArrayList<Responsavel> listaResponsavel = new ArrayList<>();
     private static ArrayList<Veiculo> listaVeiculo = new ArrayList<>();
-    private static ArrayList<Rota> listaRota = new ArrayList<>();
+    private static ArrayList<Motorista> listaMotorista = new ArrayList<>();
+    private static LinkedList<Rota> listaRota = new LinkedList<>();
+    private static List<Notificacao> listaNotificacao = new ArrayList<>();
     private static ObservableList<Parada> listaParada = FXCollections.observableArrayList();
-
-    //colocando elementos genéricos para testar  o regristro de presença do motorista
-    static {
-        // Alunos para a lista de presença (TelaMotorista)
-        listaAluno.add(new Aluno("Filipe Alves", "111", "Maria Alves", "999", "Parada A", "filipe@mail.com", "123"));
-        listaAluno.add(new Aluno("Ana Beatriz", "222", "Carlos Silva", "888", "Parada B", "ana@mail.com", "123"));
-        listaAluno.add(new Aluno("Julio Cesar", "333", "Marta Lima", "777", "Parada C", "julio@mail.com", "123"));
-
-        // 👇 Responsável para testar o LOGIN (responsavel/responsavel) 👇
-        listaResponsavel.add(new Responsavel("Responsável padrão", "", "", "responsavel", "responsavel"));
-    }
-
+    // pequeno armazenamento de sessão: CPF e tipo do usuário logado
+    private static String currentUserCpf = null;
+    private static char currentUserType = 'X';
+    
     public static ArrayList<Aluno> getListaAluno() {
         return listaAluno;
     }
@@ -47,11 +46,47 @@ public class Repositorio {
     public static void setListaVeiculo(ArrayList<Veiculo> listaVeiculo) {
         Repositorio.listaVeiculo = listaVeiculo;
     }
-    public static ArrayList<Rota> getListaRota() {
+    public static ArrayList<org.example.schooltransport.model.Motorista> getListaMotorista() {
+        return listaMotorista;
+    }
+    public static void setListaMotorista(ArrayList<org.example.schooltransport.model.Motorista> listaMotorista) {
+        Repositorio.listaMotorista = listaMotorista;
+    }
+    public static LinkedList<Rota> getListaRota() {
         return listaRota;
     }
-    public static void setListaRota(ArrayList<Rota> listaRota) {
+    public static void setListaRota(LinkedList<Rota> listaRota) {
         Repositorio.listaRota = listaRota;
+    }
+
+    // Notificações
+    public static List<Notificacao> getListaNotificacao() {
+        return listaNotificacao;
+    }
+
+    public static Notificacao getNotificacaoPorCpf(String cpf) {
+        if (cpf == null) return null;
+        for (Notificacao n : listaNotificacao) {
+            if (cpf.equals(n.getPessoaCPF())) return n;
+        }
+        return null;
+    }
+
+    public static void adicionarNotificacaoParaCpf(String cpf, String conteudo) {
+        if (cpf == null || conteudo == null) return;
+        Notificacao n = getNotificacaoPorCpf(cpf);
+        if (n == null) {
+            n = new Notificacao(cpf);
+            listaNotificacao.add(n);
+        }
+        n.adicionarNotificacao(conteudo);
+    }
+
+    public static void removerNotificacaoParaCpf(String cpf, String conteudo) {
+        Notificacao n = getNotificacaoPorCpf(cpf);
+        if (n != null) {
+            n.removerNotificacao(conteudo);
+        }
     }
     
     public static ObservableList<Parada> getListaParada() {
@@ -64,6 +99,28 @@ public class Repositorio {
     
     public static void removerParada(Parada parada) {
         listaParada.remove(parada);
+    }
+
+    // Sessão (usuário logado)
+    public static String getCurrentUserCpf() {
+        return currentUserCpf;
+    }
+
+    public static void setCurrentUserCpf(String cpf) {
+        currentUserCpf = cpf;
+    }
+
+    public static char getCurrentUserType() {
+        return currentUserType;
+    }
+
+    public static void setCurrentUserType(char tipo) {
+        currentUserType = tipo;
+    }
+
+    public static void clearSession() {
+        currentUserCpf = null;
+        currentUserType = 'X';
     }
 
 }

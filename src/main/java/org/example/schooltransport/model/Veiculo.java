@@ -34,4 +34,9 @@ public class Veiculo {
     public void setCapacidade(int capacidade){
         this.capacidade = capacidade;
     }
+
+    @Override
+    public String toString() {
+        return modelo + " - " + placa;
+    }
 }

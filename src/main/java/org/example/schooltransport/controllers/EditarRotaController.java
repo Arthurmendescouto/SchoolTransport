@@ -28,13 +28,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
-public class CadastrarRotaController implements Initializable {
+public class EditarRotaController implements Initializable {
 
     @FXML private ComboBox<Motorista> comboMotorista;
     @FXML private ComboBox<Veiculo> comboVeiculo;
     @FXML private ComboBox<Parada> comboParada;
     @FXML private ListView<Parada> listaParadasListView;
-    @FXML private javafx.scene.control.Label labelParadasCount;
+    @FXML private Label labelParadasCount;
     @FXML private ToggleGroup turnoGroup;
     @FXML private RadioButton radioMatutino;
     @FXML private RadioButton radioVespertino;
@@ -45,22 +45,21 @@ public class CadastrarRotaController implements Initializable {
     @FXML private Label mensagemStatus;
 
     private ObservableList<Parada> selectedParadas = FXCollections.observableArrayList();
+    private Rota rotaEmEdicao;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Popular combos a partir do repositório
         comboMotorista.getItems().clear();
         comboMotorista.getItems().addAll(Repositorio.getListaMotorista());
 
         comboVeiculo.getItems().clear();
         comboVeiculo.getItems().addAll(Repositorio.getListaVeiculo());
 
-        // Paradas do repositório (observável)
         comboParada.setItems(Repositorio.getListaParada());
 
         listaParadasListView.setItems(selectedParadas);
 
-        // Cell factory para mostrar cada parada com um botão 'Remover'
+        // re-use same cell factory logic as cadastrar
         listaParadasListView.setCellFactory(lv -> new javafx.scene.control.ListCell<Parada>() {
             private final javafx.scene.layout.HBox container = new javafx.scene.layout.HBox(8);
             private final javafx.scene.control.Label label = new javafx.scene.control.Label();
@@ -68,15 +67,12 @@ public class CadastrarRotaController implements Initializable {
 
             {
                 container.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-                //adiciona estilização
                 container.getStyleClass().add("parada-item");
                 label.getStyleClass().add("parada-nome-texto");
                 removeBtn.getStyleClass().add("btn-entregue-status");
                 javafx.scene.layout.HBox.setHgrow(label, javafx.scene.layout.Priority.ALWAYS);
                 label.setMaxWidth(Double.MAX_VALUE);
-
                 removeBtn.setMinWidth(80);
-
                 container.getChildren().addAll(label, removeBtn);
                 removeBtn.setOnAction(e -> {
                     Parada item = getItem();
@@ -98,13 +94,34 @@ public class CadastrarRotaController implements Initializable {
             }
         });
 
-        // mantém o label de contagem atualizado
         labelParadasCount.setText("Paradas: " + selectedParadas.size());
         selectedParadas.addListener((javafx.collections.ListChangeListener<Parada>) c -> {
             labelParadasCount.setText("Paradas: " + selectedParadas.size());
         });
 
         mensagemStatus.setText("");
+    }
+
+    public void setRota(Rota rota) {
+        this.rotaEmEdicao = rota;
+        // preenche campos com valores da rota
+        if (rota.getMotorista() != null) comboMotorista.getSelectionModel().select(rota.getMotorista());
+        if (rota.getOnibus() != null) comboVeiculo.getSelectionModel().select(rota.getOnibus());
+        String t = rota.getTurno();
+        if (t != null) {
+            String tl = t.toLowerCase();
+            // aceitar sinônimos (ex: "Manhã" -> Matutino, "Tarde" -> Vespertino, "Noite" -> Noturno)
+            if (tl.contains("mat") || tl.contains("manh")) {
+                turnoGroup.selectToggle(radioMatutino);
+            } else if (tl.contains("vesp") || tl.contains("tard")) {
+                turnoGroup.selectToggle(radioVespertino);
+            } else if (tl.contains("not") || tl.contains("noit")) {
+                turnoGroup.selectToggle(radioNoturno);
+            }
+        }
+
+        selectedParadas.clear();
+        if (rota.getParadas() != null) selectedParadas.addAll(rota.getParadas());
     }
 
     @FXML
@@ -117,7 +134,6 @@ public class CadastrarRotaController implements Initializable {
         if (!selectedParadas.contains(p)) {
             selectedParadas.add(p);
             mensagemStatus.setText("");
-            // Limpa seleção do combo para permitir adicionar novamente outra parada
             comboParada.getSelectionModel().clearSelection();
         } else {
             mensagemStatus.setText("Parada já adicionada.");
@@ -126,6 +142,11 @@ public class CadastrarRotaController implements Initializable {
 
     @FXML
     private void salvarRota(ActionEvent event) {
+        if (rotaEmEdicao == null) {
+            mensagemStatus.setText("Erro interno: rota não carregada.");
+            return;
+        }
+
         Motorista motorista = comboMotorista.getSelectionModel().getSelectedItem();
         Veiculo veiculo = comboVeiculo.getSelectionModel().getSelectedItem();
         String turno = getSelectedTurno();
@@ -135,20 +156,12 @@ public class CadastrarRotaController implements Initializable {
             return;
         }
 
-        ArrayList<Parada> paradas = new ArrayList<>(selectedParadas);
-        Rota rota = new Rota(motorista, veiculo, turno, paradas);
+        rotaEmEdicao.setMotorista(motorista);
+        rotaEmEdicao.setOnibus(veiculo);
+        rotaEmEdicao.setTurno(turno);
+        rotaEmEdicao.setParadas(new ArrayList<>(selectedParadas));
 
-        // Adiciona ao repositório
-        Repositorio.getListaRota().add(rota);
-
-        mensagemStatus.setText("✅ Rota cadastrada com sucesso! Paradas: " + paradas.size());
-        // Limpar seleção
-        comboMotorista.getSelectionModel().clearSelection();
-        comboVeiculo.getSelectionModel().clearSelection();
-        comboParada.getSelectionModel().clearSelection();
-        // limpar seleção dos radio buttons
-        turnoGroup.selectToggle(null);
-        selectedParadas.clear();
+        mensagemStatus.setText("✅ Rota atualizada com sucesso!");
     }
 
     private String getSelectedTurno() {
@@ -159,7 +172,8 @@ public class CadastrarRotaController implements Initializable {
     }
 
     @FXML
-    private void voltarTela(ActionEvent event) {
+    private void voltar(ActionEvent event) {
+        // Voltar diretamente ao painel do administrador
         navegarDeTela(event, "painelAdministrador.fxml");
     }
 
@@ -173,7 +187,6 @@ public class CadastrarRotaController implements Initializable {
             }
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
-
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
             Scene scene = new Scene(root);
@@ -181,7 +194,6 @@ public class CadastrarRotaController implements Initializable {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.println("Erro ao carregar o FXML: " + fxmlFile);
         }
     }
 }
