@@ -3,6 +3,7 @@ package org.example.schooltransport;
 // Usando javafx.beans para que a listaParadas.fxml possa observar as propriedades
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import org.example.schooltransport.model.Aluno;
 
 public class Parada {
     private final SimpleStringProperty nomeParada;
@@ -12,6 +13,7 @@ public class Parada {
     private final SimpleStringProperty cidade;
     private final SimpleStringProperty estado;
     private final SimpleBooleanProperty passada; // Para o visto (Status)
+    private Aluno aluno; // Referência ao aluno associado a esta parada
 
     public Parada(String nomeParada, String logradouro, String numero, String bairro, String cidade, String estado) {
         this.nomeParada = new SimpleStringProperty(nomeParada);
@@ -21,6 +23,7 @@ public class Parada {
         this.cidade = new SimpleStringProperty(cidade);
         this.estado = new SimpleStringProperty(estado);
         this.passada = new SimpleBooleanProperty(false); // Começa como não passada
+        this.aluno = null; // Sem aluno associado por padrão
     }
 
     public String getNomeParada() { return nomeParada.get(); }
@@ -46,6 +49,15 @@ public class Parada {
     public boolean isPassada() { return passada.get(); }
     public SimpleBooleanProperty passadaProperty() { return passada; }
     public void setPassada(boolean passada) { this.passada.set(passada); }
+
+    // Getter e setter para Aluno
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
 
     @Override
     public String toString() {
