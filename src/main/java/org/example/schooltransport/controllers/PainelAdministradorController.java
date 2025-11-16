@@ -32,12 +32,24 @@ public class PainelAdministradorController implements Initializable {
 
     @FXML
     private javafx.scene.control.Button botaoVoltarTopo;
+    @FXML
+    private javafx.scene.control.Button btnConsultarNotificacoes;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // garante que o botão de topo tenha um handler se o onAction do FXML falhar por algum motivo
         if (botaoVoltarTopo != null) {
             botaoVoltarTopo.setOnAction(e -> voltar(e));
+        }
+
+        // Mostrar o botão de consultar notificações quando o usuário logado for um responsável
+        try {
+            if (btnConsultarNotificacoes != null) {
+                boolean mostrar = (org.example.schooltransport.data.Repositorio.getCurrentUserType() == 'R');
+                btnConsultarNotificacoes.setVisible(mostrar);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -57,6 +69,11 @@ public class PainelAdministradorController implements Initializable {
     private void abrirListarRotas(ActionEvent event) {
         // Navega para a tela que lista rotas (para selecionar uma a editar)
         navegarDeTela(event, "listarRotas.fxml");
+    }
+
+    @FXML
+    private void abrirConsultarNotificacoes(ActionEvent event) {
+        navegarDeTela(event, "consultarNotificacoes.fxml");
     }
 
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
