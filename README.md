@@ -89,8 +89,11 @@ SchoolTransport/
 │   │   │       │   ├── Responsavel.java
 │   │   │       │   ├── Veiculo.java
 │   │   │       │   └── Rota.java
-│   │   │       └── data/
-│   │   │           └── Repositorio.java           # Repositório de dados
+│   │   │       |── data/
+│   │   │       |    └── Repositorio.java           # Repositório de dados
+|   |   |       |__ utils/
+|   |   |            |__ Masks.java
+|   |   |          
 │   │   └── resources/
 │   │       └── org/example/schooltransport/
 │   │           ├── *.fxml                         # Arquivos de interface
