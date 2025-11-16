@@ -188,8 +188,6 @@ public class CadastrarParadaController {
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
-            // ✅ ESTA É A CORREÇÃO ✅
-            // Substitui o conteúdo da cena atual, mantendo o tamanho da janela
             stage.getScene().setRoot(root);
 
         } catch (IOException e) {
