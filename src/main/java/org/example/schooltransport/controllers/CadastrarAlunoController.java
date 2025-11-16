@@ -21,7 +21,6 @@ public class CadastrarAlunoController {
     @FXML private TextField campoCpf;
     @FXML private TextField campoResponsavel;
     @FXML private TextField campoContato;
-    @FXML private TextField campoParada;
     @FXML private TextField campoEmail;
     @FXML private PasswordField campoSenha;
     @FXML private Label mensagemStatus;
@@ -33,18 +32,17 @@ public class CadastrarAlunoController {
             String cpf = campoCpf.getText();
             String responsavel = campoResponsavel.getText();
             String contato = campoContato.getText();
-            String parada = campoParada.getText();
             String email = campoEmail.getText();
             String senha = campoSenha.getText();
 
             if (nome.isEmpty() || cpf.isEmpty() || responsavel.isEmpty() ||
-                    contato.isEmpty() || parada.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+                    contato.isEmpty() || email.isEmpty() || senha.isEmpty()) {
                 mensagemStatus.setText("Preencha todos os campos!");
                 return;
             }
 
-            // estou criando um novo aluno e inserindo na minha ed
-            Aluno novoAluno = new Aluno(nome, cpf, responsavel, contato, parada, email, senha);
+            // Criar novo aluno sem parada (parada será associada via Parada.setAluno())
+            Aluno novoAluno = new Aluno(nome, cpf, responsavel, contato, email, senha);
             Repositorio.getListaAluno().add(novoAluno);
             mensagemStatus.setText("Aluno cadastrado com sucesso!");
             limparCampos();
@@ -59,13 +57,13 @@ public class CadastrarAlunoController {
     @FXML
     private void voltarTelaAnterior() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/consultarAlunos.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/painelAdministrador.fxml"));
             Scene cena = new Scene(loader.load());
             Stage stage = (Stage) campoNome.getScene().getWindow();
             stage.setScene(cena);
             stage.show();
         } catch (IOException e) {
-            mensagemStatus.setText("Erro ao voltar para a lista de alunos.");
+            mensagemStatus.setText("Erro ao voltar para o painel do administrador.");
             e.printStackTrace();
         }
     }
@@ -75,7 +73,6 @@ public class CadastrarAlunoController {
         campoCpf.clear();
         campoResponsavel.clear();
         campoContato.clear();
-        campoParada.clear();
         campoEmail.clear();
         campoSenha.clear();
     }

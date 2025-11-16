@@ -48,13 +48,13 @@ public class CadastrarResponsavelController {
     @FXML
     private void voltarTelaAnterior() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/consultarResponsavel.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/painelAdministrador.fxml"));
             Scene cena = new Scene(loader.load());
             Stage stage = (Stage) campoNomeResponsavel.getScene().getWindow();
             stage.setScene(cena);
             stage.show();
         } catch (IOException e) {
-            mensagemStatus.setText("Erro ao voltar para a tela anterior.");
+            mensagemStatus.setText("Erro ao voltar para o painel do administrador.");
             e.printStackTrace();
         }
     }
