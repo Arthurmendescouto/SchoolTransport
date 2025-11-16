@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import org.example.schooltransport.data.Repositorio;
 import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.Responsavel;
+import org.example.schooltransport.controllers.ConsultarFaltasController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -68,7 +69,7 @@ public class LoginController {
 
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
             if (tipoDeUsuario == 'R')
-                navegarDeTela(event, "painelAdministrador.fxml");
+                navegarParaFaltas(event, email);
             if (tipoDeUsuario == 'A')
                 navegarDeTela(event, "consultarRotaAluno.fxml");
             //Ainda redundante, enquanto o cadastro de motorista não estiver completo
@@ -109,6 +110,43 @@ public class LoginController {
             e.printStackTrace();
             System.err.println("Erro ao carregar o FXML: " + fxmlFile);
             System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', VOCÊ NÃO CORRIGIU O 'fx:controller' DENTRO DO FXML! <<<");
+        }
+    }
+
+    /**
+     * Navega para a tela de faltas e passa o email do responsável logado.
+     * 
+     * @param event Evento de ação
+     * @param email Email do responsável logado
+     */
+    private void navegarParaFaltas(ActionEvent event, String email) {
+        try {
+            String caminhoAbsoluto = "/org/example/schooltransport/consultarFaltas.fxml";
+            URL resourceUrl = getClass().getResource(caminhoAbsoluto);
+
+            if (resourceUrl == null) {
+                System.err.println("FATAL: Não foi possível encontrar o FXML em: " + caminhoAbsoluto);
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(resourceUrl);
+            Parent root = loader.load();
+
+            // recebe o controller e passa o email do responsável
+            ConsultarFaltasController controller = loader.getController();
+            controller.setEmailResponsavelLogado(email);
+
+            Node sourceNode = (Node) event.getSource();
+            Stage stage = (Stage) sourceNode.getScene().getWindow();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Erro ao carregar a tela de faltas: " + e.getMessage());
+            mostrarAlerta("Erro", "Não foi possível carregar a tela de faltas.\n\nErro: " + e.getMessage());
         }
     }
 

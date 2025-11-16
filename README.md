@@ -12,6 +12,7 @@ Sistema de gerenciamento de transporte escolar desenvolvido em JavaFX para facil
 - [Como Executar](#-como-executar)
 - [Documentação JavaDoc](#-documentação-javadoc)
 - [Validações e Tratamento de Erros](#-validações-e-tratamento-de-erros)
+- [Sistema de Registro de Presença e Faltas](#-sistema-de-registro-de-presença-e-faltas)
 - [Estrutura de Classes](#-estrutura-de-classes)
 
 ## 🎯 Sobre o Projeto
@@ -23,6 +24,8 @@ O Sistema de Transporte Escolar é uma aplicação desktop desenvolvida em JavaF
 - Controlar veículos e rotas
 - Acompanhar o progresso das rotas em tempo real
 - Visualizar paradas pendentes e concluídas
+- Registrar presença/ausência de alunos durante o transporte
+- Consultar faltas dos alunos vinculados ao responsável
 
 ## 🛠 Tecnologias Utilizadas
 
@@ -53,6 +56,15 @@ O Sistema de Transporte Escolar é uma aplicação desktop desenvolvida em JavaF
 - Acompanhamento do progresso da rota
 - Barra de progresso visual
 - Contador de paradas entregues/pendentes
+- **Registro de presença/ausência dos alunos**
+- Lista de alunos com controle de presença em tempo real
+
+### 👨‍👩‍👧‍👦 Responsável
+- **Consulta de faltas dos alunos vinculados**
+- Visualização de faltas agrupadas por aluno
+- Exibição de datas das faltas
+- Contador total de faltas
+- Interface intuitiva com cards por aluno
 
 ### 📍 Paradas
 - Cadastro com validação de campos
@@ -82,19 +94,23 @@ SchoolTransport/
 │   │   │       │   ├── CadastrarRotaController.java
 │   │   │       │   ├── ListaParadaController.java
 │   │   │       │   ├── TelaMotoristaController.java
-│   │   │       │   └── ConsutarRotaController.java
+│   │   │       │   ├── ConsultarRotaAlunoController.java
+│   │   │       │   ├── ConsultarRotaMotoristaController.java
+│   │   │       │   └── ConsultarFaltasController.java    # Consulta de faltas
 │   │   │       ├── model/                         # Modelos de dados
 │   │   │       │   ├── Pessoa.java
 │   │   │       │   ├── Aluno.java
 │   │   │       │   ├── Responsavel.java
 │   │   │       │   ├── Veiculo.java
-│   │   │       │   └── Rota.java
+│   │   │       │   ├── Rota.java
+│   │   │       │   └── RegistroPresenca.java      # Registro de presença/falta
 │   │   │       └── data/
 │   │   │           └── Repositorio.java           # Repositório de dados
 │   │   └── resources/
 │   │       └── org/example/schooltransport/
 │   │           ├── *.fxml                         # Arquivos de interface
-│   │           └── styles.css                     # Estilos CSS
+│   │           ├── consultarFaltas.fxml            # Tela de consulta de faltas
+│   │           └── styles.css                      # Estilos CSS
 ├── pom.xml                                        # Configuração Maven
 ├── mvnw                                           # Maven Wrapper (Linux/Mac)
 ├── mvnw.cmd                                       # Maven Wrapper (Windows)
@@ -223,6 +239,37 @@ O sistema possui validação completa de campos com mensagens de erro específic
 
 O sistema exibe mensagens de erro claras e específicas abaixo do botão "Concluir", indicando exatamente quais campos precisam ser corrigidos.
 
+## 📊 Sistema de Registro de Presença e Faltas
+
+O sistema possui um módulo completo para registro de presença dos alunos durante o transporte escolar.
+
+### Como Funciona
+
+1. **Registro pelo Motorista:**
+   - O motorista visualiza a lista de alunos na tela de trabalho
+   - Marca cada aluno como "Presente" ou "Ausente" usando o controle visual
+   - Os registros são salvos automaticamente com data e hora
+
+2. **Consulta pelo Responsável:**
+   - O responsável faz login e é redirecionado para a tela de consulta de faltas
+   - Visualiza todas as faltas dos alunos vinculados a ele
+   - As faltas são agrupadas por aluno para melhor visualização
+   - Cada card mostra o nome do aluno, quantidade de faltas e datas específicas
+
+### Características
+
+- **Registro Automático:** Cada marcação de presença/ausência é salva imediatamente
+- **Data e Hora:** Cada registro inclui a data do dia em que foi feito
+- **Filtragem por Responsável:** Cada responsável vê apenas as faltas dos seus alunos
+- **Interface Intuitiva:** Cards visuais organizados por aluno
+- **Tratamento de Erros:** Sistema robusto com verificações de null e tratamento de exceções
+
+### Vínculo Aluno-Responsável
+
+- Ao cadastrar um aluno, é necessário informar o nome do responsável
+- O sistema vincula automaticamente o aluno ao responsável correspondente
+- Responsáveis só visualizam faltas dos alunos vinculados a eles
+
 ## 🏗 Estrutura de Classes
 
 ### Classes Principais
@@ -238,6 +285,7 @@ O sistema exibe mensagens de erro claras e específicas abaixo do botão "Conclu
 - **`Responsavel`**: Representa um responsável (pai/mãe/tutor)
 - **`Veiculo`**: Representa um veículo (ônibus)
 - **`Rota`**: Representa uma rota de transporte
+- **`RegistroPresenca`**: Representa um registro de presença/falta de um aluno com data e status
 
 ### Controllers (controllers/)
 
@@ -250,12 +298,18 @@ O sistema exibe mensagens de erro claras e específicas abaixo do botão "Conclu
 - **`CadastrarMotoristaController`**: Cadastro de motoristas
 - **`CadastrarRotaController`**: Cadastro de rotas
 - **`ListaParadaController`**: Listagem de paradas
-- **`TelaMotoristaController`**: Interface do motorista com progresso da rota
-- **`ConsutarRotaController`**: Consulta de rotas
+- **`TelaMotoristaController`**: Interface do motorista com progresso da rota e registro de presença
+- **`ConsultarRotaAlunoController`**: Consulta de rotas para alunos
+- **`ConsultarRotaMotoristaController`**: Consulta de rotas para motoristas
+- **`ConsultarFaltasController`**: Consulta de faltas dos alunos para responsáveis
 
 ### Dados (data/)
 
-- **`Repositorio`**: Repositório centralizado para armazenamento de dados (alunos, responsáveis, veículos, rotas)
+- **`Repositorio`**: Repositório centralizado para armazenamento de dados (alunos, responsáveis, veículos, rotas, registros de presença)
+  - Métodos para gerenciar registros de presença
+  - Busca de faltas por aluno
+  - Busca de faltas por responsável
+  - Busca de alunos por responsável
 
 ## 🎨 Interface Gráfica
 
@@ -266,6 +320,8 @@ A interface foi desenvolvida com JavaFX e FXML, utilizando CSS para estilizaçã
 - Barras de progresso para acompanhamento de rotas
 - Mensagens de erro destacadas
 - Navegação fluida entre telas
+- Cards visuais para exibição de faltas
+- Controles de presença com interface moderna (toggle switch)
 
 ## 📝 Notas Importantes
 
@@ -274,6 +330,8 @@ A interface foi desenvolvida com JavaFX e FXML, utilizando CSS para estilizaçã
 - O projeto utiliza Maven Wrapper, não sendo necessário ter Maven instalado
 - Todas as validações são feitas no lado do cliente antes de processar os dados
 - O sistema utiliza padrão Singleton para gerenciamento de paradas
+- Os registros de presença são armazenados em memória (não persistem após fechar a aplicação)
+- Para vincular um aluno a um responsável, informe o nome exato do responsável no cadastro do aluno
 
 ## 👥 Autores
 
