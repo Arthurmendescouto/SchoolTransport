@@ -84,17 +84,6 @@
                 </HBox>
                 <TextField fx:id="campoContato" styleClass="form-field" />
 
-                <!-- Ponto de parada -->
-                <HBox alignment="CENTER_LEFT" spacing="10.0">
-                    <ImageView fitHeight="30.0" fitWidth="25.0" preserveRatio="true">
-                        <image>
-                            <Image url="@icons/localIcon.png" />
-                        </image>
-                    </ImageView>
-                    <Label styleClass="label-campo" text="Ponto de parada:" />
-                </HBox>
-                <TextField fx:id="campoParada" styleClass="form-field" />
-
                 <!-- Email -->
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <ImageView fitHeight="30.0" fitWidth="25.0" preserveRatio="true">
