@@ -17,6 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de login.
+ * Autentica usuários e gerencia sessão de acesso.
+ */
 public class LoginController {
 
     @FXML

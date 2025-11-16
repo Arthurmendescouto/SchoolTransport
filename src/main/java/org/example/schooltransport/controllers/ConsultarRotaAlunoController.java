@@ -16,6 +16,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.NoSuchElementException;
 
+/**
+ * Controller responsável pela tela de consulta de rota para alunos.
+ * Exibe informações sobre a próxima parada, quantidade de alunos e turno.
+ */
 public class ConsultarRotaAlunoController {
     private String turnoDaRotaValido = "";
     @FXML

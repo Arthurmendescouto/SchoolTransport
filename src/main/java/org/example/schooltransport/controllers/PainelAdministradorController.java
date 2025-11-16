@@ -14,6 +14,10 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller responsável pelo painel principal do administrador.
+ * Oferece acesso a todas as funcionalidades de cadastro e consulta do sistema.
+ */
 public class PainelAdministradorController implements Initializable {
 
     @FXML
@@ -24,6 +28,9 @@ public class PainelAdministradorController implements Initializable {
     @FXML
     private javafx.scene.control.Button btnConsultarNotificacoes;
 
+    /**
+     * Inicializa o controller configurando botões e visibilidade conforme tipo de usuário.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // garante que o botão de topo tenha um handler se o onAction do FXML falhar por algum motivo
@@ -42,55 +49,87 @@ public class PainelAdministradorController implements Initializable {
         }
     }
 
+    /**
+     * Retorna à tela de login.
+     */
     @FXML
     private void voltar(ActionEvent event) {
         // Navega para a tela de login ou outra tela apropriada
         navegarDeTela(event, "login.fxml");
     }
 
+    /**
+     * Abre a tela de cadastro de rotas.
+     */
     @FXML
     private void abrirCadastrarRota(ActionEvent event) {
         // Navega para a tela de cadastrar rota
         navegarDeTela(event, "cadastrarRota.fxml");
     }
 
+    /**
+     * Abre a tela de cadastro de alunos.
+     */
     @FXML
     private void abrirCadastrarAluno(ActionEvent event) {
         navegarDeTela(event, "cadastrarAlunos.fxml");
     }
 
+    /**
+     * Abre a tela de cadastro de motoristas.
+     */
     @FXML
     private void abrirCadastrarMotorista(ActionEvent event) {
         navegarDeTela(event, "cadastrarMotorista.fxml");
     }
 
+    /**
+     * Abre a tela de cadastro de responsáveis.
+     */
     @FXML
     private void abrirCadastrarResponsavel(ActionEvent event) {
         navegarDeTela(event, "cadastrarResponsavel.fxml");
     }
 
+    /**
+     * Abre a tela de cadastro de veículos.
+     */
     @FXML
     private void abrirCadastrarVeiculo(ActionEvent event) {
         navegarDeTela(event, "cadastrarVeiculo.fxml");
     }
 
+    /**
+     * Abre a tela de cadastro de paradas.
+     */
     @FXML
     private void abrirCadastrarParada(ActionEvent event) {
         // Navega para a tela de cadastrar parada
         navegarDeTela(event, "cadastrarParada.fxml");
     }
 
+    /**
+     * Abre a tela de listagem de rotas.
+     */
     @FXML
     private void abrirListarRotas(ActionEvent event) {
         // Navega para a tela que lista rotas (para selecionar uma a editar)
         navegarDeTela(event, "listarRotas.fxml");
     }
 
+    /**
+     * Abre a tela de consulta de notificações.
+     */
     @FXML
     private void abrirConsultarNotificacoes(ActionEvent event) {
         navegarDeTela(event, "consultarNotificacoes.fxml");
     }
 
+    /**
+     * Método auxiliar para navegação entre telas.
+     * @param event Evento de ação do botão
+     * @param fxmlFile Nome do arquivo FXML de destino
+     */
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             // Construímos um caminho absoluto a partir da raiz (note o "/" no início)

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="800.0" prefWidth="400.0"
+            styleClass="root"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.schooltransport.controllers.RegistrarFaltasController">
+
+    <VBox alignment="TOP_CENTER" spacing="30.0"
+          AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0">
+
+        <!-- ====================== CABEÇALHO ====================== -->
+        <HBox style="-fx-background-color: #E65100;" prefHeight="60" alignment="CENTER_LEFT">
+            <Label text="← Voltar"
+                   style="-fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 0 0 0 20;"
+                   onMouseClicked="#voltar"/>
+        </HBox>
+
+        <!-- ====================== TÍTULO ====================== -->
+        <Label text="Registrar faltas:"
+               style="-fx-font-size: 24px; -fx-text-fill: #E65100; -fx-font-weight: bold;"/>
+
+        <!-- ====================== FORMULÁRIO ====================== -->
+        <VBox spacing="20" alignment="TOP_CENTER" prefWidth="350">
+
+            <Label text="Selecione o aluno:"
+                   style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+            <ComboBox fx:id="comboAlunos" promptText="Escolha o aluno"
+                      prefWidth="300"
+                      style="-fx-background-radius: 10; -fx-padding: 5;"/>
+
+            <Button text="Registrar Falta"
+                    fx:id="btnRegistrar"
+                    onAction="#onRegistrarFalta"
+                    prefWidth="300"
+                    style="-fx-background-color: #E65100; -fx-text-fill: white; -fx-font-size: 16px;
+                           -fx-background-radius: 20; -fx-padding: 10;"/>
+        </VBox>
+
+        <!-- ====================== TABELA ====================== -->
+        <TableView fx:id="tabelaFrequencia" prefHeight="350" prefWidth="350">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="colAluno" text="Aluno" prefWidth="150"/>
+                <TableColumn fx:id="colData" text="Data" prefWidth="100"/>
+                <TableColumn fx:id="colPresente" text="Presença" prefWidth="100"/>
+            </columns>
+        </TableView>
+
+    </VBox>
+
+</AnchorPane>
