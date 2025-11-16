@@ -13,6 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de cadastro de motoristas.
+ * Gerencia a validação e inserção de novos motoristas no sistema.
+ */
 public class CadastrarMotoristaController {
 
     @FXML
@@ -24,12 +28,20 @@ public class CadastrarMotoristaController {
     @FXML
     private Label mensagemStatus;
 
+    /**
+     * Retorna ao painel do administrador.
+     * @param event Evento da ação
+     */
     @FXML
     private void voltar(ActionEvent event) {
         // Navega para o painel de administrador
         navegarDeTela(event, "painelAdministrador.fxml");
     }
 
+    /**
+     * Processa o cadastro de um novo motorista.
+     * @param event Evento da ação
+     */
     @FXML
     private void cadastrar(ActionEvent event) {
         String nome = campoNomeParada.getText();
@@ -50,6 +62,11 @@ public class CadastrarMotoristaController {
         campoBairro.clear();
     }
 
+    /**
+     * Navega para outra tela carregando o arquivo FXML especificado.
+     * @param event Evento de origem da navegação
+     * @param fxmlFile Nome do arquivo FXML de destino
+     */
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
@@ -74,8 +91,9 @@ public class CadastrarMotoristaController {
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
             // Define a nova cena
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -85,4 +103,3 @@ public class CadastrarMotoristaController {
         }
     }
 }
-

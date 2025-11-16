@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import org.example.schooltransport.Parada;
+import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.data.Repositorio;
 
 import java.io.IOException;
@@ -18,6 +18,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+/**
+ * Controller responsável pela tela de consulta de rota para alunos.
+ * Exibe informações sobre a próxima parada, quantidade de alunos e turno.
+ */
 public class ConsultarRotaAlunoController {
     private String turnoDaRotaValido = "";
     @FXML
@@ -74,8 +78,9 @@ public class ConsultarRotaAlunoController {
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
             // Define a nova cena
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {

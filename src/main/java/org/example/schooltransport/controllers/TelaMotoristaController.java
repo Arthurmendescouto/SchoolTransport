@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.example.schooltransport.Cadastro;
-import org.example.schooltransport.Parada;
+import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.data.Repositorio;
 import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.RegistroPresenca;
@@ -33,6 +33,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela do motorista.
+ * Exibe próxima parada, progresso da rota e lista de alunos com presença.
+ */
 public class TelaMotoristaController implements Initializable {
 
     @FXML private Button btnVoltar;
@@ -70,6 +74,9 @@ public class TelaMotoristaController implements Initializable {
         carregarListaAlunos();
     }
 
+    /**
+     * Carrega a lista de alunos com checkbox de presença.
+     */
     private void carregarListaAlunos() {
         vboxListaAlunos.getChildren().clear();
         ArrayList<Aluno> alunos = Repositorio.getListaAluno();
@@ -113,6 +120,9 @@ public class TelaMotoristaController implements Initializable {
         }
     }
 
+    /**
+     * Exibe a próxima parada pendente ou mensagem quando não houver paradas.
+     */
     private void exibirProximaParada() {
         ObservableList<Parada> dados = Cadastro.getInstance().getListaDeParadas();
 
@@ -137,6 +147,9 @@ public class TelaMotoristaController implements Initializable {
         }
     }
 
+    /**
+     * Atualiza a barra de progresso e contadores de paradas entregues/pendentes.
+     */
     private void atualizarProgresso() {
         ObservableList<Parada> dados = Cadastro.getInstance().getListaDeParadas();
 
@@ -194,7 +207,9 @@ public class TelaMotoristaController implements Initializable {
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root, 390, 700);
+            stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {

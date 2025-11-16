@@ -1,52 +1,67 @@
 package org.example.schooltransport.model;
-
 import java.util.ArrayList;
+import org.example.schooltransport.model.Parada;
 
+/**
+ * Descreve uma rota de transporte contendo motorista, veículo, turno e paradas.
+ */
 public class Rota {
-    String motorista;
-    String onibus;
-    String turno;
-    ArrayList<String> paradas = new ArrayList<>();
+    private Motorista motorista;
+    private Veiculo onibus;
+    private String turno;
+    private ArrayList<Parada> paradas = new ArrayList<>();
 
-    public Rota(String motorista, String onibus, String turno, ArrayList<String> paradas) {
+    /**
+     * Constrói uma rota completa.
+     * @param motorista Motorista responsável
+     * @param onibus Veículo utilizado
+     * @param turno Turno (ex.: Manhã, Tarde)
+     * @param paradas Lista de paradas na ordem prevista
+     */
+    public Rota(Motorista motorista, Veiculo onibus, String turno, ArrayList<Parada> paradas) {
         this.motorista = motorista;
         this.onibus = onibus;
         this.turno = turno;
         this.paradas = paradas;
     }
 
-    public String getMotorista() {
+    /** Retorna o motorista da rota. */
+    public Motorista getMotorista() {
         return motorista;
     }
 
-    public void setMotorista(String motorista) {
+    /** Define o motorista da rota. */
+    public void setMotorista(Motorista motorista) {
         this.motorista = motorista;
     }
 
-    public String getOnibus() {
+    /** Retorna o veículo (ônibus) da rota. */
+    public Veiculo getOnibus() {
         return onibus;
     }
 
-    public void setOnibus(String onibus) {
+    /** Define o veículo (ônibus) da rota. */
+    public void setOnibus(Veiculo onibus) {
         this.onibus = onibus;
     }
 
+    /** Retorna o turno da rota. */
     public String getTurno() {
         return turno;
     }
 
+    /** Atualiza o turno da rota. */
     public void setTurno(String turno) {
         this.turno = turno;
     }
 
-    public ArrayList<String> getParadas() {
+    /** Obtém a lista de paradas. */
+    public ArrayList<Parada> getParadas() {
         return paradas;
     }
 
-    public void setParadas(ArrayList<String> paradas) {
+    /** Define a lista de paradas. */
+    public void setParadas(ArrayList<Parada> paradas) {
         this.paradas = paradas;
     }
-
-    
-    
 }

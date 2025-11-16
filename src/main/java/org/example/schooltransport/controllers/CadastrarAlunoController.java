@@ -10,22 +10,30 @@ import org.example.schooltransport.model.Aluno;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de cadastro de alunos.
+ * Gerencia a validação e inserção de novos alunos no sistema.
+ */
 public class CadastrarAlunoController {
 
     @FXML private TextField campoNome;
     @FXML private TextField campoCpf;
     @FXML private TextField campoResponsavel;
     @FXML private TextField campoContato;
-    @FXML private TextField campoParada;
     @FXML private TextField campoEmail;
     @FXML private PasswordField campoSenha;
     @FXML private Label mensagemStatus;
 
+    /**
+     * Processa o cadastro de um novo aluno após validação dos campos.
+     * Exibe mensagens de status indicando sucesso ou falha.
+     */
     @FXML
     private void cadastrarAluno() {
         try {
@@ -33,18 +41,17 @@ public class CadastrarAlunoController {
             String cpf = campoCpf.getText();
             String responsavel = campoResponsavel.getText();
             String contato = campoContato.getText();
-            String parada = campoParada.getText();
             String email = campoEmail.getText();
             String senha = campoSenha.getText();
 
             if (nome.isEmpty() || cpf.isEmpty() || responsavel.isEmpty() ||
-                    contato.isEmpty() || parada.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+                    contato.isEmpty() || email.isEmpty() || senha.isEmpty()) {
                 mensagemStatus.setText("Preencha todos os campos!");
                 return;
             }
 
-            // estou criando um novo aluno e inserindo na minha ed
-            Aluno novoAluno = new Aluno(nome, cpf, responsavel, contato, parada, email, senha);
+            // Criar novo aluno sem parada (parada será associada via Parada.setAluno())
+            Aluno novoAluno = new Aluno(nome, cpf, responsavel, contato, email, senha);
             Repositorio.getListaAluno().add(novoAluno);
             mensagemStatus.setText("Aluno cadastrado com sucesso!");
             limparCampos();
@@ -56,26 +63,33 @@ public class CadastrarAlunoController {
         }
     }
 
+    /**
+     * Retorna à tela do painel do administrador.
+     */
     @FXML
     private void voltarTelaAnterior() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/consultarAlunos.fxml"));
-            Scene cena = new Scene(loader.load());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/painelAdministrador.fxml"));
+            Parent root = loader.load();
+            Scene cena = new Scene(root, 390, 700);
             Stage stage = (Stage) campoNome.getScene().getWindow();
             stage.setScene(cena);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
-            mensagemStatus.setText("Erro ao voltar para a lista de alunos.");
+            mensagemStatus.setText("Erro ao voltar para o painel do administrador.");
             e.printStackTrace();
         }
     }
 
+    /**
+     * Limpa todos os campos do formulário.
+     */
     private void limparCampos() {
         campoNome.clear();
         campoCpf.clear();
         campoResponsavel.clear();
         campoContato.clear();
-        campoParada.clear();
         campoEmail.clear();
         campoSenha.clear();
     }
