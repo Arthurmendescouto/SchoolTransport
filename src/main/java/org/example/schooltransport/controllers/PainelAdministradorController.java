@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javafx.fxml.Initializable;
@@ -17,16 +16,6 @@ import java.util.ResourceBundle;
 
 public class PainelAdministradorController implements Initializable {
 
-    @FXML
-    private TextField campoNomeParada;
-    @FXML
-    private TextField campoCEP;
-    @FXML
-    private TextField campoLogradouro;
-    @FXML
-    private TextField campoBairro;
-    @FXML
-    private TextField campoComplemento;
     @FXML
     private Label mensagemStatus;
 
@@ -63,6 +52,12 @@ public class PainelAdministradorController implements Initializable {
     private void abrirCadastrarRota(ActionEvent event) {
         // Navega para a tela de cadastrar rota
         navegarDeTela(event, "cadastrarRota.fxml");
+    }
+
+    @FXML
+    private void abrirCadastrarParada(ActionEvent event) {
+        // Navega para a tela de cadastrar parada
+        navegarDeTela(event, "cadastrarParada.fxml");
     }
 
     @FXML

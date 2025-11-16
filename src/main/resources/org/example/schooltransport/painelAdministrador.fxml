@@ -49,73 +49,11 @@
             <VBox.margin>
                 <Insets left="15.0" right="15.0" />
             </VBox.margin>
-         <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-               <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/studentIcon.png" />
-                  </image>
-               </ImageView>
-      
-                  <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="128.0" styleClass="label-campo" text="Nome do aluno:" />
-            </children>
-         </HBox>
-
-            <TextField fx:id="campoNomeParada" styleClass="form-field" />
-         <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-               <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/cpfIcon.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="45.0" styleClass="label-campo" text="CPF:" />
-            </children>
-         </HBox>
-            <TextField fx:id="campoCEP" styleClass="form-field" />
-         <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-               <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/ResponsibleIcon.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="102.0" styleClass="label-campo" text="Responsável" />
-            </children>
-         </HBox>
-            <TextField fx:id="campoLogradouro" styleClass="form-field" />
-         <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-               <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/ContactIcon.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="75.0" styleClass="label-campo" text="Contato:" />
-            </children>
-         </HBox>
-
-            <HBox alignment="CENTER_LEFT" spacing="10.0">
-                <TextField fx:id="campoBairro" styleClass="form-field" HBox.hgrow="ALWAYS" />
-            </HBox>
-         <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-               <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@icons/localIcon.png" />
-                  </image>
-               </ImageView>
-               <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="25.0" prefWidth="134.0" styleClass="label-campo" text="Ponto de parada" />
-            </children>
-         </HBox>
-
-            <TextField fx:id="campoComplemento" styleClass="form-field" />
-
-            <HBox alignment="CENTER_LEFT" spacing="10.0" />
 
          <!-- Botão para abrir a tela de cadastro de rota -->
        <VBox spacing="10.0">
           <children>
+             <Button mnemonicParsing="false" onAction="#abrirCadastrarParada" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Parada" />
              <Button mnemonicParsing="false" onAction="#abrirCadastrarRota" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Cadastrar Rota" />
              <!-- Botão posicionado abaixo, com mesma estilização -->
              <Button mnemonicParsing="false" onAction="#abrirListarRotas" prefHeight="45.0" prefWidth="200.0" styleClass="bottom" stylesheets="@styles.css" text="Listar Rotas" />
