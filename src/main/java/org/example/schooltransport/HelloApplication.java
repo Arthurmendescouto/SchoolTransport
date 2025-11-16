@@ -22,7 +22,7 @@ public class HelloApplication extends Application {
         // Carregar seed data antes de exibir a tela
         
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 400, 900);
+        Scene scene = new Scene(fxmlLoader.load(), 390, 700);
         stage.setTitle("Sistema de Transporte Escolar");
         stage.setScene(scene);
         stage.setResizable(false);
