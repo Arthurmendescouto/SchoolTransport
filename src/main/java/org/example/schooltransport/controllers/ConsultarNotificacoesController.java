@@ -20,6 +20,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de consulta de notificações.
+ * Exibe notificações dos alunos vinculados ao responsável logado.
+ */
 public class ConsultarNotificacoesController implements Initializable {
 
     @FXML private Button removerBtn;
@@ -30,6 +34,9 @@ public class ConsultarNotificacoesController implements Initializable {
     // Guarda a origem de cada item exibido: par[0]=cpfAluno, par[1]=mensagem
     private java.util.List<java.util.Map.Entry<String,String>> origem = new java.util.ArrayList<>();
 
+    /**
+     * Inicializa o controller carregando notificações dos alunos do responsável.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         listViewNotificacoes.setItems(FXCollections.observableArrayList());
@@ -80,6 +87,10 @@ public class ConsultarNotificacoesController implements Initializable {
         }
     }
 
+    /**
+     * Remove a notificação selecionada da lista.
+     * @param event Evento da ação
+     */
     @FXML
     private void removerSelecionado(ActionEvent event) {
         String selecionado = listViewNotificacoes.getSelectionModel().getSelectedItem();

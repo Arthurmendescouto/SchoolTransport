@@ -18,6 +18,10 @@ import org.example.schooltransport.model.Responsavel;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Controller responsável pela tela de login.
+ * Autentica usuários e gerencia sessão de acesso.
+ */
 public class LoginController {
 
     @FXML

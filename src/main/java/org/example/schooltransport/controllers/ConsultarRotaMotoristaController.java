@@ -14,6 +14,10 @@ import org.example.schooltransport.model.Parada;
 
 import java.util.ArrayList;
 
+/**
+ * Controller responsável pela tela de consulta de rota para motoristas.
+ * Renderiza a lista de paradas com status visual.
+ */
 public class ConsultarRotaMotoristaController {
     @FXML
     private VBox contentVBox;
@@ -21,6 +25,10 @@ public class ConsultarRotaMotoristaController {
     @FXML
     private Button botaoVoltar;
 
+    /**
+     * Renderiza a lista de paradas na interface.
+     * @param listaParadas Lista de paradas a serem exibidas
+     */
     public void renderizarLista(ArrayList<Parada> listaParadas) {
 
         contentVBox.getChildren().clear();

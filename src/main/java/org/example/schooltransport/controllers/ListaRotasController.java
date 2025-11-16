@@ -21,6 +21,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de listagem de rotas.
+ * Exibe rotas cadastradas e permite navegar para edição.
+ */
 public class ListaRotasController implements Initializable {
 
     @FXML private ListView<Rota> listaRotasListView;

@@ -15,6 +15,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de cadastro de alunos.
+ * Gerencia a validação e inserção de novos alunos no sistema.
+ */
 public class CadastrarAlunoController {
 
     @FXML private TextField campoNome;
@@ -25,6 +29,10 @@ public class CadastrarAlunoController {
     @FXML private PasswordField campoSenha;
     @FXML private Label mensagemStatus;
 
+    /**
+     * Processa o cadastro de um novo aluno após validação dos campos.
+     * Exibe mensagens de status indicando sucesso ou falha.
+     */
     @FXML
     private void cadastrarAluno() {
         try {
@@ -54,6 +62,9 @@ public class CadastrarAlunoController {
         }
     }
 
+    /**
+     * Retorna à tela do painel do administrador.
+     */
     @FXML
     private void voltarTelaAnterior() {
         try {
@@ -68,6 +79,9 @@ public class CadastrarAlunoController {
         }
     }
 
+    /**
+     * Limpa todos os campos do formulário.
+     */
     private void limparCampos() {
         campoNome.clear();
         campoCpf.clear();

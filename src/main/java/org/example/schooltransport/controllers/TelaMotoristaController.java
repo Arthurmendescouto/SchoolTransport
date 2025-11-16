@@ -32,6 +32,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela do motorista.
+ * Exibe próxima parada, progresso da rota e lista de alunos com presença.
+ */
 public class TelaMotoristaController implements Initializable {
 
     @FXML private Button btnVoltar;
@@ -69,6 +73,9 @@ public class TelaMotoristaController implements Initializable {
         carregarListaAlunos();
     }
 
+    /**
+     * Carrega a lista de alunos com checkbox de presença.
+     */
     private void carregarListaAlunos() {
         vboxListaAlunos.getChildren().clear();
         ArrayList<Aluno> alunos = Repositorio.getListaAluno();
@@ -107,6 +114,9 @@ public class TelaMotoristaController implements Initializable {
         }
     }
 
+    /**
+     * Exibe a próxima parada pendente ou mensagem quando não houver paradas.
+     */
     private void exibirProximaParada() {
         ObservableList<Parada> dados = Cadastro.getInstance().getListaDeParadas();
 
@@ -134,6 +144,9 @@ public class TelaMotoristaController implements Initializable {
         }
     }
 
+    /**
+     * Atualiza a barra de progresso e contadores de paradas entregues/pendentes.
+     */
     private void atualizarProgresso() {
         ObservableList<Parada> dados = Cadastro.getInstance().getListaDeParadas();
 
