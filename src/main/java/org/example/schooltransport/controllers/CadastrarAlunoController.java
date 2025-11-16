@@ -57,13 +57,13 @@ public class CadastrarAlunoController {
     @FXML
     private void voltarTelaAnterior() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/consultarAlunos.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/painelAdministrador.fxml"));
             Scene cena = new Scene(loader.load());
             Stage stage = (Stage) campoNome.getScene().getWindow();
             stage.setScene(cena);
             stage.show();
         } catch (IOException e) {
-            mensagemStatus.setText("Erro ao voltar para a lista de alunos.");
+            mensagemStatus.setText("Erro ao voltar para o painel do administrador.");
             e.printStackTrace();
         }
     }
