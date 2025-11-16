@@ -9,25 +9,34 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" styleClass="root"
+<AnchorPane prefHeight="790.0" prefWidth="400.0" styleClass="root"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.example.schooltransport.controllers.ListaRotasController">
 
-    <VBox alignment="TOP_CENTER" spacing="10.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0">
-        <HBox spacing="10.0" styleClass="cabecalho-topo">
+    <VBox alignment="TOP_CENTER" layoutY="21.0" prefHeight="777.0" prefWidth="400.0" spacing="20.0"
+          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="400.0" spacing="10.0" styleClass="cabecalho-topo">
             <padding>
-                <Insets top="10" bottom="10" left="10" right="10" />
+                <Insets bottom="20.0" left="20.0" top="20.0" />
             </padding>
-            <Label text="Selecionar Rota para edição" styleClass="titulo-principal" />
+            <children>
+                <Button fx:id="botaoVoltarTopo" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#voltar" prefHeight="45.0" prefWidth="43.0" styleClass="bottom" text="←">
+                    <font>
+                        <javafx.scene.text.Font size="13.0" />
+                    </font>
+                </Button>
+                <Label text="Selecionar Rota para edição" styleClass="bottom_voltar" />
+            </children>
         </HBox>
 
-        <ListView fx:id="listaRotasListView" prefHeight="380.0" VBox.vgrow="ALWAYS" />
+    <ListView fx:id="listaRotasListView" prefHeight="648.0" prefWidth="370.0" VBox.vgrow="ALWAYS" />
 
         <HBox spacing="10.0">
             <children>
-                <Button mnemonicParsing="false" onAction="#voltar" styleClass="bottom_voltar" text="Voltar" />
-                <Button mnemonicParsing="false" onAction="#abrirEditarRota" styleClass="bottom" text="Editar rota selecionada" />
+                <Button mnemonicParsing="false" onAction="#voltar" styleClass="bottom_voltar" prefWidth="120.0" text="Voltar" />
+                <Button mnemonicParsing="false" onAction="#abrirEditarRota" styleClass="bottom" prefWidth="220.0" text="Editar rota selecionada" />
             </children>
         </HBox>
 
