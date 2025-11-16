@@ -70,7 +70,7 @@ public class LoginController {
 
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
             if (tipoDeUsuario == 'R')
-                navegarDeTela(event, "painelAdministrador.fxml");
+                navegarDeTela(event, "painelResponsavel.fxml");
             if (tipoDeUsuario == 'A')
                 navegarDeTela(event, "consultarRotaAluno.fxml");
             //Ainda redundante, enquanto o cadastro de motorista não estiver completo
@@ -129,6 +129,9 @@ public class LoginController {
                     && senha.equals(Repositorio.getListaAluno().get(i).getSenha())) {
                 isValid = true;
                 tipoDeUsuario = 'A';
+                // registra sessão para aluno
+                Repositorio.setCurrentUserType('A');
+                Repositorio.setCurrentUserCpf(Repositorio.getListaAluno().get(i).getCpf());
                 break;
             }
         }
@@ -137,6 +140,9 @@ public class LoginController {
                     && senha.equals(Repositorio.getListaResponsavel().get(i).getSenha())) {
                 isValid = true;
                 tipoDeUsuario = 'R';
+                // registra sessão para responsável
+                Repositorio.setCurrentUserType('R');
+                Repositorio.setCurrentUserCpf(Repositorio.getListaResponsavel().get(i).getCpf());
                 break;
             }
         }
