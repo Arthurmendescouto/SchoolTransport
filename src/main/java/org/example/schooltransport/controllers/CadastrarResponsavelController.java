@@ -9,13 +9,17 @@ import org.example.schooltransport.model.Responsavel;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela de cadastro de responsáveis.
+ * Gerencia a validação e inserção de novos responsáveis no sistema.
+ */
 public class CadastrarResponsavelController {
     
     @FXML private TextField campoNomeResponsavel;
@@ -25,6 +29,9 @@ public class CadastrarResponsavelController {
     @FXML private PasswordField campoSenha;
     @FXML private Label mensagemStatus;
 
+    /**
+     * Processa o cadastro de um novo responsável.
+     */
     @FXML
     private void cadastrarResponsavel() {
         String nome = campoNomeResponsavel.getText();
@@ -46,6 +53,9 @@ public class CadastrarResponsavelController {
         limparCampos();
     }
 
+    /**
+     * Retorna ao painel do administrador.
+     */
     @FXML
     private void voltarTelaAnterior() {
         try {
@@ -62,6 +72,9 @@ public class CadastrarResponsavelController {
         }
     }
 
+    /**
+     * Limpa todos os campos do formulário.
+     */
     private void limparCampos() {
         campoNomeResponsavel.clear();
         campoCPF.clear();

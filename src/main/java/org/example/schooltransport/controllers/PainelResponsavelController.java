@@ -13,11 +13,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pelo painel do responsável.
+ * Oferece acesso à consulta de notificações dos alunos sob sua responsabilidade.
+ */
 public class PainelResponsavelController implements Initializable {
 
     @FXML
     private javafx.scene.control.Button botaoVoltarTopo;
 
+    /**
+     * Inicializa o controller configurando o botão de voltar.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if (botaoVoltarTopo != null) {
@@ -25,16 +32,27 @@ public class PainelResponsavelController implements Initializable {
         }
     }
 
+    /**
+     * Retorna à tela de login.
+     */
     @FXML
     private void voltar(ActionEvent event) {
         navegarDeTela(event, "login.fxml");
     }
 
+    /**
+     * Abre a tela de consulta de notificações dos alunos.
+     */
     @FXML
     private void abrirConsultarNotificacoes(ActionEvent event) {
         navegarDeTela(event, "consultarNotificacoes.fxml");
     }
 
+    /**
+     * Método auxiliar para navegação entre telas.
+     * @param event Evento de ação do botão
+     * @param fxmlFile Nome do arquivo FXML de destino
+     */
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             String caminhoAbsoluto = "/org/example/schooltransport/" + fxmlFile;
