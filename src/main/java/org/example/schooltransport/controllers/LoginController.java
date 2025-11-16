@@ -1,22 +1,21 @@
 package org.example.schooltransport.controllers;
 
+import java.io.IOException;
+import java.net.URL;
+
+import org.example.schooltransport.data.Repositorio;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.schooltransport.data.Repositorio;
-import org.example.schooltransport.model.Aluno;
-import org.example.schooltransport.model.Responsavel;
-
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * Controller responsável pela tela de login.
@@ -59,7 +58,7 @@ public class LoginController {
             navegarDeTela(event, "painelAdministrador.fxml");
         }
 
-        if (email.equals("motorista") && senha.equals("motorista"))
+        if (email.equals("motorista@email.com") && senha.equals("1234"))
             navegarDeTela(event, "telaMotorista.fxml");
 
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
@@ -96,8 +95,9 @@ public class LoginController {
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
             // Define a nova cena
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {

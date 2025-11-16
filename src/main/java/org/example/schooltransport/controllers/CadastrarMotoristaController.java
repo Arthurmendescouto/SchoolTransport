@@ -91,8 +91,9 @@ public class CadastrarMotoristaController {
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
             // Define a nova cena
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -102,4 +103,3 @@ public class CadastrarMotoristaController {
         }
     }
 }
-

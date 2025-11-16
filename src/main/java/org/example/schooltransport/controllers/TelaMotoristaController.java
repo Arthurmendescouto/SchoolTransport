@@ -204,7 +204,9 @@ public class TelaMotoristaController implements Initializable {
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root, 390, 700);
+            stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {

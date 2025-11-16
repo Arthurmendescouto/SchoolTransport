@@ -82,8 +82,9 @@ public class ListaRotasController implements Initializable {
 
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -104,8 +105,9 @@ public class ListaRotasController implements Initializable {
             Parent root = loader.load();
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
-            Scene scene = new Scene(root);
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

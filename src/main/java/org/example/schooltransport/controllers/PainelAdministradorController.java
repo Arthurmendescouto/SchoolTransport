@@ -153,9 +153,10 @@ public class PainelAdministradorController implements Initializable {
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
-            // Define a nova cena
-            Scene scene = new Scene(root);
+            // Define a nova cena com tamanho fixo e desabilita redimensionamento
+            Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -165,4 +166,3 @@ public class PainelAdministradorController implements Initializable {
         }
     }
 }
-
