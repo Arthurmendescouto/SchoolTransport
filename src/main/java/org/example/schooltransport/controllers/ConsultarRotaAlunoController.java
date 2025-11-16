@@ -39,9 +39,6 @@ public class ConsultarRotaAlunoController {
             turnoDaRota.setText(turnoDaRotaValido);
     }
 
-
-
-
     private String consultarProximaParada(ObservableList<Parada> listaParadas) {
         String auxVar = "";
         for (Parada parada : listaParadas) {
