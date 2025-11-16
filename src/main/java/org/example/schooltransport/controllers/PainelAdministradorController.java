@@ -70,18 +70,6 @@ public class PainelAdministradorController implements Initializable {
         }
     }
 
-    @FXML
-    private void consultarFaltas(ActionEvent event) {
-        try {
-            // Navega para a tela de consulta de faltas do administrador
-            System.out.println("DEBUG: Tentando navegar para consultarFaltasAdmin.fxml");
-            navegarDeTela(event, "consultarFaltasAdmin.fxml");
-        } catch (Exception e) {
-            System.err.println("Erro ao navegar para tela de faltas: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
     /**
      * Abre a tela de cadastro de rotas.
      */

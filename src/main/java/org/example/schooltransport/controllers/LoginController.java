@@ -16,12 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.schooltransport.data.Repositorio;
-import org.example.schooltransport.model.Aluno;
-import org.example.schooltransport.model.Responsavel;
-
-import java.io.IOException;
-import java.net.URL;
+import org.example.schooltransport.model.Motorista;
 
 public class LoginController {
 
@@ -60,8 +55,20 @@ public class LoginController {
             navegarDeTela(event, "painelAdministrador.fxml");
         }
 
-        if (email.equals("motorista@email.com") && senha.equals("1234"))
+        // Verifica login de motorista (mantido para compatibilidade)
+        if (email.equals("motorista@email.com") && senha.equals("1234")) {
+            // Registra sessão para motorista
+            Repositorio.setCurrentUserType('M');
+            // Busca o CPF do motorista padrão
+            for (Motorista m : Repositorio.getListaMotorista()) {
+                if (m != null && "motorista@email.com".equals(m.getEmail())) {
+                    Repositorio.setCurrentUserCpf(m.getCpf());
+                    break;
+                }
+            }
             navegarDeTela(event, "telaMotorista.fxml");
+            return;
+        }
 
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
             if (tipoDeUsuario == 'R')
@@ -175,6 +182,21 @@ public class LoginController {
                 // registra sessão para responsável
                 Repositorio.setCurrentUserType('R');
                 Repositorio.setCurrentUserCpf(Repositorio.getListaResponsavel().get(i).getCpf());
+                break;
+            }
+        }
+        
+        // Verifica motoristas no repositório
+        for (int i = 0; i < Repositorio.getListaMotorista().size(); i++) {
+            Motorista motorista = Repositorio.getListaMotorista().get(i);
+            if (motorista != null && 
+                email.equals(motorista.getEmail()) && 
+                senha.equals(motorista.getSenha())) {
+                isValid = true;
+                tipoDeUsuario = 'M';
+                // registra sessão para motorista
+                Repositorio.setCurrentUserType('M');
+                Repositorio.setCurrentUserCpf(motorista.getCpf());
                 break;
             }
         }

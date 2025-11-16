@@ -97,25 +97,25 @@ public class ConsultarFaltasController implements Initializable {
                 return;
             }
 
-            System.out.println("DEBUG: Responsável encontrado: " + responsavel.getNome());
+            System.out.println("DEBUG: Responsável encontrado: " + responsavel.getNome() + " (CPF: " + responsavel.getCpf() + ")");
 
-            // Busca todos os alunos do responsável
-            ArrayList<Aluno> alunos = Repositorio.getAlunosPorResponsavel(responsavel.getNome());
+            // Busca todos os alunos do responsável usando o CPF
+            ArrayList<Aluno> alunos = Repositorio.getAlunosPorResponsavel(responsavel.getCpf());
             System.out.println("DEBUG: Alunos encontrados: " + alunos.size());
             for (Aluno a : alunos) {
-                System.out.println("  - " + a.getNome() + " (Responsável: " + a.getResponsavel() + ")");
+                System.out.println("  - " + a.getNome() + " (Responsável CPF: " + a.getResponsavel() + ")");
             }
             
             if (alunos.isEmpty()) {
-                labelListaVazia.setText("Você não possui alunos cadastrados.\n\nPara vincular alunos, cadastre-os informando seu nome como responsável: " + responsavel.getNome());
+                labelListaVazia.setText("Você não possui alunos cadastrados.\n\nPara vincular alunos, cadastre-os informando seu CPF como responsável: " + responsavel.getCpf());
                 labelListaVazia.setVisible(true);
                 scrollPaneFaltas.setVisible(false);
                 labelTotalFaltas.setText("Total de faltas: 0");
                 return;
             }
 
-            // Busca todas as faltas dos alunos do responsável
-            ArrayList<RegistroPresenca> faltas = Repositorio.getFaltasPorResponsavel(responsavel.getNome());
+            // Busca todas as faltas dos alunos do responsável usando o CPF
+            ArrayList<RegistroPresenca> faltas = Repositorio.getFaltasPorResponsavel(responsavel.getCpf());
             System.out.println("DEBUG: Total de faltas encontradas: " + faltas.size());
 
             // Conta total de faltas
@@ -147,7 +147,6 @@ public class ConsultarFaltasController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("DEBUG: Erro ao carregar faltas: " + e.getMessage());
-            e.printStackTrace();
             labelListaVazia.setText("Erro ao carregar faltas: " + e.getMessage() + "\n\nVerifique o console para mais detalhes.");
             labelListaVazia.setVisible(true);
             scrollPaneFaltas.setVisible(false);

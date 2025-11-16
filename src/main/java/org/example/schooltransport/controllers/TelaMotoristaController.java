@@ -9,7 +9,6 @@ import org.example.schooltransport.Cadastro;
 import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.data.Repositorio;
 import org.example.schooltransport.model.Aluno;
-import org.example.schooltransport.model.RegistroPresenca;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -55,7 +54,6 @@ public class TelaMotoristaController implements Initializable {
     @FXML private ScrollPane scrollPaneAlunos;
     @FXML private VBox vboxListaAlunos;
 
-    private String telaDeOrigem;
     private Parada proximaParada;
     private int totalParadasIniciais = 0;
 
@@ -102,12 +100,7 @@ public class TelaMotoristaController implements Initializable {
                 checkPresenca.getStyleClass().add("check-presenca");
 
                 checkPresenca.setOnAction(event -> {
-                    boolean presente = checkPresenca.isSelected();
-                    // Cria e salva o registro de presença
-                    RegistroPresenca registro = new RegistroPresenca(aluno, presente);
-                    Repositorio.adicionarRegistroPresenca(registro);
-                    
-                    if (presente) {
+                    if (checkPresenca.isSelected()) {
                         System.out.println(aluno.getNome() + " marcado como presente.");
                     } else {
                         System.out.println(aluno.getNome() + " marcado como ausente.");
@@ -132,6 +125,8 @@ public class TelaMotoristaController implements Initializable {
 
             containerProximaParada.setVisible(true);
             containerProximaParada.setDisable(false);
+
+            // ✔ mostra botão
             btnEntregue.setVisible(true);
             btnEntregue.setManaged(true);
             btnEntregue.setDisable(false);
@@ -140,6 +135,7 @@ public class TelaMotoristaController implements Initializable {
             proximaParada = null;
             labelInfoParada.setText("Nenhuma parada pendente.");
 
+            // ❌ botão não aparece e não ocupa espaço
             btnEntregue.setVisible(false);
             btnEntregue.setManaged(false);
 
@@ -219,9 +215,5 @@ public class TelaMotoristaController implements Initializable {
 
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         navegarDeTela((Node) event.getSource(), fxmlFile);
-    }
-
-    private void setTelaDeOrigem(String telaDeOrigem) {
-        this.telaDeOrigem = telaDeOrigem;
     }
 }
