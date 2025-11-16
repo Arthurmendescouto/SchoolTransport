@@ -181,6 +181,13 @@ public class TelaMotoristaController implements Initializable {
     }
 
     @FXML
+    private void abrirRegistrarFaltas(ActionEvent event) {
+    // usa o vbox já injetado como fonte para pegar a Stage via navegarDeTela
+    navegarDeTela(vboxListaAlunos, "registrarFaltas.fxml");
+    }
+
+
+    @FXML
     private void handleRemoverProximaParada(ActionEvent event) {
         if (proximaParada == null) {
             event.consume();
