@@ -1,20 +1,26 @@
 package org.example.schooltransport.controllers;
 
+import java.io.IOException;
+import java.net.URL;
+
+import org.example.schooltransport.data.Repositorio;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.schooltransport.data.Repositorio;
-import java.io.IOException;
-import java.net.URL;
 
+/**
+ * Controller responsável pela tela de login.
+ * Autentica usuários e gerencia sessão de acesso.
+ */
 public class LoginController {
 
     @FXML
@@ -22,6 +28,9 @@ public class LoginController {
 
     @FXML
     private TextField senhaDigitada; // Campo de senha
+
+    @FXML
+    private Button btnEntrar;
 
     @FXML
     private void initialize() {
@@ -44,7 +53,7 @@ public class LoginController {
         }
 
         if ((email.equals("admin@email.com") && senha.equals("1234"))
-        || ((email.equals("administrador") && senha.equals("administrador")))) {
+                || ((email.equals("administrador") && senha.equals("administrador")))) {
             mostrarAlerta("Login realizado", "Bem-vindo, administrador!");
             navegarDeTela(event, "painelAdministrador.fxml");
         } else if (verificaValidadeDosDadosDeLogin(email, senha)) {
@@ -55,32 +64,39 @@ public class LoginController {
             if (tipoDeUsuario == 'M') {
                 navegarDeTela(event, "telaMotorista.fxml");
             }
+        } else {
+            mostrarAlerta("Erro", "E-mail ou senha inválidos.");
         }
-
     }
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
             String caminhoAbsoluto = "/org/example/schooltransport/" + fxmlFile;
+
             // Obtém o URL do recurso a partir do caminho absoluto
             URL resourceUrl = getClass().getResource(caminhoAbsoluto);
+
             if (resourceUrl == null) {
                 // Se isso falhar agora, o nome do arquivo em 'fxmlFile' está errado
                 System.err.println("FATAL: Não foi possível encontrar o FXML em: " + caminhoAbsoluto);
                 System.err.println("Verifique se o nome do arquivo '" + fxmlFile + "' está digitado corretamente.");
                 return;
             }
+
             // Carrega o FXML
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
+
             // Obtém o Stage (janela)
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
+
             // Define a nova cena
             Scene scene = new Scene(root, 390, 700);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Erro ao carregar o FXML: " + fxmlFile);
@@ -124,13 +140,14 @@ public class LoginController {
             if (email.equals(Repositorio.getListaMotorista().get(i).getEmail())
                     && senha.equals(Repositorio.getListaMotorista().get(i).getSenha())) {
                 isValid = true;
-                tipoDeUsuario = 'M';
-                // registra sessão para motorista
-                Repositorio.setCurrentUserType('M');
-                Repositorio.setCurrentUserCpf(Repositorio.getListaResponsavel().get(i).getCpf());
+                tipoDeUsuario = 'R';
+                // registra sessão para responsável
+                Repositorio.setCurrentUserType('R');
+                Repositorio.setCurrentUserCpf(Repositorio.getListaMotorista().get(i).getCpf());
                 break;
             }
         }
+
 
         return isValid;
     }
