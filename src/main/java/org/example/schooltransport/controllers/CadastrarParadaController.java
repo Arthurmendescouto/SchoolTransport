@@ -184,6 +184,18 @@ public class CadastrarParadaController {
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
 
+            // Se estivermos indo para a lista de paradas, indique a origem para o controller
+            if ("listaParadas.fxml".equals(fxmlFile)) {
+                try {
+                    Object controller = loader.getController();
+                    if (controller instanceof org.example.schooltransport.controllers.ListaParadaController) {
+                        ((org.example.schooltransport.controllers.ListaParadaController) controller).setTelaDeOrigem("cadastrarParada");
+                    }
+                } catch (Exception ex) {
+                    // Não fatal: apenas seguimos sem setar a origem
+                }
+            }
+
             Node sourceNode = (Node) event.getSource();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 

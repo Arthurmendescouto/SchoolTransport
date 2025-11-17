@@ -13,7 +13,8 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.controllers.TelaMotoristaController">
-    <VBox alignment="TOP_CENTER" layoutY="-14.0" spacing="20.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
+
+    <VBox alignment="TOP_CENTER" layoutY="-14.0" spacing="15.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
 
         <HBox alignment="CENTER_LEFT" prefHeight="71.0" prefWidth="400.0" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
             <padding>
@@ -91,20 +92,6 @@
                 <Insets left="20.0" right="20.0" top="20.0" />
             </VBox.margin>
         </Label>
-
-        <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <padding>
-                <Insets left="20.0" right="20.0" top="5.0" bottom="5.0"/>
-            </padding>
-            <children>
-                <Button fx:id="btnRegistrarFaltas"
-                        text="Registrar Faltas"
-                        onAction="#abrirRegistrarFaltas"
-                        styleClass="bottom_voltar"
-                        prefWidth="200.0"/>
-            </children>
-        </HBox>
-
 
         <StackPane fx:id="stackPaneAlunos" VBox.vgrow="ALWAYS">
             <VBox.margin>

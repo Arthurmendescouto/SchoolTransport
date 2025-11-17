@@ -58,7 +58,7 @@ public class LoginController {
             navegarDeTela(event, "painelAdministrador.fxml");
         }
 
-        if (email.equals("motorista@email.com") && senha.equals("1234"))
+        if (email.equals("motorista@email.com") && senha.equals("motorista@email.com"))
             navegarDeTela(event, "telaMotorista.fxml");
 
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
