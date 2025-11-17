@@ -2,6 +2,8 @@ package org.example.schooltransport.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -117,6 +119,19 @@ public class TelaMotoristaController implements Initializable {
                         System.out.println(aluno.getNome() + " marcado como presente.");
                     } else {
                         System.out.println(aluno.getNome() + " marcado como ausente.");
+                        try {
+                            String cpfAluno = aluno.getCpf();
+                            if (cpfAluno != null && !cpfAluno.isEmpty()) {
+                                String dataHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                                String nomeParadaAtual = (proximaParada != null && proximaParada.getNomeParada() != null)
+                                        ? (" na parada: " + proximaParada.getNomeParada())
+                                        : "";
+                                String msg = "Falta registrada em " + dataHora + nomeParadaAtual + ".";
+                                Repositorio.adicionarNotificacaoParaCpf(cpfAluno, msg);
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 });
 
