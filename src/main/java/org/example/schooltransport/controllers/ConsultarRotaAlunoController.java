@@ -34,15 +34,16 @@ public class ConsultarRotaAlunoController {
     private void voltar(ActionEvent event) {navegarDeTela(event, "login.fxml");}
     @FXML
     public void initialize() {
-        if (consultarProximaParada(Repositorio.getListaParada()) != null) proximaParada.setText("Ainda não há paradas por aqui...");
+        if (consultarProximaParada(Repositorio.getListaParada()) == null) {
+            proximaParada.setText("Ainda não há paradas por aqui...");
+        } else {
+            proximaParada.setText(consultarProximaParada(Repositorio.getListaParada()));
+        };
         quantidadeDeAlunos.setText(String.valueOf(Repositorio.getListaAluno().size()));
         quantidadeDeParadas.setText(String.valueOf(Repositorio.getListaParada().size()));
         if (turnoIsValid())
             turnoDaRota.setText(turnoDaRotaValido);
     }
-
-
-
 
     private String consultarProximaParada(ObservableList<Parada> listaParadas) {
         String auxVar = "";
