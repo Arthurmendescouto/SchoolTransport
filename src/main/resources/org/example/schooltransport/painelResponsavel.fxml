@@ -55,6 +55,15 @@
        <VBox spacing="10.0">
           <children>
              <Button mnemonicParsing="false" onAction="#abrirConsultarNotificacoes" prefHeight="45.0" prefWidth="250.0" styleClass="bottom" stylesheets="@styles.css" text="Consultar Notificações" />
+
+                <Button fx:id="btnAbrirHorarios"
+                mnemonicParsing="false"
+                onAction="#abrirHorariosParada"
+                prefHeight="45.0"
+                prefWidth="250.0"
+                styleClass="bottom"
+                stylesheets="@styles.css"
+                text="Ver Horários das Paradas" />
           </children>
        </VBox>
 

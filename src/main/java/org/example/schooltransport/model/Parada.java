@@ -30,6 +30,8 @@ public class Parada {
         this.estado = new SimpleStringProperty(estado);
         this.passada = new SimpleBooleanProperty(false); // Começa como não passada
         this.aluno = null; // Sem aluno associado por padrão
+        this.horarioPrevisto = new SimpleStringProperty(null);
+
     }
 
     /** Nome amigável da parada. */
@@ -63,6 +65,22 @@ public class Parada {
     public String getEstado() { return estado.get(); }
     /** Propriedade observável do estado. */
     public SimpleStringProperty estadoProperty() { return estado; }
+
+
+    /** Retorna o horário previsto desta parada no formato HH:mm. */
+    public String getHorarioPrevisto() {return horarioPrevisto.get();}
+
+    /** Propriedade observável do horário previsto (para TableView e bindings). */
+    public SimpleStringProperty horarioPrevistoProperty() {return horarioPrevisto;}
+
+/** Define o horário previsto desta parada. */
+public void setHorarioPrevisto(String horarioPrevisto) {
+    this.horarioPrevisto.set(horarioPrevisto);
+}
+
+
+    //
+    private final SimpleStringProperty horarioPrevisto;
 
     /** Indica se a parada já foi realizada (visto). */
     public boolean isPassada() { return passada.get(); }
@@ -105,6 +123,10 @@ public class Parada {
         if (getEstado() != null && !getEstado().isEmpty()) {
             sb.append("/").append(getEstado());
         }
+        if (getHorarioPrevisto() != null && !getHorarioPrevisto().isEmpty()) {
+            sb.append(" (").append(getHorarioPrevisto()).append(")");
+        }
+
         return sb.toString();
     }
 }
