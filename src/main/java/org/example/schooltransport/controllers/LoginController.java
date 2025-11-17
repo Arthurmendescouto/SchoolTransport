@@ -56,7 +56,12 @@ public class LoginController {
                 || ((email.equals("administrador") && senha.equals("administrador")))) {
             mostrarAlerta("Login realizado", "Bem-vindo, administrador!");
             navegarDeTela(event, "painelAdministrador.fxml");
-        } else if (verificaValidadeDosDadosDeLogin(email, senha)) {
+        }
+
+        if (email.equals("motorista@email.com") && senha.equals("1234"))
+            navegarDeTela(event, "telaMotorista.fxml");
+
+        if (verificaValidadeDosDadosDeLogin(email, senha)) {
             if (tipoDeUsuario == 'R')
                 navegarDeTela(event, "painelResponsavel.fxml");
             if (tipoDeUsuario == 'A')

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javafx.scene.Scene;
 import org.example.schooltransport.model.Cadastro;
 import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.data.Repositorio;
@@ -262,10 +263,27 @@ public class TelaMotoristaController implements Initializable {
 
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
+
+            // Se estivermos abrindo a lista de paradas a partir da tela do motorista,
+            // avise o controller da origem para que o botão 'voltar' retorne corretamente.
+            if ("listaParadas.fxml".equals(fxmlFile)) {
+                try {
+                    Object controller = loader.getController();
+                    if (controller instanceof org.example.schooltransport.controllers.ListaParadaController) {
+                        ((org.example.schooltransport.controllers.ListaParadaController) controller).setTelaDeOrigem("telaMotorista");
+                    }
+                } catch (Exception ex) {
+                    // Não fatal — continuar sem setar origem
+                }
+            }
+
             Stage stage = (Stage) sourceNode.getScene().getWindow();
 
-            // Substitui o conteúdo da cena atual, mantendo o tamanho da janela
-            stage.getScene().setRoot(root);
+            // Substitui a cena atual por uma nova com tamanho fixo
+            Scene scene = new Scene(root, 390, 700);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -281,3 +299,4 @@ public class TelaMotoristaController implements Initializable {
         this.telaDeOrigem = telaDeOrigem;
     }
 }
+

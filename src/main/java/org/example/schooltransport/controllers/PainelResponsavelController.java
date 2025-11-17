@@ -47,6 +47,15 @@ public class PainelResponsavelController implements Initializable {
     private void abrirConsultarNotificacoes(ActionEvent event) {
         navegarDeTela(event, "consultarNotificacoes.fxml");
     }
+    
+
+      /**
+     * Abre a tela de horários das paradas para o responsável.
+     */
+    @FXML
+    private void abrirHorariosParada(ActionEvent event) {
+        navegarDeTela(event, "horariosParada.fxml");
+    }
 
     /**
      * Método auxiliar para navegação entre telas.
