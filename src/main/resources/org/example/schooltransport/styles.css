@@ -43,7 +43,7 @@
     -fx-background-color: #E23C00;
     -fx-text-fill: WHITE;
     -fx-font-size: 17px;
-    -fx-font-weight: bold;
+    -fx-font-weight: bold;-fx-font-weight: bold;
     -fx-background-radius: 50; /* Era 20 */
 }
 /* ▲▲▲ FIM DA ALTERAÇÃO ▲▲▲ */
@@ -281,4 +281,15 @@
     -fx-font-style: italic;
     -fx-alignment: center;
     -fx-wrap-text: true;
+}
+.itens-painel-administrador {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #FFB08E;
+    -fx-text-fill: #E23C00;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-font-size: 14.0;
 }

@@ -11,7 +11,10 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javafx.fxml.Initializable;
+import org.example.schooltransport.data.Repositorio;
+
 import java.net.URL;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 /**
@@ -22,11 +25,17 @@ public class PainelAdministradorController implements Initializable {
 
     @FXML
     private Label mensagemStatus;
-
     @FXML
     private javafx.scene.control.Button botaoVoltarTopo;
     @FXML
     private javafx.scene.control.Button btnConsultarNotificacoes;
+    private String turnoDaRotaValido = "";
+    @FXML
+    private Label quantidadeDeAlunos;
+    @FXML
+    private Label quantidadeDeParadas;
+    @FXML
+    private Label turnoDaRota;
 
     /**
      * Inicializa o controller configurando botões e visibilidade conforme tipo de usuário.
@@ -47,6 +56,11 @@ public class PainelAdministradorController implements Initializable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        quantidadeDeAlunos.setText(String.valueOf(Repositorio.getListaAluno().size()));
+        quantidadeDeParadas.setText(String.valueOf(Repositorio.getListaParada().size()));
+        if (turnoIsValid())
+            turnoDaRota.setText(turnoDaRotaValido);
+        
     }
 
     /**
@@ -164,5 +178,16 @@ public class PainelAdministradorController implements Initializable {
             System.err.println("Erro ao carregar o FXML: " + fxmlFile);
             System.err.println(">>> SE O ERRO FOR 'ClassNotFoundException', VOCÊ NÃO CORRIGIU O 'fx:controller' DENTRO DO FXML! <<<");
         }
+    }
+    private boolean turnoIsValid() {
+        try {
+            turnoDaRotaValido = String.valueOf(Repositorio.getListaRota().getFirst().getTurno());
+            return true;
+        } catch (NullPointerException e) {
+            turnoDaRotaValido = "-";
+        } catch (NoSuchElementException e) {
+            turnoDaRotaValido = "-";
+        }
+        return false;
     }
 }

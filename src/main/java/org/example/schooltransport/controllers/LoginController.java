@@ -140,9 +140,9 @@ public class LoginController {
             if (email.equals(Repositorio.getListaMotorista().get(i).getEmail())
                     && senha.equals(Repositorio.getListaMotorista().get(i).getSenha())) {
                 isValid = true;
-                tipoDeUsuario = 'R';
+                tipoDeUsuario = 'M';
                 // registra sessão para responsável
-                Repositorio.setCurrentUserType('R');
+                Repositorio.setCurrentUserType('M');
                 Repositorio.setCurrentUserCpf(Repositorio.getListaMotorista().get(i).getCpf());
                 break;
             }
