@@ -2,10 +2,14 @@ package org.example.schooltransport.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
-import org.example.schooltransport.Cadastro;
+import org.example.schooltransport.model.Cadastro;
 import org.example.schooltransport.model.Parada;
 import org.example.schooltransport.data.Repositorio;
 import org.example.schooltransport.model.Aluno;
@@ -19,7 +23,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -32,8 +35,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Controller responsável pela tela do motorista.
+ * Exibe próxima parada, progresso da rota e lista de alunos com presença.
+ */
 public class TelaMotoristaController implements Initializable {
 
+    // --- Componentes FXML existentes ---
     @FXML private Button btnVoltar;
     @FXML private Label labelNomeParada;
     @FXML private HBox containerProximaParada;
@@ -50,9 +58,13 @@ public class TelaMotoristaController implements Initializable {
     @FXML private ScrollPane scrollPaneAlunos;
     @FXML private VBox vboxListaAlunos;
 
-    private String telaDeOrigem;
+    @FXML private Button btnReportarPresenca;
+
+    // --- Variáveis de Instância ---
+    private String telaDeOrigem; // <-- ADICIONADA DE VOLTA AQUI
     private Parada proximaParada;
     private int totalParadasIniciais = 0;
+    private HashMap<CheckBox, Aluno> mapaDePresenca = new HashMap<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,16 +81,22 @@ public class TelaMotoristaController implements Initializable {
         carregarListaAlunos();
     }
 
+    /**
+     * Carrega a lista de alunos com checkbox de presença.
+     */
     private void carregarListaAlunos() {
         vboxListaAlunos.getChildren().clear();
+        mapaDePresenca.clear();
         ArrayList<Aluno> alunos = Repositorio.getListaAluno();
 
         if (alunos == null || alunos.isEmpty()) {
             labelListaVazia.setVisible(true);
             scrollPaneAlunos.setVisible(false);
+            btnReportarPresenca.setDisable(true);
         } else {
             labelListaVazia.setVisible(false);
             scrollPaneAlunos.setVisible(true);
+            btnReportarPresenca.setDisable(false);
 
             for (Aluno aluno : alunos) {
                 HBox itemAluno = new HBox(10);
@@ -93,11 +111,26 @@ public class TelaMotoristaController implements Initializable {
                 CheckBox checkPresenca = new CheckBox("Presente");
                 checkPresenca.getStyleClass().add("check-presenca");
 
+                mapaDePresenca.put(checkPresenca, aluno);
+
                 checkPresenca.setOnAction(event -> {
                     if (checkPresenca.isSelected()) {
                         System.out.println(aluno.getNome() + " marcado como presente.");
                     } else {
                         System.out.println(aluno.getNome() + " marcado como ausente.");
+                        try {
+                            String cpfAluno = aluno.getCpf();
+                            if (cpfAluno != null && !cpfAluno.isEmpty()) {
+                                String dataHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+                                String nomeParadaAtual = (proximaParada != null && proximaParada.getNomeParada() != null)
+                                        ? (" na parada: " + proximaParada.getNomeParada())
+                                        : "";
+                                String msg = "Falta registrada em " + dataHora + nomeParadaAtual + ".";
+                                Repositorio.adicionarNotificacaoParaCpf(cpfAluno, msg);
+                            }
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 });
 
@@ -107,33 +140,32 @@ public class TelaMotoristaController implements Initializable {
         }
     }
 
+    /**
+     * Exibe a próxima parada pendente ou mensagem quando não houver paradas.
+     */
     private void exibirProximaParada() {
         ObservableList<Parada> dados = Cadastro.getInstance().getListaDeParadas();
 
         if (!dados.isEmpty()) {
             proximaParada = dados.get(0);
             labelInfoParada.setText(proximaParada.getNomeParada());
-
             containerProximaParada.setVisible(true);
             containerProximaParada.setDisable(false);
-
-            // ✔ mostra botão
             btnEntregue.setVisible(true);
             btnEntregue.setManaged(true);
             btnEntregue.setDisable(false);
-
         } else {
             proximaParada = null;
             labelInfoParada.setText("Nenhuma parada pendente.");
-
-            // ❌ botão não aparece e não ocupa espaço
             btnEntregue.setVisible(false);
             btnEntregue.setManaged(false);
-
-            containerProximaParada.setDisable(true);
+            containerProximaParada.setDisable(false);
         }
     }
 
+    /**
+     * Atualiza a barra de progresso e contadores de paradas entregues/pendentes.
+     */
     private void atualizarProgresso() {
         ObservableList<Parada> dados = Cadastro.getInstance().getListaDeParadas();
 
@@ -162,10 +194,51 @@ public class TelaMotoristaController implements Initializable {
     }
 
     @FXML
+    private void handleReportarPresenca(ActionEvent event) {
+        if (mapaDePresenca.isEmpty()) {
+            System.out.println("Nenhum aluno para reportar.");
+            return;
+        }
+
+        System.out.println("--- Relatório de Presença Enviado ---");
+
+        for (Map.Entry<CheckBox, Aluno> entry : mapaDePresenca.entrySet()) {
+
+            Aluno aluno = entry.getValue();
+            boolean estaPresente = entry.getKey().isSelected();
+            String status = estaPresente ? "Presente" : "Ausente";
+            String mensagem = "Relatório de presença: " + aluno.getNome() + " foi marcado(a) como " + status + ".";
+
+            if (aluno.getCpf() != null && !aluno.getCpf().isEmpty()) {
+                Repositorio.adicionarNotificacaoParaCpf(aluno.getCpf(), mensagem);
+                System.out.println("Notificação enviada para CPF " + aluno.getCpf() + ": " + mensagem);
+            } else {
+                System.err.println("Aluno " + aluno.getNome() + " sem CPF, notificação falhou.");
+            }
+        }
+
+        btnReportarPresenca.setDisable(true);
+        btnReportarPresenca.setText("Relatório Enviado");
+    }
+
+    @FXML
     private void handleAbrirListaParadas(MouseEvent event) {
-        if (event.getTarget() instanceof Button) return;
+        Node target = (Node) event.getTarget();
+        while (target != null && target != containerProximaParada) {
+            if (target == btnEntregue) {
+                return;
+            }
+            target = target.getParent();
+        }
         navegarDeTela((Node) event.getSource(), "listaParadas.fxml");
     }
+
+    @FXML
+    private void abrirRegistrarFaltas(ActionEvent event) {
+    // usa o vbox já injetado como fonte para pegar a Stage via navegarDeTela
+    navegarDeTela(vboxListaAlunos, "registrarFaltas.fxml");
+    }
+
 
     @FXML
     private void handleRemoverProximaParada(ActionEvent event) {
@@ -173,7 +246,6 @@ public class TelaMotoristaController implements Initializable {
             event.consume();
             return;
         }
-
         Cadastro.getInstance().removerParada(proximaParada);
         event.consume();
     }
@@ -191,10 +263,9 @@ public class TelaMotoristaController implements Initializable {
             FXMLLoader loader = new FXMLLoader(resourceUrl);
             Parent root = loader.load();
             Stage stage = (Stage) sourceNode.getScene().getWindow();
-            Scene scene = new Scene(root, 390, 700);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
+
+            // Substitui o conteúdo da cena atual, mantendo o tamanho da janela
+            stage.getScene().setRoot(root);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -205,6 +276,7 @@ public class TelaMotoristaController implements Initializable {
         navegarDeTela((Node) event.getSource(), fxmlFile);
     }
 
+    // Este é o método que estava causando o erro
     private void setTelaDeOrigem(String telaDeOrigem) {
         this.telaDeOrigem = telaDeOrigem;
     }

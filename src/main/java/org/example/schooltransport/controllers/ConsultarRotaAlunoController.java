@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import org.example.schooltransport.model.Parada;
@@ -15,9 +14,12 @@ import org.example.schooltransport.data.Repositorio;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+/**
+ * Controller responsável pela tela de consulta de rota para alunos.
+ * Exibe informações sobre a próxima parada, quantidade de alunos e turno.
+ */
 public class ConsultarRotaAlunoController {
     private String turnoDaRotaValido = "";
     @FXML

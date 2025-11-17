@@ -36,12 +36,19 @@
     -fx-border-width: 1.5px;
 }
 
+/* ============================================= */
+/* ▼▼▼ ALTERAÇÃO FEITA AQUI ▼▼▼ */
+/* Mudei o radius para 50 (super arredondado) e adicionei negrito */
 .bottom {
     -fx-background-color: #E23C00;
     -fx-text-fill: WHITE;
     -fx-font-size: 17px;
-    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-background-radius: 50; /* Era 20 */
 }
+/* ▲▲▲ FIM DA ALTERAÇÃO ▲▲▲ */
+/* ============================================= */
+
 .bottom:hover{
     -fx-background-color: #C73200;
     -fx-cursor: hand;
@@ -203,10 +210,11 @@
     -fx-text-fill: #222222;
 }
 
-/* ========== SWITCH (TOGGLE) — CORES DO PRINT ========== */
-
+/* ============================================= */
+/* ▼▼▼ ALTERAÇÃO FEITA AQUI ▼▼▼ */
+/* Mudei a cor de fundo para o seu vermelho principal, para "false" ser vermelho */
 .check-presenca {
-    -fx-background-color: #D64512;   /* Laranja quando desligado */
+    -fx-background-color: #E23C00;   /* Era #D64512 */
     -fx-background-radius: 20;
     -fx-pref-width: 48px;
     -fx-pref-height: 26px;
@@ -215,6 +223,9 @@
     -fx-text-fill: transparent;
     -fx-border-width: 0;
 }
+/* ▲▲▲ FIM DA ALTERAÇÃO ▲▲▲ */
+/* ============================================= */
+
 
 /* Ligado — Verde */
 .check-presenca:selected {

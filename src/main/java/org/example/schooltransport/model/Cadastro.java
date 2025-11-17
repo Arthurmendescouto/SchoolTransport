@@ -1,7 +1,6 @@
-package org.example.schooltransport;
+package org.example.schooltransport.model;
 
 import org.example.schooltransport.data.Repositorio;
-import org.example.schooltransport.model.Parada;
 
 import javafx.collections.ObservableList;
 

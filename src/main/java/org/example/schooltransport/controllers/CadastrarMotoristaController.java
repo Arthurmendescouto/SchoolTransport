@@ -12,44 +12,76 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.example.schooltransport.data.Repositorio;
+import org.example.schooltransport.model.Motorista;
 
+/**
+ * Controller responsável pela tela de cadastro de motoristas.
+ * Gerencia a validação e inserção de novos motoristas no sistema.
+ */
 public class CadastrarMotoristaController {
 
     @FXML
-    private TextField campoNomeParada;
+    private TextField campoNomeMotorista;
     @FXML
-    private TextField campoCEP;
+    private TextField campoCPF;
     @FXML
-    private TextField campoBairro;
+    private TextField campoContato;
     @FXML
     private Label mensagemStatus;
+    @FXML
+    private TextField campoEmail;
+    @FXML
+    private  TextField campoSenha;
 
+    /**
+     * Retorna ao painel do administrador.
+     * @param event Evento da ação
+     */
     @FXML
     private void voltar(ActionEvent event) {
         // Navega para o painel de administrador
         navegarDeTela(event, "painelAdministrador.fxml");
     }
 
+    /**
+     * Processa o cadastro de um novo motorista.
+     * @param event Evento da ação
+     */
     @FXML
     private void cadastrar(ActionEvent event) {
-        String nome = campoNomeParada.getText();
-        String cpf = campoCEP.getText();
-        String contato = campoBairro.getText();
+        String nome = campoNomeMotorista.getText();
+        String cpf = campoCPF.getText();
+        String contato = campoContato.getText();
+        String email = campoEmail.getText().trim();
+        String senha = campoSenha.getText().trim();
 
-        if (nome.isEmpty() || cpf.isEmpty() || contato.isEmpty()) {
+        if (nome.isEmpty() || cpf.isEmpty() || contato.isEmpty() || email.isEmpty() || senha.isEmpty()) {
             mensagemStatus.setText("Preencha todos os campos!");
             return;
+        } else {
+            Motorista motorista = new Motorista(nome, cpf, contato, email, senha, "");
+            Repositorio.getListaMotorista().add(motorista);
         }
 
         // TODO: Implementar cadastro de motorista quando o modelo estiver pronto
+
+
         mensagemStatus.setText("Motorista cadastrado com sucesso!");
         
         // Limpar campos
-        campoNomeParada.clear();
-        campoCEP.clear();
-        campoBairro.clear();
+        campoNomeMotorista.clear();
+        campoCPF.clear();
+        campoContato.clear();
+        campoEmail.clear();
+        campoSenha.clear();
     }
 
+    /**
+     * Navega para outra tela carregando o arquivo FXML especificado.
+     * @param event Evento de origem da navegação
+     * @param fxmlFile Nome do arquivo FXML de destino
+     */
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
         try {
             // Construímos um caminho absoluto a partir da raiz (note o "/" no início)
