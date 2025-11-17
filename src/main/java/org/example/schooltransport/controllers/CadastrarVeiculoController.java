@@ -27,24 +27,44 @@ public class CadastrarVeiculoController {
     @FXML private TextField campoCapacidade;
     @FXML private Label mensagemStatus;
 
-    /**
-     * Inicializa o controller configurando formatação do campo de capacidade.
-     */
+    private final int CAPACIDADE_MAXIMA = 50; // ajuste aqui como desejar
+
     @FXML
     private void initialize() {
+
+        // Capacidade -> somente números
         campoCapacidade.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.getControlNewText().matches("\\d*")) {
                 return change;
             }
             return null;
         }));
+
+        // Máscara e validação da placa Mercosul: AAA-0A00
+        campoPlaca.setTextFormatter(new TextFormatter<String>(change -> {
+            String novo = change.getControlNewText().toUpperCase();
+
+            // Remove caracteres inválidos
+            novo = novo.replaceAll("[^A-Z0-9-]", "");
+
+            // Aplica máscara automaticamente
+            if (novo.length() > 3 && novo.charAt(3) != '-') {
+                novo = novo.substring(0, 3) + "-" + novo.substring(3);
+            }
+
+            // Limita no máximo 8 caracteres (AAA-0A00)
+            if (novo.length() > 8)
+                return null;
+
+            change.setText(novo);
+            change.setRange(0, change.getControlText().length());
+            return change;
+        }));
     }
 
-    /**
-     * Processa o cadastro de um novo veículo.
-     */
     @FXML
     private void CadastrarVeiculo() {
+
         String modelo = campoModeloOnibus.getText();
         String placa = campoPlaca.getText();
         String capacidadeTexto = campoCapacidade.getText();
@@ -54,13 +74,26 @@ public class CadastrarVeiculoController {
             return;
         }
 
+        // Validação da placa: AAA-0A00
+        if (!placa.matches("^[A-Z]{3}-\\d[A-Z]\\d{2}$")) {
+            mensagemStatus.setText("Placa inválida! Use o padrão Mercosul: AAA-0A00");
+            return;
+        }
+
         try {
             int capacidade = Integer.parseInt(capacidadeTexto);
+
+            // verifica capacidade máxima
+            if (capacidade <= 0 || capacidade > CAPACIDADE_MAXIMA) {
+                mensagemStatus.setText("Capacidade inválida! Máximo permitido: " + CAPACIDADE_MAXIMA);
+                return;
+            }
+
             Veiculo veiculo = new Veiculo(modelo, placa, capacidade);
             Repositorio.getListaVeiculo().add(veiculo);
 
             mensagemStatus.setText("Veículo cadastrado: " + modelo + " (" + placa + ")");
-            System.out.println("Cadastrado novo veículo!");
+            System.out.println("Novo veículo cadastrado!");
             System.out.println("Total: " + Repositorio.getListaVeiculo().size());
 
             limparCampos();

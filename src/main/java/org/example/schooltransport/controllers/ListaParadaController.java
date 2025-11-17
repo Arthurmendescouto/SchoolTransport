@@ -32,6 +32,13 @@ public class ListaParadaController implements Initializable {
     @FXML private VBox listaParadasContainer; // O novo contêiner para os itens dinâmicos
     @FXML private Button btnVoltar;
 
+    // Origem da navegação: "telaMotorista" quando aberta pelo motorista, "cadastrarParada" quando vindo do cadastro
+    private String telaDeOrigem = null;
+
+    public void setTelaDeOrigem(String origem) {
+        this.telaDeOrigem = origem;
+    }
+
     private ObservableList<Parada> dados;
 
     @Override
@@ -103,7 +110,13 @@ public class ListaParadaController implements Initializable {
 
     @FXML
     private void voltar(ActionEvent event) {
-        navegarDeTela(event, "cadastrarParada.fxml");
+        // Volta para a tela correta dependendo da origem
+        if ("telaMotorista".equals(this.telaDeOrigem)) {
+            navegarDeTela(event, "telaMotorista.fxml");
+        } else {
+            // padrão: volta para o cadastro de parada
+            navegarDeTela(event, "cadastrarParada.fxml");
+        }
     }
 
     private void navegarDeTela(ActionEvent event, String fxmlFile) {

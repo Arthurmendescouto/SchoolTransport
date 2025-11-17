@@ -1,85 +1,80 @@
-// Filipe Alves Sousa Julio
+    // Filipe Alves Sousa Julio
 
-package org.example.schooltransport.controllers;
+    package org.example.schooltransport.controllers;
 
-import java.io.IOException;
+    import java.io.IOException;
 
-import org.example.schooltransport.data.Repositorio;
-import org.example.schooltransport.model.Responsavel;
+    import org.example.schooltransport.data.Repositorio;
+    import org.example.schooltransport.model.Responsavel;
+    import org.example.schooltransport.utils.Masks;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+    import javafx.fxml.FXMLLoader;
+    import javafx.scene.Parent;
+    import javafx.scene.Scene;
+    import javafx.scene.control.Label;
+    import javafx.scene.control.PasswordField;
+    import javafx.scene.control.TextField;
+    import javafx.stage.Stage;
 
-/**
- * Controller responsável pela tela de cadastro de responsáveis.
- * Gerencia a validação e inserção de novos responsáveis no sistema.
- */
-public class CadastrarResponsavelController {
-    
-    @FXML private TextField campoNomeResponsavel;
-    @FXML private TextField campoCPF;
-    @FXML private TextField campoContato;
-    @FXML private TextField campoEmail;
-    @FXML private PasswordField campoSenha;
-    @FXML private Label mensagemStatus;
+    public class CadastrarResponsavelController {
+        
+        @FXML private TextField campoNomeResponsavel;
+        @FXML private TextField campoCPF;
+        @FXML private TextField campoContato;
+        @FXML private TextField campoEmail;
+        @FXML private PasswordField campoSenha;
+        @FXML private Label mensagemStatus;
 
-    /**
-     * Processa o cadastro de um novo responsável.
-     */
-    @FXML
-    private void cadastrarResponsavel() {
-        String nome = campoNomeResponsavel.getText();
-        String cpf = campoCPF.getText();
-        String contato = campoContato.getText();
-        String email = campoEmail.getText();
-        String senha = campoSenha.getText();
-
-        if (nome.isEmpty() || cpf.isEmpty() || contato.isEmpty() || email.isEmpty() || senha.isEmpty()) {
-            mensagemStatus.setText("Preencha todos os campos!");
-            return;
+        @FXML
+        public void initialize() {
+            Masks.applyCPFMask(campoCPF);
+            Masks.applyPhoneMask(campoContato);
+            Masks.applyEmailValidation(campoEmail);
         }
 
-        Responsavel responsavel = new Responsavel(nome, cpf, contato, email, senha);
-        Repositorio.getListaResponsavel().add(responsavel);
-        mensagemStatus.setText("Responsável cadastrado com sucesso!");
-        System.out.println("Responsável cadastrado: " + responsavel.getNome());
-        System.out.println(Repositorio.getListaResponsavel().size());
-        limparCampos();
-    }
+        @FXML
+        private void cadastrarResponsavel() {
+            String nome = campoNomeResponsavel.getText();
+            String cpf = campoCPF.getText();
+            String contato = campoContato.getText();
+            String email = campoEmail.getText();
+            String senha = campoSenha.getText();
 
-    /**
-     * Retorna ao painel do administrador.
-     */
-    @FXML
-    private void voltarTelaAnterior() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/painelAdministrador.fxml"));
-            Parent root = loader.load();
-            Scene cena = new Scene(root, 390, 700);
-            Stage stage = (Stage) campoNomeResponsavel.getScene().getWindow();
-            stage.setScene(cena);
-            stage.setResizable(false);
-            stage.show();
-        } catch (IOException e) {
-            mensagemStatus.setText("Erro ao voltar para o painel do administrador.");
-            e.printStackTrace();
+            if (nome.isEmpty() || cpf.isEmpty() || contato.isEmpty() || email.isEmpty() || senha.isEmpty()) {
+                mensagemStatus.setText("Preencha todos os campos!");
+                return;
+            }
+
+            Responsavel responsavel = new Responsavel(nome, cpf, contato, email, senha);
+            Repositorio.getListaResponsavel().add(responsavel);
+            mensagemStatus.setText("Responsável cadastrado com sucesso!");
+            System.out.println("Responsável cadastrado: " + responsavel.getNome());
+            System.out.println(Repositorio.getListaResponsavel().size());
+            limparCampos();
+        }
+
+        @FXML
+        private void voltarTelaAnterior() {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/schooltransport/painelAdministrador.fxml"));
+                Parent root = loader.load();
+                Scene cena = new Scene(root, 390, 700);
+                Stage stage = (Stage) campoNomeResponsavel.getScene().getWindow();
+                stage.setScene(cena);
+                stage.setResizable(false);
+                stage.show();
+            } catch (IOException e) {
+                mensagemStatus.setText("Erro ao voltar para o painel do administrador.");
+                e.printStackTrace();
+            }
+        }
+
+        private void limparCampos() {
+            campoNomeResponsavel.clear();
+            campoCPF.clear();
+            campoContato.clear();
+            campoEmail.clear();
+            campoSenha.clear();
         }
     }
-
-    /**
-     * Limpa todos os campos do formulário.
-     */
-    private void limparCampos() {
-        campoNomeResponsavel.clear();
-        campoCPF.clear();
-        campoContato.clear();
-        campoEmail.clear();
-        campoSenha.clear();
-    }
-}

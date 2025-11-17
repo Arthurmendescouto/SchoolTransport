@@ -69,6 +69,8 @@ public class LoginController {
             if (tipoDeUsuario == 'M') {
                 navegarDeTela(event, "telaMotorista.fxml");
             }
+        } else {
+            mostrarAlerta("Erro", "E-mail ou senha inválidos.");
         }
     }
     private void navegarDeTela(ActionEvent event, String fxmlFile) {
@@ -139,6 +141,18 @@ public class LoginController {
                 break;
             }
         }
+        for (int i = 0; i < Repositorio.getListaMotorista().size(); i++) {
+            if (email.equals(Repositorio.getListaMotorista().get(i).getEmail())
+                    && senha.equals(Repositorio.getListaMotorista().get(i).getSenha())) {
+                isValid = true;
+                tipoDeUsuario = 'R';
+                // registra sessão para responsável
+                Repositorio.setCurrentUserType('R');
+                Repositorio.setCurrentUserCpf(Repositorio.getListaMotorista().get(i).getCpf());
+                break;
+            }
+        }
+
 
         return isValid;
     }
