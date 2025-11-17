@@ -29,4 +29,10 @@ public class Aluno extends Pessoa {
     public void setResponsavel(String responsavel) {
         this.responsavel = responsavel;
     }
+
+    @Override
+    public String toString() {
+        return this.getNome(); // ou: nome + " (" + cpf + ")"
+    }
+
 }
