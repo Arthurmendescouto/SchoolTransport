@@ -3,35 +3,58 @@ package org.example.schooltransport.model;
 // Usando javafx.beans para que a listaParadas.fxml possa observar as propriedades
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 /**
  * Representa um ponto de parada na rota, com endereço e aluno associado.
  * Fornece propriedades observáveis para integração com JavaFX.
  */
-public class Parada {
-    private final SimpleStringProperty nomeParada;
-    private final SimpleStringProperty logradouro;
-    private final SimpleStringProperty numero;
-    private final SimpleStringProperty bairro;
-    private final SimpleStringProperty cidade;
-    private final SimpleStringProperty estado;
-    private final SimpleBooleanProperty passada; // Para o visto (Status)
+public class Parada implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private transient SimpleStringProperty nomeParada;
+    private transient SimpleStringProperty logradouro;
+    private transient SimpleStringProperty numero;
+    private transient SimpleStringProperty bairro;
+    private transient SimpleStringProperty cidade;
+    private transient SimpleStringProperty estado;
+    private transient SimpleBooleanProperty passada; // Para o visto (Status)
+    private transient SimpleStringProperty horarioPrevisto;
     private Aluno aluno; // Referência ao aluno associado a esta parada
+    
+    // Campos auxiliares para serialização
+    private String nomeParadaValue;
+    private String logradouroValue;
+    private String numeroValue;
+    private String bairroValue;
+    private String cidadeValue;
+    private String estadoValue;
+    private boolean passadaValue;
+    private String horarioPrevistoValue;
 
     /**
      * Cria uma nova parada com endereço completo.
      */
     public Parada(String nomeParada, String logradouro, String numero, String bairro, String cidade, String estado) {
+        initProperties(nomeParada, logradouro, numero, bairro, cidade, estado, false, null);
+        this.aluno = null; // Sem aluno associado por padrão
+    }
+    
+    /**
+     * Inicializa as propriedades JavaFX.
+     */
+    private void initProperties(String nomeParada, String logradouro, String numero, 
+                               String bairro, String cidade, String estado, boolean passada, String horarioPrevisto) {
         this.nomeParada = new SimpleStringProperty(nomeParada);
         this.logradouro = new SimpleStringProperty(logradouro);
         this.numero = new SimpleStringProperty(numero);
         this.bairro = new SimpleStringProperty(bairro);
         this.cidade = new SimpleStringProperty(cidade);
         this.estado = new SimpleStringProperty(estado);
-        this.passada = new SimpleBooleanProperty(false); // Começa como não passada
-        this.aluno = null; // Sem aluno associado por padrão
-        this.horarioPrevisto = new SimpleStringProperty(null);
-
+        this.passada = new SimpleBooleanProperty(passada);
+        this.horarioPrevisto = new SimpleStringProperty(horarioPrevisto);
     }
 
     /** Nome amigável da parada. */
@@ -73,14 +96,10 @@ public class Parada {
     /** Propriedade observável do horário previsto (para TableView e bindings). */
     public SimpleStringProperty horarioPrevistoProperty() {return horarioPrevisto;}
 
-/** Define o horário previsto desta parada. */
-public void setHorarioPrevisto(String horarioPrevisto) {
-    this.horarioPrevisto.set(horarioPrevisto);
-}
-
-
-    //
-    private final SimpleStringProperty horarioPrevisto;
+    /** Define o horário previsto desta parada. */
+    public void setHorarioPrevisto(String horarioPrevisto) {
+        this.horarioPrevisto.set(horarioPrevisto);
+    }
 
     /** Indica se a parada já foi realizada (visto). */
     public boolean isPassada() { return passada.get(); }
@@ -128,5 +147,33 @@ public void setHorarioPrevisto(String horarioPrevisto) {
         }
 
         return sb.toString();
+    }
+
+    /**
+     * Serialização customizada para lidar com propriedades JavaFX não serializáveis.
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        // Salvar valores dos campos auxiliares
+        nomeParadaValue = getNomeParada();
+        logradouroValue = getLogradouro();
+        numeroValue = getNumero();
+        bairroValue = getBairro();
+        cidadeValue = getCidade();
+        estadoValue = getEstado();
+        passadaValue = isPassada();
+        horarioPrevistoValue = getHorarioPrevisto();
+        
+        out.defaultWriteObject();
+    }
+
+    /**
+     * Deserialização customizada para reconstruir propriedades JavaFX.
+     */
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        
+        // Reconstruir propriedades JavaFX a partir dos valores salvos
+        initProperties(nomeParadaValue, logradouroValue, numeroValue, 
+                      bairroValue, cidadeValue, estadoValue, passadaValue, horarioPrevistoValue);
     }
 }

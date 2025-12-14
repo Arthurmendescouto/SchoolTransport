@@ -1,8 +1,10 @@
 package org.example.schooltransport.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RegistroPresenca {
+public class RegistroPresenca implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Aluno aluno;
     private boolean presente;

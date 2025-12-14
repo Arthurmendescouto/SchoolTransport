@@ -1,9 +1,12 @@
 package org.example.schooltransport.model;
 
+import java.io.Serializable;
+
 /**
  * Representa o responsável (guardião) por um ou mais alunos.
  */
-public class Responsavel extends Pessoa{
+public class Responsavel extends Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constrói um responsável.

@@ -1,9 +1,12 @@
 package org.example.schooltransport.model;
 
+import java.io.Serializable;
+
 /**
  * Representa um veículo utilizado no transporte escolar.
  */
-public class Veiculo {
+public class Veiculo implements Serializable {
+    private static final long serialVersionUID = 1L;
     String modelo;
     String placa;
     int capacidade;

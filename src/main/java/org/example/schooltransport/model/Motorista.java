@@ -1,9 +1,12 @@
 package org.example.schooltransport.model;
 
+import java.io.Serializable;
+
 /**
  * Classe Motorista — estende Pessoa e adiciona dados específicos do motorista.
  */
-public class Motorista extends Pessoa {
+public class Motorista extends Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String cnh;
 
     /**

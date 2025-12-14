@@ -2,6 +2,7 @@ package org.example.schooltransport;
 
 import java.io.IOException;
 
+import org.example.schooltransport.data.PersistenciaService;
 import org.example.schooltransport.data.Repositorio;
 import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.Motorista;
@@ -17,6 +18,13 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class HelloApplication extends Application {
+    
+    @Override
+    public void init() {
+        // Carregar dados quando a aplicação inicia
+        PersistenciaService.carregarDados();
+    }
+    
     @Override
     public void start(Stage stage) throws IOException {
         
@@ -26,6 +34,12 @@ public class HelloApplication extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+    }
+    
+    @Override
+    public void stop() {
+        // Salvar dados quando a aplicação encerra
+        PersistenciaService.salvarDados();
     }
     
     public static void main(String[] args) {

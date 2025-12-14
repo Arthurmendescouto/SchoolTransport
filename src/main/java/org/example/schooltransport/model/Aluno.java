@@ -1,9 +1,12 @@
 package org.example.schooltransport.model;
 
+import java.io.Serializable;
+
 /**
  * Representa um aluno e a referência ao seu responsável (CPF do responsável).
  */
-public class Aluno extends Pessoa {
+public class Aluno extends Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String responsavel;
 
     /**

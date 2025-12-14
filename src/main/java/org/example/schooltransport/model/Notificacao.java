@@ -1,12 +1,14 @@
 package org.example.schooltransport.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Modelo simples de Notificação associado a um CPF (pessoaCPF).
  */
-public class Notificacao {
+public class Notificacao implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String pessoaCPF;
     private List<String> notificacoes = new ArrayList<>();
 

@@ -1,9 +1,12 @@
 package org.example.schooltransport.model;
 
+import java.io.Serializable;
+
 /**
  * Representa uma pessoa do sistema com dados básicos de identificação e contato.
  */
-public class Pessoa {
+public class Pessoa implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String nome;
     protected String cpf;
     protected String contato;

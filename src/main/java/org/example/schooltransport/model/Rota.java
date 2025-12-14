@@ -1,11 +1,13 @@
 package org.example.schooltransport.model;
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.example.schooltransport.model.Parada;
 
 /**
  * Descreve uma rota de transporte contendo motorista, veículo, turno e paradas.
  */
-public class Rota {
+public class Rota implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Motorista motorista;
     private Veiculo onibus;
     private String turno;
