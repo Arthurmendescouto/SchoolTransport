@@ -58,8 +58,12 @@ public class LoginController {
             navegarDeTela(event, "painelAdministrador.fxml");
         }
 
-        if (email.equals("motorista@email.com") && senha.equals("1234"))
+        if (email.equals("motorista@email.com") && senha.equals("1234")) {
+            // Configura sessão mock para o motorista padrão
+            Repositorio.setCurrentUserType('M');
+            Repositorio.setCurrentUserCpf("11122233344"); // CPF do mock no Repositorio
             navegarDeTela(event, "telaMotorista.fxml");
+        }
 
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
             if (tipoDeUsuario == 'R')
