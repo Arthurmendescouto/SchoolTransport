@@ -2,7 +2,6 @@ package org.example.schooltransport;
 
 import java.io.IOException;
 
-import org.example.schooltransport.data.PersistenciaService;
 import org.example.schooltransport.data.Repositorio;
 import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.Motorista;
@@ -22,7 +21,7 @@ public class HelloApplication extends Application {
     @Override
     public void init() {
         // Carregar dados quando a aplicação inicia
-        PersistenciaService.carregarDados();
+        Repositorio.carregarDados();
     }
     
     @Override
@@ -39,7 +38,7 @@ public class HelloApplication extends Application {
     @Override
     public void stop() {
         // Salvar dados quando a aplicação encerra
-        PersistenciaService.salvarDados();
+        Repositorio.salvarDados();
     }
     
     public static void main(String[] args) {
