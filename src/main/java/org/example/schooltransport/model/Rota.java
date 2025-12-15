@@ -1,4 +1,7 @@
 package org.example.schooltransport.model;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.example.schooltransport.model.Parada;
@@ -25,7 +28,18 @@ public class Rota implements Serializable {
         this.onibus = onibus;
         this.turno = turno;
         this.paradas = paradas;
+        salvarEmArquivo();
     }
+
+       private void salvarEmArquivo() {
+        try (FileWriter fw = new FileWriter("listaRotas.txt", true);
+            PrintWriter pw = new PrintWriter(fw)) {
+            pw.println(this.getMotorista() + "|" + this.getOnibus() + "|" + this.getTurno());
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar rota em arquivo: " + e.getMessage());
+            e.printStackTrace();
+        }
+       }
 
     /** Retorna o motorista da rota. */
     public Motorista getMotorista() {

@@ -1,5 +1,8 @@
 package org.example.schooltransport.model;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
@@ -18,6 +21,17 @@ public class Responsavel extends Pessoa implements Serializable {
      */
     public Responsavel (String nome, String cpf, String contato, String email, String senha) {
         super(nome, cpf, contato, email, senha);
+        salvarEmArquivo();
     }
 
+    private void salvarEmArquivo() {
+    try (FileWriter fw = new FileWriter("listaResponsaveis.txt", true);
+        PrintWriter pw = new PrintWriter(fw)) {
+        pw.println(this.getNome() + "|" + this.getCpf() + "|" + this.getContato() + "|" + this.getEmail() + "|" + this.getSenha());
+    } catch (IOException e) {
+        System.out.println("Erro ao salvar responsável em arquivo: " + e.getMessage());
+        e.printStackTrace();
+    }
+    }
 }
+

@@ -1,5 +1,8 @@
 package org.example.schooltransport.model;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
@@ -21,6 +24,17 @@ public class Veiculo implements Serializable {
         this.modelo = modelo;
         this.placa = placa;
         this.capacidade=capacidade;
+        salvarEmArquivo();
+    }
+
+       private void salvarEmArquivo() {
+        try (FileWriter fw = new FileWriter("listaVeiculos.txt", true);
+            PrintWriter pw = new PrintWriter(fw)) {
+            pw.println(this.getModelo() + "|" + this.getPlaca() + "|" + this.getCapacidade());
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar veículo em arquivo: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

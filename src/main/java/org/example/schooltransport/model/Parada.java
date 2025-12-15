@@ -3,9 +3,12 @@ package org.example.schooltransport.model;
 // Usando javafx.beans para que a listaParadas.fxml possa observar as propriedades
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
@@ -39,7 +42,18 @@ public class Parada implements Serializable {
      */
     public Parada(String nomeParada, String logradouro, String numero, String bairro, String cidade, String estado) {
         initProperties(nomeParada, logradouro, numero, bairro, cidade, estado, false, null);
-        this.aluno = null; // Sem aluno associado por padrão
+        this.aluno = null;
+        salvarEmArquivo();
+    }
+
+       private void salvarEmArquivo() {
+        try (FileWriter fw = new FileWriter("listaParadas.txt", true);
+            PrintWriter pw = new PrintWriter(fw)) {
+            pw.println(this.getNomeParada() + "|" + this.getLogradouro() + "|" + this.getNumero() + "|" + this.getBairro() + "|" + this.getCidade() + "|" + this.getEstado());
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar parada em arquivo: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     /**

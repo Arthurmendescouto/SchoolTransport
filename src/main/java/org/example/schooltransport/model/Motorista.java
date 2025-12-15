@@ -1,5 +1,8 @@
 package org.example.schooltransport.model;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 /**
@@ -21,6 +24,17 @@ public class Motorista extends Pessoa implements Serializable {
     public Motorista(String nome, String cpf, String contato, String email, String senha, String cnh) {
         super(nome, cpf, contato, email, senha);
         this.cnh = cnh;
+        salvarEmArquivo();
+    }
+
+       private void salvarEmArquivo() {
+        try (FileWriter fw = new FileWriter("listaMotoristas.txt", true);
+            PrintWriter pw = new PrintWriter(fw)) {
+            pw.println(this.getNome() + "|" + this.getCpf() + "|" + this.getContato() + "|" + this.getEmail() + "|" + this.getSenha() + "|" + this.getCnh());
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar motorista em arquivo: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
