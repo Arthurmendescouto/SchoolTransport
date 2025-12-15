@@ -80,27 +80,32 @@ public class PersistenciaService {
             // Carregar cada lista
             ArrayList<Aluno> alunos = (ArrayList<Aluno>) carregarLista(ARQUIVO_ALUNOS);
             if (alunos != null) {
-                Repositorio.setListaAluno(alunos);
+                Repositorio.getListaAluno().clear();
+                Repositorio.getListaAluno().addAll(alunos);
             }
 
             ArrayList<Responsavel> responsaveis = (ArrayList<Responsavel>) carregarLista(ARQUIVO_RESPONSAVEIS);
             if (responsaveis != null) {
-                Repositorio.setListaResponsavel(responsaveis);
+                Repositorio.getListaResponsavel().clear();
+                Repositorio.getListaResponsavel().addAll(responsaveis);
             }
 
             ArrayList<Veiculo> veiculos = (ArrayList<Veiculo>) carregarLista(ARQUIVO_VEICULOS);
             if (veiculos != null) {
-                Repositorio.setListaVeiculo(veiculos);
+                Repositorio.getListaVeiculo().clear();
+                Repositorio.getListaVeiculo().addAll(veiculos);
             }
 
             ArrayList<Motorista> motoristas = (ArrayList<Motorista>) carregarLista(ARQUIVO_MOTORISTAS);
             if (motoristas != null) {
-                Repositorio.setListaMotorista(motoristas);
+                Repositorio.getListaMotorista().clear();
+                Repositorio.getListaMotorista().addAll(motoristas);
             }
 
             LinkedList<Rota> rotas = (LinkedList<Rota>) carregarLista(ARQUIVO_ROTAS);
             if (rotas != null) {
-                Repositorio.setListaRota(rotas);
+                Repositorio.getListaRota().clear();
+                Repositorio.getListaRota().addAll(rotas);
             }
 
             List<Notificacao> notificacoes = (List<Notificacao>) carregarLista(ARQUIVO_NOTIFICACOES);

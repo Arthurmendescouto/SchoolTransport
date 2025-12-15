@@ -10,6 +10,7 @@ public class Repositorio {
     // ================= PARADAS =================
     private static ObservableList<Parada> listaParadas =
             FXCollections.observableArrayList();
+    private static Object org;
 
     public static void adicionarParada(Parada parada) {
         listaParadas.add(parada);
@@ -57,13 +58,6 @@ public class Repositorio {
     private static ObservableList<org.example.schooltransport.model.Motorista> listaMotorista = FXCollections.observableArrayList();
     private static ObservableList<org.example.schooltransport.model.Responsavel> listaResponsavel = FXCollections.observableArrayList();
 
-    static {
-
-
-        org.example.schooltransport.model.Motorista m1 = new org.example.schooltransport.model.Motorista("Motorista Padrao", "motorista@email.com", "1234", "11122233344");
-        listaMotorista.add(m1);
-    }
-
     public static ObservableList<org.example.schooltransport.model.Aluno> getListaAluno() {
         return listaAluno;
     }
@@ -74,9 +68,35 @@ public class Repositorio {
         return listaResponsavel;
     }
 
-    // ================= NOTIFICAÇÕES =================
-    public static void adicionarNotificacaoParaCpf(String cpf, String mensagem) {
-        System.out.println("[NOTIFICAÇÃO] Para " + cpf + ": " + mensagem);
-        // Implementação real armazenaria em uma lista de notificações
-    }
+    // ================= VEÍCULOS =================
+private static ObservableList<org.example.schooltransport.model.Veiculo> listaVeiculo =
+        FXCollections.observableArrayList();
+
+// ================= ROTAS =================
+private static ObservableList<org.example.schooltransport.model.Rota> listaRota =
+        FXCollections.observableArrayList();
+
+// ================= NOTIFICAÇÕES =================
+private static ObservableList<org.example.schooltransport.model.Notificacao> listaNotificacao =
+        FXCollections.observableArrayList();
+
+// ================= PRESENÇA =================
+private static ObservableList<org.example.schooltransport.model.RegistroPresenca> listaDePresenca =
+        FXCollections.observableArrayList();
+public static ObservableList<org.example.schooltransport.model.Veiculo> getListaVeiculo() {
+    return listaVeiculo;
+}
+
+public static ObservableList<org.example.schooltransport.model.Rota> getListaRota() {
+    return listaRota;
+}
+
+public static ObservableList<org.example.schooltransport.model.Notificacao> getListaNotificacao() {
+    return listaNotificacao;
+}
+
+public static ObservableList<org.example.schooltransport.model.RegistroPresenca> getListaDePresenca() {
+    return listaDePresenca;
+}
+    
 }
