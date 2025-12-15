@@ -139,9 +139,23 @@ public class EditarRotaController implements Initializable {
             mensagemStatus.setText("Escolha uma parada para adicionar.");
             return;
         }
+
+        // Verifica se veículo foi selecionado
+        Veiculo veiculo = comboVeiculo.getSelectionModel().getSelectedItem();
+        if (veiculo == null) {
+            mensagemStatus.setText("⚠️ Selecione um veículo antes de adicionar paradas.");
+            return;
+        }
+
+        // Verifica se o veículo atingiu sua capacidade
+        if (selectedParadas.size() >= veiculo.getCapacidade()) {
+            mensagemStatus.setText("⚠️ Capacidade do veículo atingida (" + veiculo.getCapacidade() + " paradas).");
+            return;
+        }
+
         if (!selectedParadas.contains(p)) {
             selectedParadas.add(p);
-            mensagemStatus.setText("");
+            mensagemStatus.setText("✓ Parada adicionada. Paradas: " + selectedParadas.size() + "/" + veiculo.getCapacidade());
             comboParada.getSelectionModel().clearSelection();
         } else {
             mensagemStatus.setText("Parada já adicionada.");

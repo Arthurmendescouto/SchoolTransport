@@ -80,4 +80,53 @@ public class Rota implements Serializable {
     public void setParadas(ArrayList<Parada> paradas) {
         this.paradas = paradas;
     }
+
+    /**
+     * Verifica se a rota pode adicionar mais paradas baseado na capacidade do veículo.
+     * @return true se ainda há espaço no veículo, false caso contrário
+     */
+    public boolean podeAdicionarParada() {
+        if (onibus == null) {
+            return false;
+        }
+        return paradas.size() < onibus.getCapacidade();
+    }
+
+    /**
+     * Retorna a quantidade de paradas atualmente na rota.
+     * @return número de paradas
+     */
+    public int getQuantidadeParadas() {
+        return paradas.size();
+    }
+
+    /**
+     * Retorna o espaço disponível no veículo.
+     * @return capacidade restante do veículo
+     */
+    public int getEspacoDisponivel() {
+        if (onibus == null) {
+            return 0;
+        }
+        return onibus.getCapacidade() - paradas.size();
+    }
+    
+    /**
+     * Retorna a informação de capacidade do veículo.
+     * @return capacidade total do veículo
+     */
+    public int getCapacidadeVeiculo() {
+        if (onibus == null) {
+            return 0;
+        }
+        return onibus.getCapacidade();
+    }
+    
+    /**
+     * Obtém uma descrição do status da capacidade.
+     * @return string descrevendo paradas/capacidade
+     */
+    public String getStatusCapacidade() {
+        return getQuantidadeParadas() + "/" + getCapacidadeVeiculo();
+    }
 }
