@@ -98,5 +98,9 @@ public static ObservableList<org.example.schooltransport.model.Notificacao> getL
 public static ObservableList<org.example.schooltransport.model.RegistroPresenca> getListaDePresenca() {
     return listaDePresenca;
 }
+
+    public static void adicionarNotificacaoParaCpf(String cpfAluno, String msg) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }
