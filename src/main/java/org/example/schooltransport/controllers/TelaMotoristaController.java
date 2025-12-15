@@ -88,7 +88,7 @@ public class TelaMotoristaController implements Initializable {
     private void carregarListaAlunos() {
         vboxListaAlunos.getChildren().clear();
         mapaDePresenca.clear();
-        ArrayList<Aluno> alunos = Repositorio.getListaAluno();
+        ObservableList<Aluno> alunos = Repositorio.getListaAluno();
 
         if (alunos == null || alunos.isEmpty()) {
             labelListaVazia.setVisible(true);
