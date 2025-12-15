@@ -27,6 +27,7 @@ public class ConsultarRotaMotoristaController {
 
     /**
      * Renderiza a lista de paradas na interface.
+     * 
      * @param listaParadas Lista de paradas a serem exibidas
      */
     public void renderizarLista(ArrayList<Parada> listaParadas) {
@@ -54,17 +55,17 @@ public class ConsultarRotaMotoristaController {
         HBox leftBox = new HBox();
         leftBox.setAlignment(Pos.CENTER_LEFT);
         leftBox.setPrefWidth(sectionWidth);
-        //Essas linhas abaixo devem estar preenchidas com os valores corretos
+        // Essas linhas abaixo devem estar preenchidas com os valores corretos
         // Label leftLabel = new Label(dados.getLeftText());
-        //leftBox.getChildren().add(leftLabel);
+        // leftBox.getChildren().add(leftLabel);
 
         // SEGUNDA ÁREA
         HBox centerBox = new HBox();
         centerBox.setAlignment(Pos.CENTER);
         centerBox.setPrefWidth(sectionWidth);
-        //Essas linhas abaixo devem estar preenchida com os valores corretos
-        //Label centerLabel = new Label(dados.getCenterText());
-        //centerBox.getChildren().add(centerLabel);
+        // Essas linhas abaixo devem estar preenchida com os valores corretos
+        // Label centerLabel = new Label(dados.getCenterText());
+        // centerBox.getChildren().add(centerLabel);
 
         // TERCEIRA ÁREA
         HBox rightBox = new HBox();
@@ -94,6 +95,7 @@ public class ConsultarRotaMotoristaController {
 
         return region;
     }
+
     private String imagemStatusRotaPath(SimpleBooleanProperty jaPassou) {
         String tempVar = "";
         if (jaPassou.get())
@@ -103,4 +105,3 @@ public class ConsultarRotaMotoristaController {
         return tempVar;
     }
 }
-

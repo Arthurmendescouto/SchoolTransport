@@ -60,6 +60,11 @@ public class TelaMotoristaController implements Initializable {
     @FXML private VBox vboxListaAlunos;
 
     @FXML private Button btnReportarPresenca;
+@FXML
+private void abrirOcorrencia(ActionEvent event) {
+    navegarDeTela((Node) event.getSource(), "CadastrarOcorrencia.fxml");
+}
+
 
     // --- Variáveis de Instância ---
     private String telaDeOrigem; // <-- ADICIONADA DE VOLTA AQUI

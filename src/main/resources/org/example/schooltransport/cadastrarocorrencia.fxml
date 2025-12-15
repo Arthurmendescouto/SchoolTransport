@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.schooltransport.controllers.CadastrarOcorrenciaController"
+      spacing="10">
+
+    <TextArea fx:id="txtDescricao"
+              promptText="Descreva a ocorrência"/>
+
+    <Button text="Salvar"
+            onAction="#salvarOcorrencia"/>
+</VBox>
