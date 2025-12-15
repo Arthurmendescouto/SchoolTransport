@@ -1,37 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="700.0" prefWidth="400.0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.schooltransport.controllers.TelaMotoristaController">
 
-<VBox spacing="15"
-   alignment="CENTER"
-   xmlns="http://javafx.com/javafx/17"
-   xmlns:fx="http://javafx.com/fxml"
-   fx:controller="org.example.schooltransport.controllers.TelaMotoristaController">
+    <VBox alignment="TOP_CENTER" layoutY="-14.0" spacing="15.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
 
+        <HBox alignment="CENTER_LEFT" prefHeight="71.0" prefWidth="400.0" spacing="10.0" styleClass="cabecalho-topo" VBox.vgrow="NEVER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" top="20.0" />
+            </padding>
+            <children>
+                <Button fx:id="btnVoltar" mnemonicParsing="false" onAction="#voltar" styleClass="bottom_voltar" text="← Voltar" />
+            </children>
+        </HBox>
 
+        <Label alignment="CENTER_LEFT" styleClass="titulo-principal" text="tela do motorista" HBox.hgrow="ALWAYS">
+            <padding>
+                <Insets left="20.0" right="20.0" />
+            </padding>
+        </Label>
 
-<Label text="Área do Motorista"
-       style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <VBox fx:id="containerProgresso" alignment="CENTER" styleClass="painel-progresso">
+            <VBox.margin>
+                <Insets left="15.0" right="15.0" top="10.0" />
+            </VBox.margin>
+            <padding>
+                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label styleClass="progresso-titulo" text="Progresso da rota" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Label fx:id="labelContagemTotal" styleClass="progresso-contagem-total" text="0/0" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label styleClass="progresso-subtitulo" text="Alunos entregues" />
+                            <Label fx:id="labelEntregues" styleClass="progresso-valor-entregue" text="0" />
+                        </VBox>
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                            <Label styleClass="progresso-subtitulo" text="Pendentes" />
+                            <Label fx:id="labelPendentes" styleClass="progresso-valor-pendente" text="0" />
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
 
+        <HBox alignment="CENTER_LEFT" spacing="5.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+            <padding>
+                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+            </padding>
+            <children>
+                <Label styleClass="label-proxima-parada" text="Próxima parada:">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font></Label>
+            </children>
+        </HBox>
 
-<Button text="Iniciar Rota"
-        prefWidth="220"
-        onAction="#iniciarRota"/>
+        <HBox fx:id="containerProximaParada" alignment="CENTER_LEFT" spacing="10.0" styleClass="parada-item"
+              onMouseClicked="#handleAbrirListaParadas"> <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+        </padding>
+            <VBox.margin>
+                <Insets left="15.0" right="15.0" top="10.0" />
+            </VBox.margin>
+            <children>
+                <Label fx:id="labelInfoParada" styleClass="parada-nome-texto" text="Carregando..." />
+                <Pane HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnEntregue" onAction="#handleRemoverProximaParada" styleClass="btn-entregue-status" text="Entregue" />
+            </children>
+        </HBox>
 
-<Button text="Finalizar Rota"
-        prefWidth="220"
-        onAction="#finalizarRota"/>
+        <Label styleClass="label-secao-alunos" text="Lista de Presença">
+            <VBox.margin>
+                <Insets left="20.0" right="20.0" top="20.0" />
+            </VBox.margin>
+        </Label>
 
+        <StackPane fx:id="stackPaneAlunos" VBox.vgrow="ALWAYS">
+            <VBox.margin>
+                <Insets bottom="15.0" left="15.0" right="15.0" />
+            </VBox.margin>
+            <Label fx:id="labelListaVazia" styleClass="label-lista-vazia" text="Nenhum aluno cadastrado para hoje" />
+            <ScrollPane fx:id="scrollPaneAlunos" fitToWidth="true" styleClass="scroll-pane-alunos">
+                <VBox fx:id="vboxListaAlunos" spacing="10.0" styleClass="container-lista-alunos">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+            </ScrollPane>
+        </StackPane>
 
-<Button text="Registrar Ocorrência"
-        prefWidth="220"
-        onAction="#abrirOcorrencia"/>
-
-<Button text="Sair"
-        prefWidth="220"
-        onAction="#sair"/>
-
-
-</VBox>
+        <HBox alignment="CENTER" VBox.vgrow="NEVER">
+            <VBox.margin>
+                <Insets bottom="10.0" left="15.0" right="15.0" />
+            </VBox.margin>
+            <children>
+                <Button fx:id="btnReportarPresenca" onAction="#handleReportarPresenca"
+                        styleClass="bottom" text="REPORTAR" HBox.hgrow="ALWAYS"
+                        maxWidth="Infinity" />
+            </children>
+        </HBox>
+    </VBox>
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+</AnchorPane>
