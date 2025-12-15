@@ -1,166 +1,209 @@
 package org.example.schooltransport.data;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.example.schooltransport.model.Aluno;
-import org.example.schooltransport.model.Motorista;
-import org.example.schooltransport.model.Notificacao;
-import org.example.schooltransport.model.Parada;
-import org.example.schooltransport.model.RegistroPresenca;
 import org.example.schooltransport.model.Responsavel;
-import org.example.schooltransport.model.Rota;
 import org.example.schooltransport.model.Veiculo;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
- * Serviço responsável por persistir e recuperar dados do sistema em arquivos externos.
- * Utiliza serialização de objetos Java para armazenar os dados.
+ * Serviço responsável por persistir e recuperar dados do sistema em arquivos de texto (.txt).
+ * Carrega dados dos arquivos listaResponsaveis.txt, listaAlunos.txt e listaVeiculos.txt.
  */
 public class PersistenciaService {
-    
-    private static final String DIRETORIO_DADOS = "dados";
-    private static final String ARQUIVO_ALUNOS = DIRETORIO_DADOS + File.separator + "alunos.dat";
-    private static final String ARQUIVO_RESPONSAVEIS = DIRETORIO_DADOS + File.separator + "responsaveis.dat";
-    private static final String ARQUIVO_VEICULOS = DIRETORIO_DADOS + File.separator + "veiculos.dat";
-    private static final String ARQUIVO_MOTORISTAS = DIRETORIO_DADOS + File.separator + "motoristas.dat";
-    private static final String ARQUIVO_ROTAS = DIRETORIO_DADOS + File.separator + "rotas.dat";
-    private static final String ARQUIVO_PARADAS = DIRETORIO_DADOS + File.separator + "paradas.dat";
-    private static final String ARQUIVO_NOTIFICACOES = DIRETORIO_DADOS + File.separator + "notificacoes.dat";
-    private static final String ARQUIVO_PRESENCAS = DIRETORIO_DADOS + File.separator + "presencas.dat";
 
     /**
-     * Salva todos os dados do repositório em arquivos externos.
-     * Cria o diretório de dados se não existir.
+     * Salva todos os dados do repositório em arquivos de texto.
+     * Os dados são salvos automaticamente quando os objetos são criados.
+     * Este método está vazio pois os arquivos .txt são atualizados diretamente pelos construtores.
      */
     public static void salvarDados() {
-        try {
-            // Criar diretório se não existir
-            File diretorio = new File(DIRETORIO_DADOS);
-            if (!diretorio.exists()) {
-                diretorio.mkdirs();
-            }
-
-            // Salvar cada lista
-            salvarLista(ARQUIVO_ALUNOS, Repositorio.getListaAluno());
-            salvarLista(ARQUIVO_RESPONSAVEIS, Repositorio.getListaResponsavel());
-            salvarLista(ARQUIVO_VEICULOS, Repositorio.getListaVeiculo());
-            salvarLista(ARQUIVO_MOTORISTAS, Repositorio.getListaMotorista());
-            salvarLista(ARQUIVO_ROTAS, Repositorio.getListaRota());
-            salvarLista(ARQUIVO_NOTIFICACOES, Repositorio.getListaNotificacao());
-            salvarLista(ARQUIVO_PRESENCAS, Repositorio.getListaDePresenca());
-            
-            // Salvar paradas (ObservableList precisa ser convertida)
-            List<Parada> paradasList = new ArrayList<>(Repositorio.getListaParada());
-            salvarLista(ARQUIVO_PARADAS, paradasList);
-
-            System.out.println("Dados salvos com sucesso!");
-        } catch (IOException e) {
-            System.err.println("Erro ao salvar dados: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // Os dados são salvos automaticamente nos arquivos .txt quando os objetos são criados
+        // através dos métodos salvarEmArquivo() nas classes Responsavel, Aluno e Veiculo
+        System.out.println("Dados já estão salvos nos arquivos de texto.");
     }
 
     /**
-     * Carrega todos os dados dos arquivos externos para o repositório.
+     * Carrega todos os dados dos arquivos de texto (.txt) para o repositório.
      * Se os arquivos não existirem, mantém as listas vazias.
      */
-    @SuppressWarnings("unchecked")
     public static void carregarDados() {
         try {
-            // Carregar cada lista
-            ArrayList<Aluno> alunos = (ArrayList<Aluno>) carregarLista(ARQUIVO_ALUNOS);
-            if (alunos != null) {
-                Repositorio.getListaAluno().clear();
-                Repositorio.getListaAluno().addAll(alunos);
-            }
+            // Carregar responsáveis dos arquivos .txt
+            carregarResponsaveisDeTexto();
 
-            ArrayList<Responsavel> responsaveis = (ArrayList<Responsavel>) carregarLista(ARQUIVO_RESPONSAVEIS);
-            if (responsaveis != null) {
-                Repositorio.getListaResponsavel().clear();
-                Repositorio.getListaResponsavel().addAll(responsaveis);
-            }
+            // Carregar alunos dos arquivos .txt (depois dos responsáveis, pois alunos dependem deles)
+            carregarAlunosDeTexto();
 
-            ArrayList<Veiculo> veiculos = (ArrayList<Veiculo>) carregarLista(ARQUIVO_VEICULOS);
-            if (veiculos != null) {
-                Repositorio.getListaVeiculo().clear();
-                Repositorio.getListaVeiculo().addAll(veiculos);
-            }
+            // Carregar veículos dos arquivos .txt
+            carregarVeiculosDeTexto();
 
-            ArrayList<Motorista> motoristas = (ArrayList<Motorista>) carregarLista(ARQUIVO_MOTORISTAS);
-            if (motoristas != null) {
-                Repositorio.getListaMotorista().clear();
-                Repositorio.getListaMotorista().addAll(motoristas);
-            }
-
-            LinkedList<Rota> rotas = (LinkedList<Rota>) carregarLista(ARQUIVO_ROTAS);
-            if (rotas != null) {
-                Repositorio.getListaRota().clear();
-                Repositorio.getListaRota().addAll(rotas);
-            }
-
-            List<Notificacao> notificacoes = (List<Notificacao>) carregarLista(ARQUIVO_NOTIFICACOES);
-            if (notificacoes != null) {
-                // Limpar lista atual e adicionar as carregadas
-                Repositorio.getListaNotificacao().clear();
-                Repositorio.getListaNotificacao().addAll(notificacoes);
-            }
-
-            ArrayList<RegistroPresenca> presencas = (ArrayList<RegistroPresenca>) carregarLista(ARQUIVO_PRESENCAS);
-            if (presencas != null) {
-                // Limpar lista atual e adicionar as carregadas
-                Repositorio.getListaDePresenca().clear();
-                Repositorio.getListaDePresenca().addAll(presencas);
-            }
-
-            // Carregar paradas e converter para ObservableList
-            List<Parada> paradasList = (List<Parada>) carregarLista(ARQUIVO_PARADAS);
-            if (paradasList != null) {
-                ObservableList<Parada> paradasObservable = FXCollections.observableArrayList(paradasList);
-                Repositorio.getListaParada().clear();
-                Repositorio.getListaParada().addAll(paradasObservable);
-            }
-
-            System.out.println("Dados carregados com sucesso!");
+            System.out.println("Dados carregados dos arquivos de texto com sucesso!");
         } catch (Exception e) {
             System.err.println("Erro ao carregar dados: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
+
     /**
-     * Salva uma lista em um arquivo usando serialização.
+     * Carrega responsáveis do arquivo de texto listaResponsaveis.txt.
+     * Formato: nome|cpf|contato|email|senha
      */
-    private static void salvarLista(String arquivo, List<?> lista) throws IOException {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(arquivo))) {
-            oos.writeObject(lista);
+    private static void carregarResponsaveisDeTexto() {
+        File arquivo = new File("listaResponsaveis.txt");
+        if (!arquivo.exists()) {
+            System.out.println("Arquivo listaResponsaveis.txt não encontrado.");
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                linha = linha.trim();
+                if (linha.isEmpty()) {
+                    continue;
+                }
+
+                String[] partes = linha.split("\\|");
+                if (partes.length == 5) {
+                    String nome = partes[0].trim();
+                    String cpf = partes[1].trim();
+                    String contato = partes[2].trim();
+                    String email = partes[3].trim();
+                    String senha = partes[4].trim();
+
+                    // Verificar se o responsável já existe (por CPF)
+                    boolean existe = false;
+                    for (Responsavel resp : Repositorio.getListaResponsavel()) {
+                        if (resp.getCpf().equals(cpf)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (!existe) {
+                        Responsavel responsavel = new Responsavel(nome, cpf, contato, email, senha, false);
+                        Repositorio.getListaResponsavel().add(responsavel);
+                    }
+                } else {
+                    System.err.println("Linha inválida em listaResponsaveis.txt: " + linha);
+                }
+            }
+            System.out.println("Responsáveis carregados do arquivo de texto.");
+        } catch (IOException e) {
+            System.err.println("Erro ao ler listaResponsaveis.txt: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
     /**
-     * Carrega uma lista de um arquivo usando deserialização.
-     * Retorna null se o arquivo não existir.
+     * Carrega alunos do arquivo de texto listaAlunos.txt.
+     * Formato: nome|cpf|responsavel|contato|email|senha
      */
-    private static Object carregarLista(String arquivo) {
-        File file = new File(arquivo);
-        if (!file.exists()) {
-            return null;
+    private static void carregarAlunosDeTexto() {
+        File arquivo = new File("listaAlunos.txt");
+        if (!arquivo.exists()) {
+            System.out.println("Arquivo listaAlunos.txt não encontrado.");
+            return;
         }
 
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(arquivo))) {
-            return ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.err.println("Erro ao carregar arquivo " + arquivo + ": " + e.getMessage());
-            return null;
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                linha = linha.trim();
+                if (linha.isEmpty()) {
+                    continue;
+                }
+
+                String[] partes = linha.split("\\|");
+                if (partes.length == 6) {
+                    String nome = partes[0].trim();
+                    String cpf = partes[1].trim();
+                    String responsavel = partes[2].trim();
+                    String contato = partes[3].trim();
+                    String email = partes[4].trim();
+                    String senha = partes[5].trim();
+
+                    // Verificar se o aluno já existe (por CPF)
+                    boolean existe = false;
+                    for (Aluno aluno : Repositorio.getListaAluno()) {
+                        if (aluno.getCpf().equals(cpf)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (!existe) {
+                        Aluno aluno = new Aluno(nome, cpf, responsavel, contato, email, senha, false);
+                        Repositorio.getListaAluno().add(aluno);
+                    }
+                } else {
+                    System.err.println("Linha inválida em listaAlunos.txt: " + linha);
+                }
+            }
+            System.out.println("Alunos carregados do arquivo de texto.");
+        } catch (IOException e) {
+            System.err.println("Erro ao ler listaAlunos.txt: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Carrega veículos do arquivo de texto listaVeiculos.txt.
+     * Formato: modelo|placa|capacidade
+     */
+    private static void carregarVeiculosDeTexto() {
+        File arquivo = new File("listaVeiculos.txt");
+        if (!arquivo.exists()) {
+            System.out.println("Arquivo listaVeiculos.txt não encontrado.");
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                linha = linha.trim();
+                if (linha.isEmpty()) {
+                    continue;
+                }
+
+                String[] partes = linha.split("\\|");
+                if (partes.length == 3) {
+                    String modelo = partes[0].trim();
+                    String placa = partes[1].trim();
+                    int capacidade;
+                    try {
+                        capacidade = Integer.parseInt(partes[2].trim());
+                    } catch (NumberFormatException e) {
+                        System.err.println("Capacidade inválida na linha: " + linha);
+                        continue;
+                    }
+
+                    // Verificar se o veículo já existe (por placa)
+                    boolean existe = false;
+                    for (Veiculo veiculo : Repositorio.getListaVeiculo()) {
+                        if (veiculo.getPlaca().equals(placa)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (!existe) {
+                        Veiculo veiculo = new Veiculo(modelo, placa, capacidade, false);
+                        Repositorio.getListaVeiculo().add(veiculo);
+                    }
+                } else {
+                    System.err.println("Linha inválida em listaVeiculos.txt: " + linha);
+                }
+            }
+            System.out.println("Veículos carregados do arquivo de texto.");
+        } catch (IOException e) {
+            System.err.println("Erro ao ler listaVeiculos.txt: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }

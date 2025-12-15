@@ -27,6 +27,23 @@ public class Veiculo implements Serializable {
         salvarEmArquivo();
     }
 
+    /**
+     * Constrói um veículo sem salvar automaticamente no arquivo.
+     * Usado para carregar dados do arquivo sem duplicação.
+     * @param modelo Modelo/fabricante do veículo
+     * @param placa Placa do veículo
+     * @param capacidade Capacidade de passageiros
+     * @param salvar Se false, não salva automaticamente no arquivo
+     */
+    public Veiculo (String modelo, String placa, int capacidade, boolean salvar){
+        this.modelo = modelo;
+        this.placa = placa;
+        this.capacidade=capacidade;
+        if (salvar) {
+            salvarEmArquivo();
+        }
+    }
+
        private void salvarEmArquivo() {
         try (FileWriter fw = new FileWriter("listaVeiculos.txt", true);
             PrintWriter pw = new PrintWriter(fw)) {

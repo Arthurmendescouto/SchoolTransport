@@ -56,6 +56,7 @@ public class LoginController {
                 || ((email.equals("administrador") && senha.equals("administrador")))) {
             mostrarAlerta("Login realizado", "Bem-vindo, administrador!");
             navegarDeTela(event, "painelAdministrador.fxml");
+            return; // Interrompe a execução após login bem-sucedido
         }
 
         if (email.equals("motorista@email.com") && senha.equals("1234")) {
@@ -63,6 +64,7 @@ public class LoginController {
             Repositorio.setCurrentUserType('M');
             Repositorio.setCurrentUserCpf("11122233344"); // CPF do mock no Repositorio
             navegarDeTela(event, "telaMotorista.fxml");
+            return; // Interrompe a execução após login bem-sucedido
         }
 
         if (verificaValidadeDosDadosDeLogin(email, senha)) {
@@ -73,6 +75,7 @@ public class LoginController {
             if (tipoDeUsuario == 'M') {
                 navegarDeTela(event, "telaMotorista.fxml");
             }
+            return; // Interrompe a execução após login bem-sucedido
         } else {
             mostrarAlerta("Erro", "E-mail ou senha inválidos.");
         }
