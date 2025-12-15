@@ -22,9 +22,19 @@ public class Motorista extends Pessoa implements Serializable {
      * @param cnh Número da CNH
      */
     public Motorista(String nome, String cpf, String contato, String email, String senha, String cnh) {
+        this(nome, cpf, contato, email, senha, cnh, true);
+    }
+
+    /**
+     * Cria um motorista permitindo escolher se deve persistir imediatamente.
+     * Útil ao carregar dados do arquivo para evitar duplicações.
+     */
+    public Motorista(String nome, String cpf, String contato, String email, String senha, String cnh, boolean salvar) {
         super(nome, cpf, contato, email, senha);
         this.cnh = cnh;
-        salvarEmArquivo();
+        if (salvar) {
+            salvarEmArquivo();
+        }
     }
 
        private void salvarEmArquivo() {

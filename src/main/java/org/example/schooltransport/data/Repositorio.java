@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import org.example.schooltransport.model.Aluno;
 import org.example.schooltransport.model.Ocorrencia;
 import org.example.schooltransport.model.Parada;
+import org.example.schooltransport.model.Motorista;
 import org.example.schooltransport.model.Responsavel;
 import org.example.schooltransport.model.Veiculo;
 
@@ -133,11 +134,17 @@ public static ObservableList<org.example.schooltransport.model.RegistroPresenca>
             // Carregar responsáveis dos arquivos .txt
             carregarResponsaveisDeTexto();
 
+            // Carregar motoristas dos arquivos .txt
+            carregarMotoristasDeTexto();
+
             // Carregar alunos dos arquivos .txt (depois dos responsáveis, pois alunos dependem deles)
             carregarAlunosDeTexto();
 
             // Carregar veículos dos arquivos .txt
             carregarVeiculosDeTexto();
+
+            // Carregar paradas dos arquivos .txt
+            carregarParadasDeTexto();
 
             System.out.println("Dados carregados dos arquivos de texto com sucesso!");
         } catch (Exception e) {
@@ -300,6 +307,110 @@ public static ObservableList<org.example.schooltransport.model.RegistroPresenca>
             System.out.println("Veículos carregados do arquivo de texto.");
         } catch (IOException e) {
             System.err.println("Erro ao ler listaVeiculos.txt: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Carrega motoristas do arquivo de texto listaMotoristas.txt.
+     * Formato: nome|cpf|contato|email|senha|cnh
+     */
+    private static void carregarMotoristasDeTexto() {
+        File arquivo = new File("listaMotoristas.txt");
+        if (!arquivo.exists()) {
+            System.out.println("Arquivo listaMotoristas.txt não encontrado.");
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                linha = linha.trim();
+                if (linha.isEmpty()) {
+                    continue;
+                }
+
+                String[] partes = linha.split("\\|");
+                if (partes.length >= 5) {
+                    String nome = partes[0].trim();
+                    String cpf = partes[1].trim();
+                    String contato = partes[2].trim();
+                    String email = partes[3].trim();
+                    String senha = partes[4].trim();
+                    String cnh = partes.length >= 6 ? partes[5].trim() : "";
+
+                    boolean existe = false;
+                    for (Motorista mot : getListaMotorista()) {
+                        if (mot.getCpf().equals(cpf)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (!existe) {
+                        Motorista motorista = new Motorista(nome, cpf, contato, email, senha, cnh, false);
+                        getListaMotorista().add(motorista);
+                    }
+                } else {
+                    System.err.println("Linha inválida em listaMotoristas.txt: " + linha);
+                }
+            }
+            System.out.println("Motoristas carregados do arquivo de texto.");
+        } catch (IOException e) {
+            System.err.println("Erro ao ler listaMotoristas.txt: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Carrega paradas do arquivo de texto listaParadas.txt.
+     * Formato: nomeParada|logradouro|numero|bairro|cidade|estado
+     */
+    private static void carregarParadasDeTexto() {
+        File arquivo = new File("listaParadas.txt");
+        if (!arquivo.exists()) {
+            System.out.println("Arquivo listaParadas.txt não encontrado.");
+            return;
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader(arquivo))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                linha = linha.trim();
+                if (linha.isEmpty()) {
+                    continue;
+                }
+
+                String[] partes = linha.split("\\|");
+                if (partes.length == 6) {
+                    String nomeParada = partes[0].trim();
+                    String logradouro = partes[1].trim();
+                    String numero = partes[2].trim();
+                    String bairro = partes[3].trim();
+                    String cidade = partes[4].trim();
+                    String estado = partes[5].trim();
+
+                    boolean existe = false;
+                    for (Parada parada : getListaParada()) {
+                        if (parada.getNomeParada().equals(nomeParada)
+                                && parada.getLogradouro().equals(logradouro)
+                                && parada.getNumero().equals(numero)) {
+                            existe = true;
+                            break;
+                        }
+                    }
+
+                    if (!existe) {
+                        Parada parada = new Parada(nomeParada, logradouro, numero, bairro, cidade, estado, false);
+                        getListaParada().add(parada);
+                    }
+                } else {
+                    System.err.println("Linha inválida em listaParadas.txt: " + linha);
+                }
+            }
+            System.out.println("Paradas carregadas do arquivo de texto.");
+        } catch (IOException e) {
+            System.err.println("Erro ao ler listaParadas.txt: " + e.getMessage());
             e.printStackTrace();
         }
     }

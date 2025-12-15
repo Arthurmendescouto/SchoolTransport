@@ -41,9 +41,19 @@ public class Parada implements Serializable {
      * Cria uma nova parada com endereço completo.
      */
     public Parada(String nomeParada, String logradouro, String numero, String bairro, String cidade, String estado) {
+        this(nomeParada, logradouro, numero, bairro, cidade, estado, true);
+    }
+
+    /**
+     * Cria uma nova parada permitindo escolher se deve persistir imediatamente.
+     * Útil ao carregar dados do arquivo para evitar duplicação de linhas.
+     */
+    public Parada(String nomeParada, String logradouro, String numero, String bairro, String cidade, String estado, boolean salvar) {
         initProperties(nomeParada, logradouro, numero, bairro, cidade, estado, false, null);
         this.aluno = null;
-        salvarEmArquivo();
+        if (salvar) {
+            salvarEmArquivo();
+        }
     }
 
        private void salvarEmArquivo() {
