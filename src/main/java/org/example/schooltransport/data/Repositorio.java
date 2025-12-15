@@ -242,7 +242,7 @@ public static ObservableList<org.example.schooltransport.model.RegistroPresenca>
                     }
 
                     if (!existe) {
-                        Aluno aluno = new Aluno(nome, cpf, responsavel, contato, email, senha, false);
+                        Aluno aluno = new Aluno(nome, cpf, responsavel, contato, email, senha);
                         getListaAluno().add(aluno);
                     }
                 } else {

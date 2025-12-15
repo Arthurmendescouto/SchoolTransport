@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -203,19 +206,33 @@ public class TelaMotoristaController implements Initializable {
 
         System.out.println("--- Relatório de Presença Enviado ---");
 
-        for (Map.Entry<CheckBox, Aluno> entry : mapaDePresenca.entrySet()) {
+        // Data/hora do relatório
+        String dataHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 
-            Aluno aluno = entry.getValue();
-            boolean estaPresente = entry.getKey().isSelected();
-            String status = estaPresente ? "Presente" : "Ausente";
-            String mensagem = "Relatório de presença: " + aluno.getNome() + " foi marcado(a) como " + status + ".";
+        // Salvar presenças em arquivo texto
+        try (FileWriter fw = new FileWriter("listaPresencas.txt", true);
+             PrintWriter pw = new PrintWriter(fw)) {
 
-            if (aluno.getCpf() != null && !aluno.getCpf().isEmpty()) {
-                Repositorio.adicionarNotificacaoParaCpf(aluno.getCpf(), mensagem);
-                System.out.println("Notificação enviada para CPF " + aluno.getCpf() + ": " + mensagem);
-            } else {
-                System.err.println("Aluno " + aluno.getNome() + " sem CPF, notificação falhou.");
+            for (Map.Entry<CheckBox, Aluno> entry : mapaDePresenca.entrySet()) {
+                Aluno aluno = entry.getValue();
+                boolean estaPresente = entry.getKey().isSelected();
+                String status = estaPresente ? "Presente" : "Ausente";
+
+                // Formato: dataHora|nome|cpf|status
+                pw.println(dataHora + "|" + aluno.getNome() + "|" + aluno.getCpf() + "|" + status);
+
+                // Mantém comportamento atual de notificação (sem refatorar)
+                String mensagem = "Relatório de presença: " + aluno.getNome() + " foi marcado(a) como " + status + ".";
+                if (aluno.getCpf() != null && !aluno.getCpf().isEmpty()) {
+                    Repositorio.adicionarNotificacaoParaCpf(aluno.getCpf(), mensagem);
+                    System.out.println("Notificação enviada para CPF " + aluno.getCpf() + ": " + mensagem);
+                } else {
+                    System.err.println("Aluno " + aluno.getNome() + " sem CPF, notificação falhou.");
+                }
             }
+        } catch (IOException e) {
+            System.err.println("Erro ao salvar presenças em listaPresencas.txt: " + e.getMessage());
+            e.printStackTrace();
         }
 
         btnReportarPresenca.setDisable(true);

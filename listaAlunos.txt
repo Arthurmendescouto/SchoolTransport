@@ -1,1 +1,3 @@
 miguel|988.765.432-11|joao|(77) 98888-8888|miguel@email.com|123
+miguel|988.765.432-11|joao|(77) 98888-8888|miguel@email.com|123
+miguel|988.765.432-11|joao|(77) 98888-8888|miguel@email.com|123

@@ -138,7 +138,7 @@ public class PersistenciaService {
                     }
 
                     if (!existe) {
-                        Aluno aluno = new Aluno(nome, cpf, responsavel, contato, email, senha, false);
+                        Aluno aluno = new Aluno(nome, cpf, responsavel, contato, email, senha);
                         Repositorio.getListaAluno().add(aluno);
                     }
                 } else {
